@@ -204,10 +204,10 @@ print(df)
 - Métodos
 
 
-# Resultados {.xlarge}
+# Resultados {.xlarge }
 
 
-# Modelos
+## Modelos 
 ::: {style="font-size: 100%;"}
 
 ```{r}
@@ -229,12 +229,12 @@ sjPlot::plot_model(model = reg1_bienestar, show.values = T, show.p = T)
 
 :::
 
-# Discusión y conclusiones {data-background-color="#F2A0A7"}
+# Discusión y conclusiones {data-background-color="#5f5758"}
 
 
-# Discusión y conclusiones {data-background-color="#F2A0A7"}
+# Discusión y conclusiones {data-background-color="#5f5758"}
 
-::: { .incremental .highlight-last style="font-size: 100%;"}
+::: { .incremental .highlight-last2 style="font-size: 100%;"}
 
 - Discusión 
 
@@ -242,7 +242,7 @@ sjPlot::plot_model(model = reg1_bienestar, show.values = T, show.p = T)
 :::
 
 
-# Gracias por su atención!
+# Gracias por su atención! 
 
 -   **Github del proyecto:** <https://github.com/educacion-meritocracia>
 

@@ -1,6 +1,6 @@
 // Include theme-specific fonts
 @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');/* Updated font import */
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');/* Updated font import */
 
 /*-- scss:defaults --*/
 // Override theme settings (see ../template/settings.scss)
@@ -13,14 +13,14 @@ $backgroundColor: #ffffff;
 // Primary/body text
 $mainFont: 'Noto Serif', sans-serif; /* Updated font */
 $mainFontSize: 30px;
-$mainColor: #040404;
+$mainColor: #272828;
 
 // Vertical spacing between blocks of text
 $blockMargin: 20px;
 
 // Headings
 $headingMargin: 0 0 $blockMargin 0;
-$headingFont: 'Cabin', Impact, sans-serif; /* Updated font */
+$headingFont: 'Roboto', Impact, sans-serif; /* Updated font */
 $headingColor: #D91A2A;
 $headingLineHeight: 1.2;
 $headingLetterSpacing: normal;
@@ -78,10 +78,17 @@ $selectionColor: #fff;
 .highlight-last  {
   color: #a3aaae;
   .current-fragment {
-    color: #4d4e4f;
+    color: #272828;
   }
 }
 
+
+.highlight-last2  {
+  color: #a3aaae;
+  .current-fragment {
+    color: #ffffff;
+  }
+}
 
 .pull-left {
   float: left;
