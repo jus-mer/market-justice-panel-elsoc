@@ -1,0 +1,452 @@
+---
+title: "Data analysis"
+subtitle: "Perceptions of Inequality and Meritocracy: Their Interplay in Shaping Preferences for Market Justice in Chile (2016-2023)"
+author: "Andreas Laffert, Research asistant"
+date: today
+lang: en
+fontsize: 12pt
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    toc: true
+    toc-location: right
+    toc-depth: 2
+    toc-expand: 2
+    toc-title: Contents
+    number-sections: true
+    number-depth: 3
+    theme:
+      - cosmo
+      - edumer_html.scss
+    code-link: true
+    title-block-banner: true
+  pdf:
+    number-sections: true
+    number-depth: 3
+editor_options: 
+  chunk_output_type: console
+---
+
+# Presentation
+
+This is the analysis code for the paper "Perceptions of Inequality and Meritocracy: Their Interplay in Shaping Preferences for Market Justice in Chile (2016-2023)". The dataset used is `df1.RData`.
+
+```{r}
+#| label: set
+#| echo: false
+#| message: false
+#| warning: false
+
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE, include = TRUE, warning = FALSE, message = FALSE)
+
+table_format <- if(is_html_output()) {
+  "html"
+} else if(is_latex_output()) {
+  "latex"
+}
+table_format2 <- if(is_html_output()) {
+  T
+} else if(is_latex_output()) {
+  F
+}
+
+options(kableExtra.html.bsTable = T)
+options(knitr.kable.NA = "")
+```
+
+
+# Libraries
+
+```{r}
+#| label: packages
+#| include: true
+
+if (! require("pacman")) install.packages("pacman")
+
+pacman::p_load(tidyverse, 
+               sjmisc, 
+               sjPlot, 
+               lme4, 
+               here, 
+               performance,
+               influence.ME, 
+               marginaleffects,
+               MLMusingR,
+               texreg, 
+               ggdist,
+               misty,
+               kableExtra,
+               ggalluvial, 
+               shadowtext,
+               MetBrewer,
+               patchwork,
+               sjlabelled)
+
+
+options(scipen=999)
+rm(list = ls())
+```
+
+# Data
+
+```{r}
+#| label: data
+#| echo: true
+
+load(file = here("input/data/proc/df1.RData"))
+
+glimpse(df1)
+
+```
+
+# Analysis
+
+
+## Descriptives
+
+```{r}
+#| label: tbl-summary
+#| tbl-cap: "Estadísticos descriptivos"
+#| tbl-cap-location: top
+t1 <- df1 %>% 
+  select(just_health, just_pension, just_educ, mjp, perc_inequality, just_inequality, merit_effort, merit_talent, ess, ideo, educ, sex, age) 
+
+print(summarytools::dfSummary(t1), method="render")
+```
+
+```{r}
+#| label: fig-alluvial
+#| out-width: '100%'
+#| fig-asp: 1
+#| fig-cap: "Change in the justification of inequality in health, pensions and education over time (2016-2023)"
+#| fig-cap-location: top
+
+
+datos.health <- df1 %>% 
+  group_by(idencuesta, wave) %>% 
+  count(just_health) %>% 
+  group_by(wave) %>% 
+  mutate(porcentaje=n/sum(n)) %>% 
+  ungroup() %>% 
+  na.omit() %>% 
+  mutate(wave = case_when(wave == 1 ~ "2016",
+                          wave == 2 ~ "2017",
+                          wave == 3 ~ "2018",
+                          wave == 4 ~ "2019",
+                          wave == 5 ~ "2022",
+                          wave == 6 ~ "2023"),
+         wave = factor(wave, levels = c("2016",
+                                      "2017",
+                                      "2018",
+                                      "2019",
+                                      "2022",
+                                      "2023")))
+
+
+
+etiquetas.health <- df1 %>%
+  group_by(wave, just_health) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  group_by(wave) %>%
+  mutate(porcentaje = count / sum(count)) %>% 
+  na.omit() %>% 
+  mutate(idencuesta = 1,
+         wave = case_when(wave == 1 ~ "2016",
+                          wave == 2 ~ "2017",
+                          wave == 3 ~ "2018",
+                          wave == 4 ~ "2019",
+                          wave == 5 ~ "2022",
+                          wave == 6 ~ "2023"),
+         wave = factor(wave, levels = c("2016",
+                                        "2017",
+                                        "2018",
+                                        "2019",
+                                        "2022",
+                                        "2023")))
+
+p1 <- datos.health %>% 
+  ggplot(aes(x = wave, fill = just_health, stratum = just_health,
+             alluvium = idencuesta, y = porcentaje)) +
+  ggalluvial::geom_flow(alpha = .4) + 
+  ggalluvial::geom_stratum(linetype = 0) +
+  scale_y_continuous(labels = scales::percent) + 
+  scale_fill_manual(values =  c("#CA0020","#F4A582","#b3b3b3ff","#92C5DE","#0571B0")) +
+  geom_shadowtext(data = etiquetas.health,
+                  aes(label = ifelse(porcentaje > 0 , scales::percent(porcentaje, accuracy = .1),"")),
+                  position = position_stack(vjust = .5),
+                  show.legend = FALSE,
+                  size = 3,
+                  color = rep('white'),
+                  bg.colour='grey30')+
+  labs(y = "%",
+       x = NULL,
+       fill = NULL,
+       title = "a. Health") +
+  theme_ggdist() +
+  theme(legend.position = "none") 
+  
+
+
+datos.pension <- df1 %>% 
+  group_by(idencuesta, wave) %>% 
+  count(just_pension) %>% 
+  group_by(wave) %>% 
+  mutate(porcentaje=n/sum(n)) %>% 
+  ungroup() %>% 
+  na.omit() %>% 
+  mutate(wave = case_when(wave == 1 ~ "2016",
+                          wave == 2 ~ "2017",
+                          wave == 3 ~ "2018",
+                          wave == 4 ~ "2019",
+                          wave == 5 ~ "2022",
+                          wave == 6 ~ "2023"),
+         wave = factor(wave, levels = c("2016",
+                                        "2017",
+                                        "2018",
+                                        "2019",
+                                        "2022",
+                                        "2023")))
+
+
+
+etiquetas.pension <- df1 %>%
+  group_by(wave, just_pension) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  group_by(wave) %>%
+  mutate(porcentaje = count / sum(count)) %>% 
+  na.omit() %>% 
+  mutate(idencuesta = 1,
+         wave = case_when(wave == 1 ~ "2016",
+                          wave == 2 ~ "2017",
+                          wave == 3 ~ "2018",
+                          wave == 4 ~ "2019",
+                          wave == 5 ~ "2022",
+                          wave == 6 ~ "2023"),
+         wave = factor(wave, levels = c("2016",
+                                        "2017",
+                                        "2018",
+                                        "2019",
+                                        "2022",
+                                        "2023")))
+
+p2 <- datos.pension %>% 
+  ggplot(aes(x = wave, fill = just_pension, stratum = just_pension,
+             alluvium = idencuesta, y = porcentaje)) +
+  ggalluvial::geom_flow(alpha = .4) + 
+  ggalluvial::geom_stratum(linetype = 0) +
+  scale_y_continuous(labels = scales::percent) + 
+  scale_fill_manual(values =  c("#CA0020","#F4A582","#b3b3b3ff","#92C5DE","#0571B0")) +
+  geom_shadowtext(data = etiquetas.pension,
+                  aes(label = ifelse(porcentaje > 0 , scales::percent(porcentaje, accuracy = .1),"")),
+                  position = position_stack(vjust = .5),
+                  show.legend = FALSE,
+                  size = 3,
+                  color = rep('white'),
+                  bg.colour='grey30')+
+  labs(y = "%",
+       x = NULL,
+       fill = NULL,
+       title = "b. Pension") +
+  theme_ggdist() +
+  theme(legend.position = "none") 
+
+
+datos.educ <- df1 %>% 
+  group_by(idencuesta, wave) %>% 
+  count(just_educ) %>% 
+  group_by(wave) %>% 
+  mutate(porcentaje=n/sum(n)) %>% 
+  ungroup() %>% 
+  na.omit() %>% 
+  mutate(wave = case_when(wave == 1 ~ "2016",
+                          wave == 2 ~ "2017",
+                          wave == 3 ~ "2018",
+                          wave == 4 ~ "2019",
+                          wave == 5 ~ "2022",
+                          wave == 6 ~ "2023"),
+         wave = factor(wave, levels = c("2016",
+                                        "2017",
+                                        "2018",
+                                        "2019",
+                                        "2022",
+                                        "2023")))
+
+
+
+etiquetas.educ <- df1 %>%
+  group_by(wave, just_educ) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  group_by(wave) %>%
+  mutate(porcentaje = count / sum(count)) %>% 
+  na.omit() %>% 
+  mutate(idencuesta = 1,
+         wave = case_when(wave == 1 ~ "2016",
+                          wave == 2 ~ "2017",
+                          wave == 3 ~ "2018",
+                          wave == 4 ~ "2019",
+                          wave == 5 ~ "2022",
+                          wave == 6 ~ "2023"),
+         wave = factor(wave, levels = c("2016",
+                                        "2017",
+                                        "2018",
+                                        "2019",
+                                        "2022",
+                                        "2023")))
+
+p3 <- datos.educ %>% 
+  ggplot(aes(x = wave, fill = just_educ, stratum = just_educ,
+             alluvium = idencuesta, y = porcentaje)) +
+  ggalluvial::geom_flow(alpha = .4) + 
+  ggalluvial::geom_stratum(linetype = 0) +
+  scale_y_continuous(labels = scales::percent) + 
+  scale_fill_manual(values =  c("#CA0020","#F4A582","#b3b3b3ff","#92C5DE","#0571B0")) +
+  geom_shadowtext(data = etiquetas.educ,
+                  aes(label = ifelse(porcentaje > 0 , scales::percent(porcentaje, accuracy = .1),"")),
+                  position = position_stack(vjust = .5),
+                  show.legend = FALSE,
+                  size = 3,
+                  color = rep('white'),
+                  bg.colour='grey30')+
+  labs(y = "%",
+       x = NULL,
+       fill = NULL,
+       title = "c. Education") +
+  theme_ggdist() +
+  theme(legend.position = "bottom") 
+
+(p1 / p2 / p3)
+
+```
+
+
+## Correlations
+
+```{r}
+df1 %>% 
+  select(mjp, perc_inequality, just_inequality, merit_effort, merit_talent) %>% 
+  mutate_all(.funs = ~ as.numeric(.)) %>% 
+  sjPlot::tab_corr(., triangle = "lower")
+```
+
+## Longitudinal multilevel models
+
+```{r}
+m0 <- lmer(mjp ~ 1 + (1 | idencuesta), 
+                data = df1)
+
+performance::icc(m0, by_group = T)
+```
+
+
+```{r}
+df1$merit_effort <- as_numeric(df1$merit_effort)
+df1$merit_talent <- as_numeric(df1$merit_talent)
+df1 <- df1 %>% 
+  mutate(wave_f = case_when(wave == 1 ~ "2016",
+                          wave == 2 ~ "2017",
+                          wave == 3 ~ "2018",
+                          wave == 4 ~ "2019",
+                          wave == 5 ~ "2022",
+                          wave == 6 ~ "2023"),
+         wave_f = factor(wave_f, levels = c("2016",
+                                        "2017",
+                                        "2018",
+                                        "2019",
+                                        "2022",
+                                        "2023")))
+
+
+df1 <- df1 %>% 
+  group_by(idencuesta) %>% 
+  mutate(perc_inequality_mean = mean(perc_inequality, na.rm = T),
+         perc_inequality_cwc = perc_inequality - perc_inequality_mean,
+         just_inequality_mean = mean(just_inequality, na.rm = T),
+         just_inequality_cwc = just_inequality - just_inequality_mean,
+         merit_effort_mean = mean(merit_effort, na.rm = T),
+         merit_effort_cwc = merit_effort - merit_effort_mean,
+         merit_talent_mean = mean(merit_talent, na.rm = T),
+         merit_talent_cwc = merit_talent - merit_talent_mean,
+         ) %>% 
+  ungroup()
+
+m1 <- lmer(mjp ~ 1 + perc_inequality + (1 | idencuesta),
+                data = df1)
+
+m2 <- lmer(mjp ~ 1 + just_inequality + (1 | idencuesta),
+                data = df1)
+
+m3 <- lmer(mjp ~ 1 + perc_inequality + just_inequality + (1 | idencuesta),
+                data = df1)
+
+m4 <- lmer(mjp ~ 1 + perc_inequality + just_inequality + 
+             merit_effort +  (1 | idencuesta),
+                data = df1)
+
+m5 <- lmer(mjp ~ 1 + perc_inequality + just_inequality + 
+             merit_effort + merit_talent + (1 | idencuesta),
+                data = df1)
+
+m6 <- lmer(mjp ~ 1 + perc_inequality + just_inequality + 
+             merit_effort + merit_talent + perc_inequality_mean +
+             just_inequality_mean + merit_effort_mean + 
+             merit_talent_mean + (1 | idencuesta),
+                data = df1)
+
+m7 <- lmer(mjp ~ 1 + perc_inequality + just_inequality + 
+             merit_effort + merit_talent + perc_inequality_mean +
+             just_inequality_mean + merit_effort_mean + 
+             merit_talent_mean + age + sex + ess + ideo + educ + wave_f + (1 | idencuesta),
+                data = df1)
+```
+
+
+```{r}
+#| label: tbl-modelos
+#| results: asis
+#| tbl-cap: "Longitudinal multilevel models for market justice preferences"
+#| tbl-cap-location: top
+
+ccoef <- list(
+  "(Intercept)" = "Intercept",
+  perc_inequality = "Perception inequality (WE)",
+  just_inequality = "Justification inequality (WE)",
+  merit_effort = "Merit: Effort (WE)",
+  merit_talent = "Merit: Talent (WE)",
+  perc_inequality_mean = "Perception inequality (BE)",
+  just_inequality_mean = "Justification inequality (BE)",
+  merit_effort_mean = "Merit: Effort (BE)",
+  merit_talent_mean = "Merit: Talent (BE)",
+  "age30-49" = "30-49",
+  "age50-64" = "50-64",
+  "age65 or more" = "65 or more",
+  sexFemale = "Female (Ref.= Male)",
+  ess = "Subjective social status",
+  ideoCenter = "Center",
+  ideoRight = "Right",
+  "ideoDoes not identify" = "Does not identify",
+  educUniversitary = "Universitary (Ref.= Less than universitary)",
+  wave_f2017 = "2017",
+  wave_f2018 = "2018",
+  wave_f2019 = "2019",
+  wave_f2022 = "2022",
+  wave_f2023 = "2023"
+  )
+
+texreg::htmlreg(list(m1, m2, m3, m4, m5, m6, m7),
+               custom.model.names = c(paste0("Model ", seq(1:7))),
+               caption = NULL,
+               stars = c(0.05, 0.01, 0.001),
+               custom.coef.map = ccoef,
+               digits = 3,
+               groups = list("Age (Ref. = 18-29)" = 10:12,"Political identification (Ref.= Left)" = 15:17, "Wave (Ref.= 2016)" = 19:23),
+               custom.note = "\\item Note: Cells contain regression coefficients with standard errors in parentheses. %stars. \\\\ \\item Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 16219).",
+               threeparttable = T,
+               leading.zero = T,
+               float.pos = "h!",
+               use.packages = F,
+               booktabs = T,
+               scalebox = 1)
+```
+

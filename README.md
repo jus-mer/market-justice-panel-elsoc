@@ -69,6 +69,5 @@ In the web page it is possible to see/download the paper in html and pdf formats
 ## Files:
 
 
-- [Data preparation](link)
-- [Descriptive analysis](link)
-- [Multivariate analysis](link)
+- [Data preparation](https://educacion-meritocracia.github.io/market-justice-panel-elsoc/processing/01-proc-data.html)
+- [Data analysis](https://educacion-meritocracia.github.io/market-justice-panel-elsoc/processing/02-analysis.html)

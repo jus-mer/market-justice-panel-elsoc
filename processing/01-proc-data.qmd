@@ -59,14 +59,16 @@ options(knitr.kable.NA = "")
 
 ```{r}
 #| label: packages
-#| include: false
+#| include: true
 
 if (! require("pacman")) install.packages("pacman")
 
 pacman::p_load(tidyverse,
                sjmisc, 
                here,
-               sjlabelled)
+               sjlabelled,
+               SciViews,
+               naniar)
 
 
 options(scipen=999)
@@ -80,7 +82,7 @@ rm(list = ls())
 #| echo: true
 #| output: false
 
-load(file = here("input", "data", "original", "ELSOC_Long_2016_2023_1.00.RData"))
+load(url("https://dataverse.harvard.edu/api/access/datafile/10797987"))
 
 glimpse(elsoc_long_2016_2023)
 
@@ -90,10 +92,290 @@ glimpse(elsoc_long_2016_2023)
 
 ## Select
 
+```{r}
+db_proc <- elsoc_long_2016_2023 %>% 
+  select(idencuesta, ola, 
+         ponderador_long_total,segmento, estrato,
+         just_educ = d02_02, just_pension = d02_01, 
+         just_health = d02_03, merit_effort = c18_09,
+         merit_talent = c18_10, perc_sal_gerente = d03_01,
+         perc_sal_obrero = d03_02, just_sal_gerente = d04_01, 
+         just_sal_obrero = d04_02, age = m0_edad, m01, 
+         sex = m0_sexo, ess = d01_01, ideo = c15
+         ) %>% 
+  as_tibble()
+```
+
 ## Filter
+
+```{r}
+#db_proc %>% 
+#  group_by(ola) %>% 
+#  count(just_educ,just_pension,just_health) %>% 
+#  na.omit() %>% 
+#  print(n = nrow(.)) 
+
+db_proc <- db_proc %>% dplyr::filter(ola %in% c(1,2,3,4,6,7))
+
+```
+
 
 ## Recode and transform
 
+```{r}
+# general na's
+db_proc[db_proc ==-999] <- NA
+db_proc[db_proc ==-888] <- NA
+db_proc[db_proc ==-777] <- NA
+db_proc[db_proc ==-666] <- NA
+
+# mjp
+
+frq(db_proc$just_health)
+frq(db_proc$just_pension)
+frq(db_proc$just_educ)
+
+labels1 <- c("Strongly desagree" = 1, 
+             "Desagree" = 2, 
+             "Neither agree nor desagree" = 3, 
+             "Agree" = 4, 
+             "Strongly agree" = 5)
+
+db_proc <- db_proc %>% 
+  mutate(
+    across(
+      .cols = c(just_health, just_pension, just_educ),
+      .fns = ~ sjlabelled::set_labels(., labels = labels1)
+      )
+    )
+
+db_proc <- cbind(db_proc, "mjp" = rowMeans(db_proc %>% select(just_health, just_pension, just_educ), na.rm=TRUE))
+
+summary(db_proc$mjp)
+
+
+db_proc <- db_proc %>% 
+  mutate(
+    across(
+      .cols = c(just_health, just_pension, just_educ),
+      .fns = ~ car::recode(., recodes = c("1='Strongly desagree'; 2='Desagree';
+                                          3='Neither agree nor desagree'; 4='Agree';
+                                          5='Strongly agree'"), 
+                           levels = c("Strongly desagree", "Desagree", "Neither agree nor desagree", "Agree", "Strongly agree"),
+                           as.factor = T)
+    )
+  )
+
+
+
+db_proc$just_health <- sjlabelled::set_label(db_proc$just_health, 
+                        label = "Health distributive justice")
+
+db_proc$just_pension <- sjlabelled::set_label(db_proc$just_pension, 
+                        label = "Pension distributive justice")
+
+db_proc$just_educ <- sjlabelled::set_label(db_proc$just_educ, 
+                        label = "Education distributive justice")
+
+db_proc$mjp <- sjlabelled::set_label(db_proc$mjp, 
+                        label = "Market justice preferences")
+
+
+# merit
+
+frq(db_proc$merit_effort)
+frq(db_proc$merit_talent)
+
+db_proc <- db_proc %>% 
+  mutate(
+    across(
+      .cols = c(merit_effort, merit_talent),
+      .fns = ~ sjlabelled::set_labels(., labels = labels1)
+      )
+    )
+
+db_proc <- db_proc %>% 
+  mutate(
+    across(
+      .cols = c(merit_effort, merit_talent),
+      .fns = ~ car::recode(., recodes = c("1='Strongly desagree'; 2='Desagree';
+                                          3='Neither agree nor desagree'; 4='Agree';
+                                          5='Strongly agree'"), 
+                           levels = c("Strongly desagree", "Desagree", "Neither agree nor desagree", "Agree", "Strongly agree"),
+                           as.factor = T)
+    )
+  )
+
+
+
+db_proc$merit_effort <- sjlabelled::set_label(db_proc$merit_effort, 
+                        label = "People are rewarded for their efforts")
+
+db_proc$merit_talent <- sjlabelled::set_label(db_proc$merit_talent, 
+                        label = "People are rewarded for their intelligence")
+
+# perc inequality gap
+
+frq(db_proc$perc_sal_gerente)
+frq(db_proc$perc_sal_obrero)
+
+db_proc <- db_proc %>% 
+  mutate(
+    across(
+      .cols = c(perc_sal_gerente, perc_sal_obrero),
+           .fns = ~ sjlabelled::set_na(., na = 0)
+      )
+    )
+
+db_proc$perc_inequality <- SciViews::ln(db_proc$perc_sal_gerente/db_proc$perc_sal_obrero)
+
+summary(db_proc$perc_inequality)
+
+db_proc$perc_inequality <- sjlabelled::set_label(db_proc$perc_inequality, 
+                        label = "Inequality gap perception")
+
+
+# just inequality gap
+
+frq(db_proc$just_sal_gerente)
+frq(db_proc$just_sal_obrero)
+
+db_proc <- db_proc %>% 
+  mutate(
+    across(
+      .cols = c(just_sal_gerente, just_sal_obrero),
+           .fns = ~ sjlabelled::set_na(., na = 0)
+      )
+    )
+
+db_proc$just_inequality <- SciViews::ln(db_proc$just_sal_gerente/db_proc$just_sal_obrero)
+
+summary(db_proc$just_inequality)
+
+db_proc$perc_inequality <- sjlabelled::set_label(db_proc$perc_inequality, 
+                        label = "Inequality gap justification")
+
+# sex
+db_proc$sex <- car::recode(db_proc$sex, 
+                           recodes = c("1='Male'; 2='Female'"), 
+                           levels = c("Male", "Female"),
+                           as.factor = T)
+
+db_proc$sex <- sjlabelled::set_label(db_proc$sex, 
+                        label = "Gender")
+
+# wave 
+db_proc <- db_proc %>% 
+  rename(wave = ola) %>% 
+  mutate(wave = case_when(wave == 1 ~ 1,
+                          wave == 2 ~ 2,
+                          wave == 3 ~ 3,
+                          wave == 4 ~ 4,
+                          wave == 6 ~ 5,
+                          wave == 7 ~ 6,
+                          TRUE ~ NA_real_))
+
+db_proc$wave <- sjlabelled::set_label(db_proc$wave, 
+                        label = "Wave")
+
+# age
+frq(db_proc$age)
+
+db_proc$age <- 
+  factor(car::recode(db_proc$age, 
+                     "18:29=1;30:49=2;50:64=3;65:150=4"),
+         labels = c('18-29', '30-49', '50-64', '65 or more'))
+db_proc$age <-
+  sjlabelled::set_label(db_proc$age, 
+                        label = c("Age groups")) 
+
+# political indentification
+
+frq(db_proc$ideo)
+
+db_proc$ideo<-
+factor(
+  car::recode(
+    db_proc$ideo,
+    "c(11,12,-888,-999)='Does not identify';c(0,1,2,3,4)='Left';
+     c(5)='Center';c(6,7,8,9,10)='Right'"
+  ),
+  levels = c('Left', 'Center', 'Right', 'Does not identify')
+)
+
+db_proc$ideo<- factor(db_proc$ideo,levels = levels(db_proc$ideo))
+
+db_proc$ideo <- 
+sjlabelled::set_label(x = db_proc$ideo, 
+                      label = "Political identification") 
+
+frq(db_proc$ideo)
+
+# ess
+sjmisc::frq(db_proc$ess)
+
+db_proc$ess <- as.numeric(db_proc$ess)
+
+db_proc$ess <-  sjlabelled::set_label(x = db_proc$ess,
+                      label = "Subjective Social Status")
+
+# educ
+frq(db_proc$m01)
+
+db_proc$educ <- 
+  car::recode(db_proc$m01,
+              "c(1,2,3,4,5,6,7)=1;c(8,9,10)=2; c(-888,-999)=NA")
+db_proc$educ <-
+  factor(db_proc$educ,
+         labels = c("Less than Universitary","Universitary"))
+
+db_proc$educ <- 
+sjlabelled::set_label(x = db_proc$educ,
+                      label = "Education")
+
+#Recoding of education to years based on casen 2017.
+db_proc$educyear<- as.numeric(
+  car::recode(db_proc$m01, 
+              "1=0;2=4.3;3=7.5;4=9.8;5=12.02;6=13.9;
+               7=14.8;8=14.9;9=16.9;10=19.07;c(-888,-999)=NA", 
+              as.numeric = T))
+
+db_proc$educyear <- 
+sjlabelled::set_label(x = db_proc$educyear,
+                      label = "Education in years")
+
+class(db_proc$educyear)
+frq(db_proc$educyear)
+```
+
+
 ## Missing values
 
+```{r}
+colSums(is.na(db_proc))
+
+n_miss(db_proc)
+
+prop_miss(db_proc)*100
+
+miss_var_summary(db_proc)
+
+miss_var_table(db_proc)
+
+vis_miss(db_proc) + theme(axis.text.x = element_text(angle=80))
+
+```
+
+
 # Save and export
+
+```{r}
+db_proc <- db_proc %>% 
+  select(-c(perc_sal_gerente, perc_sal_obrero, just_sal_gerente, just_sal_obrero, m01)) 
+
+df1 <- db_proc %>% na.omit()
+
+df1 <- sjlabelled::copy_labels(df_new = df1, df_origin = db_proc)
+
+save(df1, file = here("input/data/proc/df1.RData"))
+```
