@@ -1,7 +1,7 @@
 ---
 title: "Data preparation"
 subtitle: "Perceptions of Inequality and Meritocracy: Their Interplay in Shaping Preferences for Market Justice in Chile (2016-2023)"
-author: "Andreas Laffert, Research asistant"
+author: "Researcher"
 date: today
 lang: en
 fontsize: 12pt

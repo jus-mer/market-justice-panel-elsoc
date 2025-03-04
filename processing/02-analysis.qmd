@@ -1,7 +1,7 @@
 ---
 title: "Data analysis"
 subtitle: "Perceptions of Inequality and Meritocracy: Their Interplay in Shaping Preferences for Market Justice in Chile (2016-2023)"
-author: "Andreas Laffert, Research asistant"
+author: "Researcher"
 date: today
 lang: en
 fontsize: 12pt
@@ -441,7 +441,7 @@ texreg::htmlreg(list(m1, m2, m3, m4, m5, m6, m7),
                custom.coef.map = ccoef,
                digits = 3,
                groups = list("Age (Ref. = 18-29)" = 10:12,"Political identification (Ref.= Left)" = 15:17, "Wave (Ref.= 2016)" = 19:23),
-               custom.note = "\\item Note: Cells contain regression coefficients with standard errors in parentheses. %stars. \\\\ \\item Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 16219).",
+               custom.note = "\\item Note: Cells contain regression coefficients with standard errors in parentheses. %stars. \\\\ \\item Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 4364).",
                threeparttable = T,
                leading.zero = T,
                float.pos = "h!",
