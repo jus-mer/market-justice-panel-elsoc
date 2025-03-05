@@ -220,12 +220,9 @@ frq(db_proc$perc_sal_gerente)
 frq(db_proc$perc_sal_obrero)
 
 db_proc <- db_proc %>% 
-  mutate(
-    across(
-      .cols = c(perc_sal_gerente, perc_sal_obrero),
-           .fns = ~ sjlabelled::set_na(., na = 0)
-      )
-    )
+  mutate(perc_sal_obrero=replace(perc_sal_obrero, perc_sal_obrero <= 40000  | perc_sal_obrero>= 1000000, NA)) %>%
+  mutate(perc_sal_gerente=replace(perc_sal_gerente, perc_sal_gerente <= 250000 | perc_sal_gerente>= 100000001, NA)) 
+
 
 db_proc$perc_inequality <- SciViews::ln(db_proc$perc_sal_gerente/db_proc$perc_sal_obrero)
 
@@ -241,18 +238,14 @@ frq(db_proc$just_sal_gerente)
 frq(db_proc$just_sal_obrero)
 
 db_proc <- db_proc %>% 
-  mutate(
-    across(
-      .cols = c(just_sal_gerente, just_sal_obrero),
-           .fns = ~ sjlabelled::set_na(., na = 0)
-      )
-    )
+  mutate(just_sal_obrero=replace(just_sal_obrero, just_sal_obrero <= 40000  | just_sal_obrero>=999999999999999, NA)) %>%
+  mutate(just_sal_gerente=replace(just_sal_gerente, just_sal_gerente <= 100000 | just_sal_gerente>=999999999999999, NA)) 
 
 db_proc$just_inequality <- SciViews::ln(db_proc$just_sal_gerente/db_proc$just_sal_obrero)
 
 summary(db_proc$just_inequality)
 
-db_proc$perc_inequality <- sjlabelled::set_label(db_proc$perc_inequality, 
+db_proc$just_inequality <- sjlabelled::set_label(db_proc$just_inequality, 
                         label = "Inequality gap justification")
 
 # sex
@@ -346,6 +339,227 @@ sjlabelled::set_label(x = db_proc$educyear,
 
 class(db_proc$educyear)
 frq(db_proc$educyear)
+```
+
+
+```{r}
+# Household income----------------------------------------------------------------
+
+# Ltop is the lower limit of the top category, Ltop-1 is the lower limit of the category before the
+# top one, ftop is the frequency in the top category, and ftop-1 is the frequency in the
+# category before the top one.
+
+sjmisc::frq( elsoc_long_2016_2023$m30)
+Ltop_1<- 1850001
+Ltop  <- 2700000
+
+ftop_1 <- 42
+ftop   <- 34
+
+V  = (log(ftop_1 + ftop) - log(ftop)) / (log(Ltop) -log(Ltop_1))
+M_top = 0.5* Ltop *(1+(V/(V-1)));M_top # = $3.897.232
+
+
+#Impute midpoint of income ranges
+elsoc_long_2016_2023$m30_rec <-
+  as.numeric(car::recode( elsoc_long_2016_2023$m30,
+                         "1=110000;2=251000;3=305000;4=355000;5=400000;
+            6=445000;7=490000;8=535000;9=585000;10=640000;11=700000;12=765000;
+            13=845000;14=935000;15=1040000;16=1180000;17=1375000;18=1670000;
+            19=2275000;20=3897232;NA=NA;c(-888,-999)=NA"))
+
+summary( elsoc_long_2016_2023$m30_rec)
+
+
+#Impute midpoint of income ranges (2021)
+
+frq(elsoc_long_2016_2023$m30b)
+Ltop_1<- 450000
+Ltop  <- 700000
+ftop_1 <- 18
+ftop   <- 27
+
+V  = (log(ftop_1 + ftop) - log(ftop)) / (log(Ltop) -log(Ltop_1))
+M_top = 0.5* Ltop *(1+(V/(V-1))) # = $2.941.412
+
+ elsoc_long_2016_2023$m30b_rec <-
+  as.numeric(car::recode( elsoc_long_2016_2023$m30b,
+                         "1=125000;2=300000;3=400000;4=575000;5=2941412;NA=NA;c(-888,-999)=NA"))
+summary( elsoc_long_2016_2023$m30b_rec)
+
+# Combine m30_rec with m30b_rec
+ elsoc_long_2016_2023$m30_rec <- 
+  ifelse(is.na( elsoc_long_2016_2023$m30_rec),
+         yes =  elsoc_long_2016_2023$m30b_rec,
+         no =  elsoc_long_2016_2023$m30_rec)
+summary( elsoc_long_2016_2023$m30_rec)
+
+#Recode DK/DA of Income to NA
+elsoc_long_2016_2023$m29_rec <-
+  as.numeric(car::recode( elsoc_long_2016_2023$m29,"c(-888,-999)=NA"))
+
+#replace NA of income with new imputed variable
+elsoc_long_2016_2023$m29_imp <- 
+  ifelse(test = !is.na( elsoc_long_2016_2023$m29_rec),
+         yes =   elsoc_long_2016_2023$m29_rec,
+         no =   elsoc_long_2016_2023$m30_rec)
+summary( elsoc_long_2016_2023$m29_imp)
+
+#  elsoc_long_2016_2023$m29_imp <- 
+#   ifelse(test = is.na( elsoc_long_2016_2023$m29_imp),
+#          yes =   elsoc_long_2016_2023$m30b_rec,
+#          no =   elsoc_long_2016_2023$m29_imp)
+
+summary( elsoc_long_2016_2023$m29_imp)
+
+# N Household:
+elsoc_long_2016_2023 <-
+   elsoc_long_2016_2023 %>%
+  mutate(n_hogar =
+           dplyr::case_when(ola == 1 ~ nhogar1,
+                            ola == 2 ~ m46_nhogar,
+                            ola == 3 ~ m54,
+                            ola == 4 ~ m54,
+                            ola == 5 ~ m54,
+                            ola == 6 ~ m54,
+                            ola == 7 ~ m54))
+
+summary( elsoc_long_2016_2023$n_hogar)
+#imputar tamanio del hogar de ola 5 a ola 6
+elsoc_long_2016_2023 <- 
+   elsoc_long_2016_2023 %>%  
+  group_by(idencuesta) %>%
+  mutate(n_hogar = if_else(ola == 6 & is.na(n_hogar), last(n_hogar[ola == 5]), n_hogar)) %>% 
+  ungroup() 
+
+sjmisc::frq( elsoc_long_2016_2023$n_hogar)
+table( elsoc_long_2016_2023$n_hogar, elsoc_long_2016_2023$ola)
+
+#Recode DK/DA to NA
+ elsoc_long_2016_2023$n_hogar_r<-
+  car::recode( elsoc_long_2016_2023$n_hogar,"c(-888,-999)=NA")
+
+
+table( elsoc_long_2016_2023$m13, elsoc_long_2016_2023$n_hogar_r)
+
+#ingresos individuales para hogares de 1 persona
+ elsoc_long_2016_2023 %>% sjmisc::find_var('Ingreso')
+ elsoc_long_2016_2023$inc_ind <- ifelse( elsoc_long_2016_2023$n_hogar_r==1, elsoc_long_2016_2023$m13,NA)
+summary( elsoc_long_2016_2023$inc_ind)
+# 
+# c(40000,
+# (40001 + 85000) / 2,
+# (85001 + 125000) / 2,
+# (125001 + 170000) / 2,
+# (170001 + 210000) / 2,
+# (210001 + 230000) / 2,
+# (230001 + 280000) / 2,
+# (280001 + 320000) / 2,
+# (320001 + 360000) / 2,
+# (360001 + 400000) / 2,
+# (400001 + 465000) / 2,
+# (465001 + 540000) / 2,
+# (540001 + 665000) / 2,
+# (665001 + 850000) / 2,
+# (850001 + 1300000) / 2,
+# 1300001)    
+
+frq( elsoc_long_2016_2023$m14)
+Ltop_1<- 850001
+Ltop  <- 1300001 
+ftop_1 <- 65
+ftop   <- 40
+
+V  = (log(ftop_1 + ftop) - log(ftop)) / (log(Ltop) -log(Ltop_1))
+M_top = 0.5* Ltop *(1+(V/(V-1))) # = $1.811.247
+
+ elsoc_long_2016_2023$m14_rec<- 
+  car::recode( elsoc_long_2016_2023$m14,
+              "1=40000.0;2=62500.5;3=105000.5;4=147500.5;5=190000.5;6=220000.5;
+              7=255000.5;8=300000.5;9=340000.5;10=380000.5;11=432500.5;12=502500.5;
+              13=602500.5;14=757500.5;15=1075000.5;16=1811247"
+  ) 
+
+ elsoc_long_2016_2023$inc_ind <- ifelse( elsoc_long_2016_2023$n_hogar_r==1 & is.na( elsoc_long_2016_2023$inc_ind), elsoc_long_2016_2023$m14_rec, elsoc_long_2016_2023$inc_ind)
+summary( elsoc_long_2016_2023$inc_ind)
+
+
+# Ingreso del hogar pegarle ingreso del hogar unipersonal
+summary( elsoc_long_2016_2023$m29_imp)
+ elsoc_long_2016_2023$m29_imp <- 
+  ifelse(is.na( elsoc_long_2016_2023$m29_imp) &  elsoc_long_2016_2023$n_hogar_r==1,
+          elsoc_long_2016_2023$inc_ind,
+          elsoc_long_2016_2023$m29_imp) #recupero 14 casos
+summary( elsoc_long_2016_2023$m29_imp)
+
+
+# Household Equivalent income 
+# 1.0 to the first adult;
+# 0.5 to the second and each subsequent person aged 14 and over;
+# 0.3 to each child aged under 14.
+
+ elsoc_long_2016_2023$n_hogar_r_eq <- ( elsoc_long_2016_2023$n_hogar_r + 1) /2
+table( elsoc_long_2016_2023$n_hogar_r_eq)
+
+frq( elsoc_long_2016_2023$n_hogar_r_eq)
+
+# Per capita household income:
+ elsoc_long_2016_2023$ing_pc <- 
+  (elsoc_long_2016_2023$m29_imp/ elsoc_long_2016_2023$n_hogar_r)
+
+# Per capita household income equivalized (OECD):
+ elsoc_long_2016_2023$ing_pc_eq <- 
+  ( elsoc_long_2016_2023$m29_imp/ elsoc_long_2016_2023$n_hogar_r_eq)
+
+descr( elsoc_long_2016_2023$ing_pc_eq)
+descr( elsoc_long_2016_2023$ing_pc)
+ elsoc_long_2016_2023$ing_pc <-
+  sjlabelled::set_label(x =  elsoc_long_2016_2023$ing_pc,
+                        label = "Household income per capita")  
+
+sjmisc::descr( elsoc_long_2016_2023$ing_pc)
+
+# Compute income quintiles
+ elsoc_long_2016_2023 <-  elsoc_long_2016_2023 %>% 
+  group_by(ola) %>% 
+  mutate(quintil = ntile(-desc(ing_pc), 5)) %>% 
+  ungroup()
+
+ elsoc_long_2016_2023$quintil <- 
+  factor( elsoc_long_2016_2023$quintil,
+         levels = c(1, 2, 3, 4, 5),
+         labels = c('Q1', 'Q2', 'Q3', 'Q4', 'Q5')) # Quintiles as factors
+
+elsoc_long_2016_2023$quintil <- 
+  sjlabelled::set_label(x =  elsoc_long_2016_2023$quintil,
+                        label = "Household income quintile per capita")  
+
+sjmisc::frq( elsoc_long_2016_2023$quintil)
+
+#include new quintile category with missing cases
+ elsoc_long_2016_2023$quintil1<-
+  car::recode( elsoc_long_2016_2023$quintil, 
+              "'Q1'='Q1';'Q2'= 'Q2';'Q3'='Q3';'Q4'='Q4';'Q5'='Q5'; NA='QNA'")
+
+# elsoc_long_2016_2023$quintil1 <- factor( elsoc_long_2016_2023$quintil1, c("Q1","Q2","Q3","Q4","Q5","QNA"))
+
+ elsoc_long_2016_2023$quintil1 <- 
+  sjlabelled::set_label(x =  elsoc_long_2016_2023$quintil1,
+                        label = "Household income quintile per capita (NA)") 
+sjmisc::frq( elsoc_long_2016_2023$quintil1)
+
+
+
+```
+
+
+```{r}
+elsoc_income <- elsoc_long_2016_2023 %>% 
+  dplyr::select(idencuesta, ola, ing_pc, quintil, quintil1) %>% 
+  dplyr::filter(ola %in% c(1,2,3,4,6,7))
+
+db_proc <- left_join(db_proc, elsoc_income, by = c("idencuesta", "wave" = "ola"))
+
 ```
 
 

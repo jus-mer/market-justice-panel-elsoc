@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.4.554">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Researcher">
-<meta name="dcterms.date" content="2025-03-04">
+<meta name="dcterms.date" content="2025-03-05">
 <title>Data analysis</title>
 <style>
 code{white-space: pre-wrap;}
@@ -88,7 +88,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 4, 2025</p>
+        <p class="date">March 5, 2025</p>
       </div>
     </div>
     
@@ -153,8 +153,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="fu">glimpse</span><span class="op">(</span><span class="va">df1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Rows: 16,219
-Columns: 19
+<pre><code>Rows: 11,971
+Columns: 22
 $ idencuesta            &lt;dbl&gt; 1101011, 1101012, 1101013, 1101021, 1101022, 110…
 $ wave                  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
 $ ponderador_long_total &lt;dbl&gt; 0.11821742, 0.11821742, 0.37739818, 0.05633656, …
@@ -167,13 +167,16 @@ $ merit_effort          &lt;fct&gt; Agree, Agree, Desagree, Agree, Strongly agre
 $ merit_talent          &lt;fct&gt; Agree, Agree, Agree, Agree, Desagree, Strongly a…
 $ age                   &lt;fct&gt; 50-64, 50-64, 18-29, 50-64, 65 or more, 50-64, 5…
 $ sex                   &lt;fct&gt; Female, Female, Female, Male, Male, Male, Female…
-$ ess                   &lt;dbl&gt; 5, 5, 3, 6, 4, 5, 6, 7, 4, 3, 2, 5, 5, 0, 4, 6, …
+$ ess                   &lt;dbl&gt; 5, 5, 3, 6, 4, 5, 6, 7, 4, 3, 2, 5, 0, 4, 6, 5, …
 $ ideo                  &lt;fct&gt; Does not identify, Does not identify, Does not i…
 $ mjp                   &lt;dbl&gt; 1.333333, 2.000000, 3.666667, 3.666667, 3.666667…
 $ perc_inequality       &lt;dbl&gt; 1.8971200, 0.5108256, 0.7621401, 3.9120230, 3.46…
 $ just_inequality       &lt;dbl&gt; 1.3862944, 1.7917595, 1.3862944, 5.6549923, 0.51…
 $ educ                  &lt;fct&gt; Less than Universitary, Less than Universitary, …
-$ educyear              &lt;dbl&gt; 4.30, 9.80, 9.80, 14.90, 12.02, 9.80, 12.02, 13.…</code></pre>
+$ educyear              &lt;dbl&gt; 4.30, 9.80, 9.80, 14.90, 12.02, 9.80, 12.02, 13.…
+$ ing_pc                &lt;dbl&gt; 75000.00, 250000.00, 81666.67, 765000.00, 490000…
+$ quintil               &lt;fct&gt; Q1, Q4, Q1, Q5, Q5, Q5, Q4, Q4, Q2, Q3, Q4, Q4, …
+$ quintil1              &lt;fct&gt; Q1, Q4, Q1, Q5, Q5, Q5, Q4, Q4, Q2, Q3, Q4, Q4, …</code></pre>
 </div>
 </div>
 </section><section id="analysis" class="level1" data-number="4"><h1 data-number="4">
@@ -194,8 +197,8 @@ Table&nbsp;1: Estadísticos descriptivos
 <div class="container st-container">
 <h3 class="anchored">Data Frame Summary</h3>
 <h4 class="anchored">t1</h4>
-<strong>Dimensions</strong>: 16219 x 13
-  <br><strong>Duplicates</strong>: 28
+<strong>Dimensions</strong>: 11971 x 13
+  <br><strong>Duplicates</strong>: 19
 <br><table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline do-not-create-environment cell table-sm small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 12%">
@@ -241,38 +244,38 @@ Table&nbsp;1: Estadísticos descriptivos
 </tbody></table></td>
 <td style="text-align: left; padding: 0; vertical-align: middle;"><table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">6266</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">4979</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">38.6%</td>
+<td style="text-align: right; padding: 0; border: 0;">41.6%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">7765</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">5549</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">47.9%</td>
+<td style="text-align: right; padding: 0; border: 0;">46.4%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">787</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">494</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">4.9%</td>
+<td style="text-align: right; padding: 0; border: 0;">4.1%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1183</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">790</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">7.3%</td>
+<td style="text-align: right; padding: 0; border: 0;">6.6%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">218</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">159</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
 <td style="text-align: right; padding: 0; border: 0;">1.3%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAFQAAAB9CAQAAACWwYy0AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAABCElEQVR42u3aUQrCMBQFUSPdo4voenQPrlJ/U7UlSNLMhZk/qcjBNNLXWl6XjK6zAUJntdQvHlNO2LXsHak5y/bQ7XTms/F9MUsvVCg9oULpCRVKT6hQeh9X+K3X2+dX6rmk/P0xY6ptMUsvtHebzXSn3YiqNs30uX6/7S9QzNILFUpPqFB6QoXSEyqUXgzUGxA98gbEyA7n+hV0LhzM9ayNFbP0QoXSEyqUnlCh9IQKpRcDda7vkXP9yJqe1xPm+4bn9YwNFrP0QoXSEyqUnlCh9IQKpRcDda7vkXP9yH7M9YQp/ruPb5T0P/xDKDehQukJFUpPqFB6QoXSS4WGzPXkUpeeWwz0Dc14HUJxx6DjAAAAPXRFWHRpY2M6Y29weXJpZ2h0AENvcHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQunmbcKQAAACN0RVh0aWNjOmRlc2NyaXB0aW9uAEdlbmVyaWMgUkdCIFByb2ZpbGUapziOAAAAAElFTkSuQmCC" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAFIAAAB9CAQAAACb3/zzAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAABB0lEQVR42u3aUQ6CMBAAUWu4o4fgPHoHTqm/W6LVUGpnk5k/oiEv1hoXKM8Lv+tsgMh/tsSDx9Qv6FriUaQs9Rtv04hb47UUyy1SJC2RImmJFElLpEhau3/m27GzDK7EWaIcPs35RVeK5RZ5VtXGuZMuDIUNgpm76+pfmRTLLVIkLZEiaYkUSUukSFopkF4c6MmLAyNqzN0rZvU/zt2kLZRiuUWKpCVSJC2RImmJFEkrBdK5uyfn7hH9cL97/vz99X43YSulWG6RImmJFElLpEhaIkXSSoF07u7JuXtEb+bu+XP2vt0nSXnOvIlkJlIkLZEiaYkUSUukSFoZkQnmbmoZl5tZCuQL/vAdQqNiUNwAAAA9dEVYdGljYzpjb3B5cmlnaHQAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC6eZtwpAAAAI3RFWHRpY2M6ZGVzY3JpcHRpb24AR2VuZXJpYyBSR0IgUHJvZmlsZRqnOI4AAAAASUVORK5CYII=" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="even">
@@ -298,38 +301,38 @@ Table&nbsp;1: Estadísticos descriptivos
 </tbody></table></td>
 <td style="text-align: left; padding: 0; vertical-align: middle;"><table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">4441</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3576</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">27.4%</td>
+<td style="text-align: right; padding: 0; border: 0;">29.9%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">7049</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">5229</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">43.5%</td>
+<td style="text-align: right; padding: 0; border: 0;">43.7%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1544</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1024</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">9.5%</td>
+<td style="text-align: right; padding: 0; border: 0;">8.6%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">2767</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1849</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">17.1%</td>
+<td style="text-align: right; padding: 0; border: 0;">15.4%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">418</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">293</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">2.6%</td>
+<td style="text-align: right; padding: 0; border: 0;">2.4%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAE4AAAB9CAQAAACmTZ2VAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAAA+0lEQVR42u3ZQQrCMBQEUCu9o4fwPHoHT6krIRVU0iR2LG92YoUHPykZM90PuTluDYAbkbn8cB2wAM9T3fMlYV5+depMuzX9OnqscHBwcHBwcHAZgVubl5Nw28m1d6byzF553B+S0hM9Vri1WWyIS8IfJ8XCH9xba7N8W0SPFQ4ODg4ODg4uI3C7xCnVNVGqe6Sit9benHbGfeqtW2yV6LHCwcHBwcHBwWUEbpc4vbUmemuPNN+3jmyzjfetYzdQ9Fjh4ODg4ODg4DICt0uc3loTvbVH3vTW39+tfsU9e2vKtogeKxwcHBwcHBxcRuB2ifuf3pqW6LHCrc0DMlYd72PiHn8AAAA9dEVYdGljYzpjb3B5cmlnaHQAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC6eZtwpAAAAI3RFWHRpY2M6ZGVzY3JpcHRpb24AR2VuZXJpYyBSR0IgUHJvZmlsZRqnOI4AAAAASUVORK5CYII=" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAE4AAAB9CAQAAACmTZ2VAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAAA/klEQVR42u3aQQ6CMBAFUDHckUN4Hr2Dp9RtIWhKYexI3t8ZJXlxKOm3Dq9L3lx7A+AiMpYvHmE34G2o/WRJGOdvTSG0Z+N1qccKBwcHBwcHB5cjcK1Z7IRb96wxGco9e/VGPzClJ/VY4VozWxD3DD+cFDf+T3prfeZPi9RjhYODg4ODg4PLEbhT4pTqLVGqj0h1b60/MQ3Cfe6tfRZK6rHCwcHBwcHBweUI3ClxeuuW6K1HZNd5a3SX3XHeGr94Uo8VDg4ODg4ODi5H4E6J01u3RG89Iqu9tcfZ6loW39zU/Z/CX3C5AgcHBwcHBweXI3CnxP1Pb82W1GOFa80bZpkdm5d+49kAAAA9dEVYdGljYzpjb3B5cmlnaHQAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC6eZtwpAAAAI3RFWHRpY2M6ZGVzY3JpcHRpb24AR2VuZXJpYyBSR0IgUHJvZmlsZRqnOI4AAAAASUVORK5CYII=" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="odd">
@@ -355,38 +358,38 @@ Table&nbsp;1: Estadísticos descriptivos
 </tbody></table></td>
 <td style="text-align: left; padding: 0; vertical-align: middle;"><table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">5771</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">4585</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">35.6%</td>
+<td style="text-align: right; padding: 0; border: 0;">38.3%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">8047</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">5795</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">49.6%</td>
+<td style="text-align: right; padding: 0; border: 0;">48.4%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">922</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">600</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">5.7%</td>
+<td style="text-align: right; padding: 0; border: 0;">5.0%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1267</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">840</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">7.8%</td>
+<td style="text-align: right; padding: 0; border: 0;">7.0%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">212</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">151</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
 <td style="text-align: right; padding: 0; border: 0;">1.3%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAFcAAAB9CAQAAAB99je3AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAABBklEQVR42u3b2wnCQBBAUSPp0SKsR3uwSv0Lm/haJO7MwLl/osJBZsUMcbofKnWMBuDmaW4fXAcO8nnqfWWLmtdPnQZhbz++r9gw4OLi4uLi4uLiRof7zzZXE7/+yh/V1F4JdV8+Da0VFhsG3H+2OmqXnAuz5kgF7Rn6W39XFRsGXFxcXFxcXFzc6HBxl6xF9s5aZFRf9gz9dx0EcLd7hnwHr9gw4OLi4uLi4uLiRoeLu2TPsHf2DKPqup8hz7ah436GTMev2DDg4uLi4uLi4uJGh4u7ZM+wd/YMo3qxZ8izVXhu8+nm+9/ER272cHFxcXFxcXFxo8PFfccttWfIX+1hyF4x7gOFbh1CTxYeaQAAAD10RVh0aWNjOmNvcHlyaWdodABDb3B5cmlnaHQgMjAwNyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRzIHJlc2VydmVkLp5m3CkAAAAjdEVYdGljYzpkZXNjcmlwdGlvbgBHZW5lcmljIFJHQiBQcm9maWxlGqc4jgAAAABJRU5ErkJggg==" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAFUAAAB9CAQAAAB5A+eKAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAABCElEQVR42u3bUQrCMBAAUSO9o4foefQOnlJ/kyDRSrbZgZk/UeQhG7FLLa8LpetqgNS1bfWDx4LB3cvo2Rq0tU/dToY+D7wWNABSpVKSKpWSVKmUpEql1F0FHPlVfnalvnopf79NVLUONABSI2qO1T3fAqs6Pov3AOPa7yPQAEiVSkmqVEpSpVKSKpUSiOrKYlauLKIb7gH2VBMx2ANkO2KgAZAqlZJUqZSkSqUkVSolENU9wKzcA0T3w/0AWbYBX+8HyHPQQAMgVSolqVIpSZVKSapUSiCqe4BZuQeI7sMeIMt1f1/3qeb6X8CQmjmpUilJlUpJqlRKUqVS4lIxe4DccQcgcyDqG7bmHUIrnHlcAAAAPXRFWHRpY2M6Y29weXJpZ2h0AENvcHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQunmbcKQAAACN0RVh0aWNjOmRlc2NyaXB0aW9uAEdlbmVyaWMgUkdCIFByb2ZpbGUapziOAAAAAElFTkSuQmCC" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="even">
@@ -395,7 +398,7 @@ Table&nbsp;1: Estadísticos descriptivos
 <td style="text-align: left;">Market justice preferences</td>
 <td style="text-align: left; padding: 8; vertical-align: middle;"><table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 2 (0.8)</td>
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 1.9 (0.8)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
@@ -404,41 +407,41 @@ Table&nbsp;1: Estadísticos descriptivos
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">1 ≤ 2 ≤ 5</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 1 (0.4)</td>
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 1.3 (0.4)</td>
 </tr>
 </tbody></table></td>
 <td style="text-align: left; vertical-align: middle;">13 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuCAQAAABxABKuAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAABm0lEQVR42u3d0W2CABRA0dK4Y3do57E7dMr2F20gvQQUyjlfGg2RG4EXAjp8v1C8PvsDHI1gkWDRZfxkWLiQ692O8GPpgnZqvHqXxUu58TZ6/PXs9duUTTISLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLLq5eue/X7a0hrvLnc5z2dJSNslIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsGilH75d5oi36jw12BFv1bFJRoJFgkWCRYJFgkWzY8XtnHSEKWl7s8Gmp6Traf/dZ/Hg+teR84jT/JwHTPrHm+bn2OlHgkWCRU8+W7G27Q8xuwq2xty39SFmV8GmVnZPo8mugk3bz2hipx8JFgkWCRYdZKc/7dHnTQ4f7NFH0H8QbH2/vrWjue9EwebG3/vXpr+1w/idn6c9jzrvfZR20KgxVkSCRYJFP7VGKkyjV3mrAAAAPXRFWHRpY2M6Y29weXJpZ2h0AENvcHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQunmbcKQAAACN0RVh0aWNjOmRlc2NyaXB0aW9uAEdlbmVyaWMgUkdCIFByb2ZpbGUapziOAAAAAElFTkSuQmCC" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuCAQAAABxABKuAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAABnElEQVR42u3dS26CUABA0dK4x+6hXY/dQ1fZTtFGkkNEeXLPSCdEr7yPkuD0+xbx/uwXMJqCoYKh0/zJtPIg56uJ8GvtgXZq/vZOq49y4WP2+OfZ729TDUlUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDB0cZnt1a8v3sPVdcnjXF9cqyGJCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqG7nTz7nVGvIvBU4ONeBeDhiRaPMMuh8wIA2Z7i8HGGzDbWzmHnQ/77z6rJ/2jnn1N+mjzbcWIe60lD9iHvdbgbUiigqEnfzW6t+1nzF0Fu8c3i61nzF0FG2F52FWwW/a0NRki2J7OvVZJVDBUMDTIHHbbo39oGj7YFgvCvw9htiq/QLC1GZY2J7c/hGl+lO/D/o667HOWdqqRaZVEBUMFQ39GSCi83QU/oAAAAD10RVh0aWNjOmNvcHlyaWdodABDb3B5cmlnaHQgMjAwNyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRzIHJlc2VydmVkLp5m3CkAAAAjdEVYdGljYzpkZXNjcmlwdGlvbgBHZW5lcmljIFJHQiBQcm9maWxlGqc4jgAAAABJRU5ErkJggg==" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">5</td>
 <td style="text-align: left;">perc_inequality [numeric]</td>
-<td style="text-align: left;">Inequality gap justification</td>
+<td style="text-align: left;">Inequality gap perception</td>
 <td style="text-align: left; padding: 8; vertical-align: middle;"><table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 3.4 (1.3)</td>
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 3.4 (1.1)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">-8.5 ≤ 3.4 ≤ 33.6</td>
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">-0.3 ≤ 3.5 ≤ 6.9</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 1.6 (0.4)</td>
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 1.5 (0.3)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle;">1279 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuCAQAAABxABKuAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAABPElEQVR42u3dQQqCQBiA0Qzv6B3qPHWHTllbF2J8KUnx3k6EwflghFn9w/NEcT76A36NYJFg0Th/GDYtdXvzO7xuW/5A842NH6+yYFp59zh61ztxJCPBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwaJdB0Gt+4/JWl8MNq2+/ZXJWo5kJFgkWCRYJFgkWCRYJFgkWDTM7yt3U9IXXWaXtkGjxpGMBIsEi14w/wzfDcOtrgAAAD10RVh0aWNjOmNvcHlyaWdodABDb3B5cmlnaHQgMjAwNyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRzIHJlc2VydmVkLp5m3CkAAAAjdEVYdGljYzpkZXNjcmlwdGlvbgBHZW5lcmljIFJHQiBQcm9maWxlGqc4jgAAAABJRU5ErkJggg==" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle;">997 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuCAQAAABxABKuAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAABqklEQVR42u3by03DQBRAUYLSY3qAekIPVAnbCEcix/JnbN2zCws0umKsmRdz+XmLeN97AUdTMFQwdH38cNl7NU/cnzxkPzde6OMSrrN/y2Zufz5/77qatiQqGCoYKhgqGCoYKhgqGCoY2vWkP8K1R+18NRrr2vOKtiQqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGDrAN99Te87RDhnsNvnJdnO0tiQqGBpuS94Hf4d0uGCjT/nbkqhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgaLPxzuhzrldtOA/bcxK/nLYkKhgqGCoYKhgqGCoYKhgqGCoYGu5Vgbmmd9V13hg7TbCt3sloS6KCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGVphVneTFgarXxzuj/AjPXaeZhU+uMFE8cbJ2/8R76qGCoYKhgqGCoYKhgqGBokYPrUW6OS5z9FzrpH+PmuMQq25KoYKhgqGCoYKhgqGCoYGjGwfUo5/p1zDrpH+Ncv462JDrxt0av8Ov4v8HO/cTyh8vlscfXqePM9/HwV3epkemhjwqGCoZ+ARKaKns/yGHKAAAAPXRFWHRpY2M6Y29weXJpZ2h0AENvcHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQunmbcKQAAACN0RVh0aWNjOmRlc2NyaXB0aW9uAEdlbmVyaWMgUkdCIFByb2ZpbGUapziOAAAAAElFTkSuQmCC" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">6</td>
 <td style="text-align: left;">just_inequality [numeric]</td>
-<td style="text-align: left;">Salario justo: Gerente gran empresa</td>
+<td style="text-align: left;">Inequality gap justification</td>
 <td style="text-align: left; padding: 8; vertical-align: middle;"><table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
 <tr class="odd" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 1.9 (1.2)</td>
@@ -447,15 +450,15 @@ Table&nbsp;1: Estadísticos descriptivos
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: left; padding: 0; margin: 0; border: 0;">-6.6 ≤ 1.9 ≤ 32.7</td>
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">-6.6 ≤ 1.9 ≤ 9.9</td>
 </tr>
 <tr class="even" style="background-color:transparent">
 <td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 1.4 (0.6)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle;">710 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuCAQAAABxABKuAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAABW0lEQVR42u3dMW7CQBRAwTjijtwBzgN3yCmTLloaxFsZkSwzlWlW+Fle7Ia/fX9QfL76C/w3gkWCRYfxwza1xOVmGzzPLfKnjSd4mF5lcPw9+nr1uT2dWzISLBIsEiwSLBIsEiwSLBIs2uVJf7T6i9LuwY7D8YovSm7JSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwaOr/9C9vPJRycgDBo2MGxrRrTG/YfWLDrfXG3NnDIsEiwSLBIsGiJ/9KjtYYEbWNZ3F94wfSe07Dxd00auxhkWCRYNEP3JEUe0blbr0AAAA9dEVYdGljYzpjb3B5cmlnaHQAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC6eZtwpAAAAI3RFWHRpY2M6ZGVzY3JpcHRpb24AR2VuZXJpYyBSR0IgUHJvZmlsZRqnOI4AAAAASUVORK5CYII=" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle;">586 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuCAQAAABxABKuAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAABeklEQVR42u3cS07DMABAQYJ6R+4A5yl34JSwDQYJDVLspHqzy6Zyn+qkcT7b51PE8+oBXE3BUMHQbb+xrR7NL+4/drJv04e5H8Lt358yzcu3rY/Fo2lKopP9wu6n/5dzsmDjBFw/BUdNSVQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMLT4idzzP7I8Wv4I87neGfC3piQqGCoYKhgqGCoYKhgqGCoYKhgqGCoYKhgqGCoYWr4e5sZFx7mvKb1gsLVLjk1JVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwVDBUMFQwNHkB8Xq3aI6mr7he7RbNUVMSFQxd8CLIaO5VpAcINnev2JREBUMFQwVDD7DTHx171Dw42IpToWOPmtv+G71f/kzvGK+73+hWI9NOHxUMFQx9ARFRHEPR/w1bAAAAPXRFWHRpY2M6Y29weXJpZ2h0AENvcHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQunmbcKQAAACN0RVh0aWNjOmRlc2NyaXB0aW9uAEdlbmVyaWMgUkdCIFByb2ZpbGUapziOAAAAAElFTkSuQmCC" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="odd">
@@ -481,38 +484,38 @@ Table&nbsp;1: Estadísticos descriptivos
 </tbody></table></td>
 <td style="text-align: left; padding: 0; vertical-align: middle;"><table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1733</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1305</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">10.7%</td>
+<td style="text-align: right; padding: 0; border: 0;">10.9%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">7372</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">5366</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">45.5%</td>
+<td style="text-align: right; padding: 0; border: 0;">44.8%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3265</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">2354</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">20.1%</td>
+<td style="text-align: right; padding: 0; border: 0;">19.7%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3369</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">2559</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">20.8%</td>
+<td style="text-align: right; padding: 0; border: 0;">21.4%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">480</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">387</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">3.0%</td>
+<td style="text-align: right; padding: 0; border: 0;">3.2%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAFEAAAB9CAQAAABw6EfwAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAABCklEQVR42u3bUYrCMBRGYSPdo4twPboHV6lPQlJoteEmPRfOeRuGgQ8yEX+L5X2hdz0bIHFOS/3D8+c/5r3MYdWQpf3VbfcPX3N8qxIctESJlCRKpCRRIiWJEimt3nWf8756v1KvhEnD5I9qVYKDlhhRc10enA94qmtxaEfPqn1dSXDQEiVSkiiRkkSJlCRKpJSA6NTvzakfXeCOHvWsOmxHj7toCQ5aokRKEiVSkiiRkkSJlBIQ3dG9uaOjC30ePWZJBz6PHnXVEhy0RImUJEqkJFEiJYkSKSUguqN7c0dHt7GjZ30P+jDxu6NZlybBQUuUSEmiREoSJVKSKJFSAmK2Hc0swUFLjOgDSI4d71G8pHoAAAA9dEVYdGljYzpjb3B5cmlnaHQAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC6eZtwpAAAAI3RFWHRpY2M6ZGVzY3JpcHRpb24AR2VuZXJpYyBSR0IgUHJvZmlsZRqnOI4AAAAASUVORK5CYII=" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAFAAAAB9CAQAAACfKizOAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAABB0lEQVR42u3bUQrCQAxFUUe6RxfhenQPrlI/zRSsdprJe8K9fyLCgTilsdieJ+/OagDA2S3xxf3rF/LaKlCRsfRvXTY/+KjQrbIfMUCA6gACVAcQoDqAANWt7qgV98zbtXj/X7Jw/FA02Y8Y4NG6Q3Jz+aEmHIZde3FN/ZXEfsQAAaoDCFAdQIDqAAJUZw9kcR+JxT2ztL141pPkpL143uGyHzFAgOoAAlQHEKA6gADV2QPZi0diL84s+Xlx/nac+rx4xhGzHzFAgOoAAlQHEKA6gADV2QPZi0diL87s415c80/incD3XuxzWOxHDBCgOoAA1QEEqA4gQHX2wP/aix2zHzHAo70AQSYd76RSh54AAAA9dEVYdGljYzpjb3B5cmlnaHQAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC6eZtwpAAAAI3RFWHRpY2M6ZGVzY3JpcHRpb24AR2VuZXJpYyBSR0IgUHJvZmlsZRqnOI4AAAAASUVORK5CYII=" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="even">
@@ -538,38 +541,38 @@ Table&nbsp;1: Estadísticos descriptivos
 </tbody></table></td>
 <td style="text-align: left; padding: 0; vertical-align: middle;"><table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1428</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1063</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">8.8%</td>
+<td style="text-align: right; padding: 0; border: 0;">8.9%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">6229</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">4522</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">38.4%</td>
+<td style="text-align: right; padding: 0; border: 0;">37.8%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3708</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">2697</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">22.9%</td>
+<td style="text-align: right; padding: 0; border: 0;">22.5%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">4359</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3289</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">26.9%</td>
+<td style="text-align: right; padding: 0; border: 0;">27.5%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">495</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">400</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">3.1%</td>
+<td style="text-align: right; padding: 0; border: 0;">3.3%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEYAAAB9CAQAAAC1mt1hAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAAA70lEQVR42u3bQQrCMBAF0FZ6Rw/hefQOnlJXwlRISTVjR3h/J1L6cBLIJzg/pjo5HQ2A6ckSP9w2FtBlzgHEVy7rr86NR+75P8tUbEwwMDAwMDAwMP+OeTvp/eZE18ocz6BJx9zNxPeXGhNMK6sFfD2ieIeF2tmbsrLevaXGBAMDAwMDAwMDMzBKXIwS15OE3vT5zdTw3vTNFig1JhgYGBgYGBgYmIHRm2L0pp4k3zft61Cp9017t0OpMcHAwMDAwMDAwAyM3hSjN/Wk0Zuy/s20A/PqTUct41JjgoGBgYGBgYGBGZi6venolBoTTCtP+TEd7xE1L3kAAAA9dEVYdGljYzpjb3B5cmlnaHQAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC6eZtwpAAAAI3RFWHRpY2M6ZGVzY3JpcHRpb24AR2VuZXJpYyBSR0IgUHJvZmlsZRqnOI4AAAAASUVORK5CYII=" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEUAAAB9CAQAAABerWZiAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAAA8ElEQVR42u3bQQ6CMBAFUDHc0UN4Hr2Dp9QVsRhoR6Uwi/d3xpC+OCXpT+PwPGXJ+WgASj1j+eFe2TjXocfy5YLj/KvLyiOPHX6VRANCQUFBQUFBQclO+TjF7XFaW8tQni67HF+rKVdPNCCUpcy27W3/Al1sz2AP6pP5+5poQCgoKCgoKCgoKOGoZFNUslY270G/3xtt3IP+2faJBoSCgoKCgoKCghKOHjRFD2ql+31QvBd1vg/65jVINCAUFBQUFBQUFJRw9KApelArqz2oz/+BwpR3Dzpi+yYaEAoKCgoKCgoKSjhZe9CxSTQglKW8APHJHe8Soh2fAAAAPXRFWHRpY2M6Y29weXJpZ2h0AENvcHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQunmbcKQAAACN0RVh0aWNjOmRlc2NyaXB0aW9uAEdlbmVyaWMgUkdCIFByb2ZpbGUapziOAAAAAElFTkSuQmCC" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="odd">
@@ -591,8 +594,8 @@ Table&nbsp;1: Estadísticos descriptivos
 </tr>
 </tbody></table></td>
 <td style="text-align: left; vertical-align: middle;">11 distinct values</td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuCAQAAABxABKuAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAABkUlEQVR42u3dS07DMABAQYJ6R+4A5yl34JSwDYUEXkU+FjOrsgC5T7GdEKWd3h8oHo8ewGgEiwSLLvMfpkOHcr1ZTl+OHc7MfGCXu//KBp5mr9+OHswCUzISLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiza+cGG8z7t8Vu7PwkywtMea0zJSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwSLBIsEiwaIPbbOPfe1yzyX3J0e89rjElI8EiwSLBIsEiwSLBIsGiU3208pIzXTsMEexM1w6mZCRYJFgkWCRYJFgkWCRYJFh055n+mS5W9nX3pdF5Llb2ZUpGgkWCRYJFg/w/bNne+/VKsFFOHZb36y3eweoRNv6pw9+/g0/Brr4w90c3R9j4x9TW7JLR8LvkFr4sTbPN4t8GW99Bl5emaf57rxb9bz3PYk4aNRb9SLBIsOgDpUsmIuV+Es8AAAA9dEVYdGljYzpjb3B5cmlnaHQAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC6eZtwpAAAAI3RFWHRpY2M6ZGVzY3JpcHRpb24AR2VuZXJpYyBSR0IgUHJvZmlsZRqnOI4AAAAASUVORK5CYII=" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuCAQAAABxABKuAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAABlklEQVR42u3dQU7CQABAUWu4o3fQ8+AdPKVuK6aNn9DSgfdWuNBMPp1pxzYwfb9QvN57AKMRLBIsOs1/mO46lPPFcvpx3+HMzAd2uvqvbOBt9vrr3oNZYEpGgkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFOz9FfdxHy/9r98fOR3i0fI0pGQkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFgkWCRYJFgkWbXBfcvybtWs2uZE7+s3aNaZkJFgkWCRYJFgkWCRYJFgkWHSoTwpecqTN1hDBjrTZMiUjwSLBIsEiwSLBIsEiwSLBoiuv9I+0WdnX1Vuj42xW9mVKRoJFgkWCRYP8P2zZ3ufr4YPtfb5eCfa811prVo+w0a+1tnjLfwU7P9wX5t7+Lb84wkY/prbnsiJ6gLPk7f1ZmmZr39MGWz8hLC9N0/z3Ph9u0b+N91nMSaPGoh8JFgkW/QDueiYkDz/QSAAAAD10RVh0aWNjOmNvcHlyaWdodABDb3B5cmlnaHQgMjAwNyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRzIHJlc2VydmVkLp5m3CkAAAAjdEVYdGljYzpkZXNjcmlwdGlvbgBHZW5lcmljIFJHQiBQcm9maWxlGqc4jgAAAABJRU5ErkJggg==" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="even">
@@ -615,32 +618,32 @@ Table&nbsp;1: Estadísticos descriptivos
 </tbody></table></td>
 <td style="text-align: left; padding: 0; vertical-align: middle;"><table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3510</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">2611</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">21.6%</td>
+<td style="text-align: right; padding: 0; border: 0;">21.8%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">4192</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3089</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
 <td style="text-align: right; padding: 0; border: 0;">25.8%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">2724</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">2016</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
 <td style="text-align: right; padding: 0; border: 0;">16.8%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">5793</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">4255</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">35.7%</td>
+<td style="text-align: right; padding: 0; border: 0;">35.5%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEIAAABmCAQAAADVYI9DAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAAA0ElEQVRo3u3ZUQqAIBCE4Qzv2CE6T92hU9aTsPZQaxoO8s9bVPTBKLgUzql/5t4AEDbRXuzVC2QN3iftp2J+a6kiHB/fk6gDBAgQIECAAAFiCMTtePf1gFaXYA+c7lNqg9jvStQhgcjWxNZ0MPXPIE3nDpuSJS5RBwgQIECAAAECxBAI5o4UiTpApFQPP/4Rx4koH37a7CaJOkCAAAECBAgQIIZAMPykSNQhgfjxp8tLTPe//XR5Tr4BJOoAAQIECBAgQIAYAqE3d/SKRB0gUi6DNRgUXtS3qwAAAD10RVh0aWNjOmNvcHlyaWdodABDb3B5cmlnaHQgMjAwNyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRzIHJlc2VydmVkLp5m3CkAAAAjdEVYdGljYzpkZXNjcmlwdGlvbgBHZW5lcmljIFJHQiBQcm9maWxlGqc4jgAAAABJRU5ErkJggg==" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEIAAABmCAQAAADVYI9DAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAAA0ElEQVRo3u3ZUQqAIBCE4Qzv2CE6T92hU9aTsPZQaxoO8s9bVPTBKLgUzql/5t4AEDbRXuzVC2QN3iftp2J+a6kiHB/fk6gDBAgQIECAAAFiCMTtePf1gFaXYA+c7lNqg9jvStQhgcjWxNZ0MPXPIE3nDpuSJS5RBwgQIECAAAECxBAI5o4UiTpApFQPP/4Rx4koH37a7CaJOkCAAAECBAgQIIZAMPykSNQhgfjxp8tLTPe//XR5Tr4BJOoAAQIECBAgQIAYAqE3d/SKRB0gUi6DNRgUXtS3qwAAAD10RVh0aWNjOmNvcHlyaWdodABDb3B5cmlnaHQgMjAwNyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRzIHJlc2VydmVkLp5m3CkAAAAjdEVYdGljYzpkZXNjcmlwdGlvbgBHZW5lcmljIFJHQiBQcm9maWxlGqc4jgAAAABJRU5ErkJggg==" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="odd">
@@ -657,20 +660,20 @@ Table&nbsp;1: Estadísticos descriptivos
 </tbody></table></td>
 <td style="text-align: left; padding: 0; vertical-align: middle;"><table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">13020</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">9689</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">80.3%</td>
+<td style="text-align: right; padding: 0; border: 0;">80.9%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3199</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">2282</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">19.7%</td>
+<td style="text-align: right; padding: 0; border: 0;">19.1%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAIUAAAA3CAQAAACI0UHJAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAAAv0lEQVRo3u3bywnCQBRA0YzYoz1oPdqDVepCuCSCGxW/5+xmMyQX3iwyZJwmLlbvfoDPIUWkyHq+OPzdwbEdN1JM0+bdz/ZSx8XKgESKSBEpIkWkiBSRIlJEikgRKSJFpIgUkSJSRIpIkatvm8f7dvkJY/6Re9y9zbeav70BiRRZnBX7B66Edl8/XU+6EvqF49aARIpIESkiRaSIFJEiUkSKSBEpIkWkiBSRIlJEikgRV0IZf/ffw00GJFJEipwB+SALx9tqSIIAAAA9dEVYdGljYzpjb3B5cmlnaHQAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC6eZtwpAAAAI3RFWHRpY2M6ZGVzY3JpcHRpb24AR2VuZXJpYyBSR0IgUHJvZmlsZRqnOI4AAAAASUVORK5CYII=" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAIYAAAA3CAQAAABj5vrKAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAAAw0lEQVRo3u3bTQqCUBhA0V64x/ZQ66k9tMoaRcegiUQ/ds9IEUQvfG/gw3HZ5Gb76Qf4JsVAMTB5cvrDBWQ/7sfT/NLu08/2ZufZWWOCYqAYKAaKgWKgGCgGioFioBgoBoqBYqAYKAaKgWKgGHj4BnpedpeVGH4QH4tv87t8/8YExcBszTgu3kQ6rGLCXrKJtJZltzFBMVAMFAPFQDFQDBQDxUAxUAwUA8VAMVAMFAPFQDFQDLSJhPGHf1U81ZigGCgGrvORC8ecMz8EAAAAPXRFWHRpY2M6Y29weXJpZ2h0AENvcHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQunmbcKQAAACN0RVh0aWNjOmRlc2NyaXB0aW9uAEdlbmVyaWMgUkdCIFByb2ZpbGUapziOAAAAAElFTkSuQmCC" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="even">
@@ -687,20 +690,20 @@ Table&nbsp;1: Estadísticos descriptivos
 </tbody></table></td>
 <td style="text-align: left; padding: 0; vertical-align: middle;"><table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">6256</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">4545</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">38.6%</td>
+<td style="text-align: right; padding: 0; border: 0;">38.0%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">9963</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">7426</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">61.4%</td>
+<td style="text-align: right; padding: 0; border: 0;">62.0%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAGkAAAA3CAQAAAClD6w2AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAAAoElEQVRo3u3Yuw2AMAwAUYLYkSGYB3ZgSmgd6nx05l6HkCJOcihcniWbdfYHmPTPpC0+XBMu1lFanBI/fKtf7YOD7g5nJhw8kwhMIjCJwCQCkwhMIjCJwCQCkwg+u4ceu4DRStytNFnWTBErEg5ewqTqLp3cnX+4M5NXk23UP7WEg2cSgUkEJhGYRGASgUkEJhGYRGASQfbVZA4JB88kghc29QxcKuErbgAAAD10RVh0aWNjOmNvcHlyaWdodABDb3B5cmlnaHQgMjAwNyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRzIHJlc2VydmVkLp5m3CkAAAAjdEVYdGljYzpkZXNjcmlwdGlvbgBHZW5lcmljIFJHQiBQcm9maWxlGqc4jgAAAABJRU5ErkJggg==" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAGkAAAA3CAQAAAClD6w2AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAAAoElEQVRo3u3Yuw2AMAwAUYLYkSGYB3ZgSmgd6nx05l6HkCJOcihcniWbdfYHmPTPpC0+XBMu1lFanBI/fKtf7YOD7g5nJhw8kwhMIjCJwCQCkwhMIjCJwCQCkwg+u4ceu4DRStytNFnWTBErEg5ewqTqLp3cnX+4M5NXk23UP7WEg2cSgUkEJhGYRGASgUkEJhGYRGASQfbVZA4JB88kghc29QxcKuErbgAAAD10RVh0aWNjOmNvcHlyaWdodABDb3B5cmlnaHQgMjAwNyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRzIHJlc2VydmVkLp5m3CkAAAAjdEVYdGljYzpkZXNjcmlwdGlvbgBHZW5lcmljIFJHQiBQcm9maWxlGqc4jgAAAABJRU5ErkJggg==" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 <tr class="odd">
@@ -723,37 +726,37 @@ Table&nbsp;1: Estadísticos descriptivos
 </tbody></table></td>
 <td style="text-align: left; padding: 0; vertical-align: middle;"><table class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true"><tbody>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">2219</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1729</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">13.7%</td>
+<td style="text-align: right; padding: 0; border: 0;">14.4%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">6174</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">4647</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">38.1%</td>
+<td style="text-align: right; padding: 0; border: 0;">38.8%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="odd" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">5128</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3730</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">31.6%</td>
+<td style="text-align: right; padding: 0; border: 0;">31.2%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 <tr class="even" style="background-color:transparent">
-<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">2698</td>
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">1865</td>
 <td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
-<td style="text-align: right; padding: 0; border: 0;">16.6%</td>
+<td style="text-align: right; padding: 0; border: 0;">15.6%</td>
 <td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
 </tr>
 </tbody></table></td>
-<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEYAAABmCAQAAADciy85AAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwQUIhntq+ghAAAAz0lEQVRo3u3aUQqCQBQFUCfcY4toPbmHVlm/zyCc8um84Nw/EfTgG2Eu2p5TnVxGA2B6MseDpXsB3VoWIN5yXp+6dl3gccRjmYqNCQYGBgYGBgYGJjFv286jNpR9aXFDnLbL/iLx/qXGVAqzWjP3EcU7rI2felNe1i9MqTHBwMDAwMDAwMAkRm+K0Zv+DnNqidv6ZHZiidt+U0uNCQYGBgYGBgYGJjFKXIwS15PdvSnv98HdvSl3wZcaEwwMDAwMDAwMTGLq9qbRKTUmmE95AcucGBQ1dIT+AAAAPXRFWHRpY2M6Y29weXJpZ2h0AENvcHlyaWdodCAyMDA3IEFwcGxlIEluYy4sIGFsbCByaWdodHMgcmVzZXJ2ZWQunmbcKQAAACN0RVh0aWNjOmRlc2NyaXB0aW9uAEdlbmVyaWMgUkdCIFByb2ZpbGUapziOAAAAAElFTkSuQmCC" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
-<td style="text-align: center;">16219 (100.0%)</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEcAAABmCAQAAAAzSUQHAAAAAmJLR0QA/4ePzL8AAAAHdElNRQfpAwUPJgEyZJ6HAAAA10lEQVRo3u3aQQqEMBBEUSPe0UN4HucOnlI3s+gEGTramhryayeCPuwIKTTtg1LG1gA4/kz24FOxkJYURbA3nfJTs/MSW/Rj+UZsWHDgwIEDRylw4MDpgFNsTp/adHqT7MY5bDdeFSsQG5YYJ1s7a5vCbtbIxZ4Vl/zlERsWHDhw4MBRChw4cDrg0LPK0LP+lPNi7fN8kHut9vneWbFhwYEDBw4cpcCBA6cDDrWvDLXPm1s9K+5XxlNOXc96YtmLDQsOHDhw4CgFDhw4HXCUe1b7iA0Lzq8ciZEYFKU73CkAAAA9dEVYdGljYzpjb3B5cmlnaHQAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLiwgYWxsIHJpZ2h0cyByZXNlcnZlZC6eZtwpAAAAI3RFWHRpY2M6ZGVzY3JpcHRpb24AR2VuZXJpYyBSR0IgUHJvZmlsZRqnOI4AAAAASUVORK5CYII=" class="img-fluid figure-img" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+<td style="text-align: center;">11971 (100.0%)</td>
 <td style="text-align: center;">0 (0.0%)</td>
 </tr>
 </tbody>
 </table>
-<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.2.2)<br>2025-03-04</p>
+<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.2.2)<br>2025-03-05</p>
 </div>
 </div>
 </div>
@@ -994,7 +997,7 @@ Figure&nbsp;1: Change in the justification of inequality in health, pensions and
 </tr>
 <tr class="odd">
 <td style="font-style: italic">perc_inequality</td>
-<td style="text-align: center; padding: 0.2cm;">-0.060<span style="vertical-align:super;font-size:0.8em;">***</span>
+<td style="text-align: center; padding: 0.2cm;">-0.057<span style="vertical-align:super;font-size:0.8em;">***</span>
 </td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
@@ -1003,9 +1006,9 @@ Figure&nbsp;1: Change in the justification of inequality in health, pensions and
 </tr>
 <tr class="even">
 <td style="font-style: italic">just_inequality</td>
-<td style="text-align: center; padding: 0.2cm;">0.113<span style="vertical-align:super;font-size:0.8em;">***</span>
+<td style="text-align: center; padding: 0.2cm;">0.119<span style="vertical-align:super;font-size:0.8em;">***</span>
 </td>
-<td style="text-align: center; padding: 0.2cm;">0.513<span style="vertical-align:super;font-size:0.8em;">***</span>
+<td style="text-align: center; padding: 0.2cm;">0.498<span style="vertical-align:super;font-size:0.8em;">***</span>
 </td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
@@ -1013,24 +1016,24 @@ Figure&nbsp;1: Change in the justification of inequality in health, pensions and
 </tr>
 <tr class="odd">
 <td style="font-style: italic">merit_effort</td>
-<td style="text-align: center; padding: 0.2cm;">0.153<span style="vertical-align:super;font-size:0.8em;">***</span>
+<td style="text-align: center; padding: 0.2cm;">0.162<span style="vertical-align:super;font-size:0.8em;">***</span>
 </td>
-<td style="text-align: center; padding: 0.2cm;">-0.081<span style="vertical-align:super;font-size:0.8em;">***</span>
+<td style="text-align: center; padding: 0.2cm;">-0.095<span style="vertical-align:super;font-size:0.8em;">***</span>
 </td>
-<td style="text-align: center; padding: 0.2cm;">0.025<span style="vertical-align:super;font-size:0.8em;">**</span>
+<td style="text-align: center; padding: 0.2cm;">0.026<span style="vertical-align:super;font-size:0.8em;">**</span>
 </td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 </tr>
 <tr class="even">
 <td style="font-style: italic">merit_talent</td>
-<td style="text-align: center; padding: 0.2cm;">0.136<span style="vertical-align:super;font-size:0.8em;">***</span>
+<td style="text-align: center; padding: 0.2cm;">0.147<span style="vertical-align:super;font-size:0.8em;">***</span>
 </td>
-<td style="text-align: center; padding: 0.2cm;">-0.075<span style="vertical-align:super;font-size:0.8em;">***</span>
+<td style="text-align: center; padding: 0.2cm;">-0.095<span style="vertical-align:super;font-size:0.8em;">***</span>
 </td>
-<td style="text-align: center; padding: 0.2cm;">0.019<span style="vertical-align:super;font-size:0.8em;">*</span>
+<td style="text-align: center; padding: 0.2cm;">0.020<span style="vertical-align:super;font-size:0.8em;">*</span>
 </td>
-<td style="text-align: center; padding: 0.2cm;">0.682<span style="vertical-align:super;font-size:0.8em;">***</span>
+<td style="text-align: center; padding: 0.2cm;">0.684<span style="vertical-align:super;font-size:0.8em;">***</span>
 </td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 </tr>
@@ -1053,7 +1056,7 @@ Figure&nbsp;1: Change in the justification of inequality in health, pensions and
 
 Group      |   ICC
 ------------------
-idencuesta | 0.222</code></pre>
+idencuesta | 0.213</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1113,7 +1116,7 @@ idencuesta | 0.222</code></pre>
 <span><span class="va">m7</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">mjp</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">perc_inequality</span> <span class="op">+</span> <span class="va">just_inequality</span> <span class="op">+</span> </span>
 <span>             <span class="va">merit_effort</span> <span class="op">+</span> <span class="va">merit_talent</span> <span class="op">+</span> <span class="va">perc_inequality_mean</span> <span class="op">+</span></span>
 <span>             <span class="va">just_inequality_mean</span> <span class="op">+</span> <span class="va">merit_effort_mean</span> <span class="op">+</span> </span>
-<span>             <span class="va">merit_talent_mean</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">sex</span> <span class="op">+</span> <span class="va">ess</span> <span class="op">+</span> <span class="va">ideo</span> <span class="op">+</span> <span class="va">educ</span> <span class="op">+</span> <span class="va">wave_f</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">idencuesta</span><span class="op">)</span>,</span>
+<span>             <span class="va">merit_talent_mean</span> <span class="op">+</span> <span class="va">ideo</span> <span class="op">+</span> <span class="va">quintil</span> <span class="op">+</span> <span class="va">educ</span> <span class="op">+</span> <span class="va">ess</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">sex</span> <span class="op">+</span> <span class="va">wave_f</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">idencuesta</span><span class="op">)</span>,</span>
 <span>                data <span class="op">=</span> <span class="va">df1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -1127,15 +1130,19 @@ idencuesta | 0.222</code></pre>
 <span>  just_inequality_mean <span class="op">=</span> <span class="st">"Justification inequality (BE)"</span>,</span>
 <span>  merit_effort_mean <span class="op">=</span> <span class="st">"Merit: Effort (BE)"</span>,</span>
 <span>  merit_talent_mean <span class="op">=</span> <span class="st">"Merit: Talent (BE)"</span>,</span>
+<span>  ideoCenter <span class="op">=</span> <span class="st">"Center"</span>,</span>
+<span>  ideoRight <span class="op">=</span> <span class="st">"Right"</span>,</span>
+<span>  <span class="st">"ideoDoes not identify"</span> <span class="op">=</span> <span class="st">"Does not identify"</span>,</span>
+<span>  quintilQ2 <span class="op">=</span> <span class="st">"Quintile 2"</span>,</span>
+<span>  quintilQ3 <span class="op">=</span> <span class="st">"Quintile 3"</span>,</span>
+<span>  quintilQ4 <span class="op">=</span> <span class="st">"Quintile 4"</span>,</span>
+<span>  quintilQ5 <span class="op">=</span> <span class="st">"Quintile 5"</span>,</span>
+<span>  educUniversitary <span class="op">=</span> <span class="st">"Universitary (Ref.= Less than universitary)"</span>,</span>
+<span>  ess <span class="op">=</span> <span class="st">"Subjective social status"</span>,</span>
 <span>  <span class="st">"age30-49"</span> <span class="op">=</span> <span class="st">"30-49"</span>,</span>
 <span>  <span class="st">"age50-64"</span> <span class="op">=</span> <span class="st">"50-64"</span>,</span>
 <span>  <span class="st">"age65 or more"</span> <span class="op">=</span> <span class="st">"65 or more"</span>,</span>
 <span>  sexFemale <span class="op">=</span> <span class="st">"Female (Ref.= Male)"</span>,</span>
-<span>  ess <span class="op">=</span> <span class="st">"Subjective social status"</span>,</span>
-<span>  ideoCenter <span class="op">=</span> <span class="st">"Center"</span>,</span>
-<span>  ideoRight <span class="op">=</span> <span class="st">"Right"</span>,</span>
-<span>  <span class="st">"ideoDoes not identify"</span> <span class="op">=</span> <span class="st">"Does not identify"</span>,</span>
-<span>  educUniversitary <span class="op">=</span> <span class="st">"Universitary (Ref.= Less than universitary)"</span>,</span>
 <span>  wave_f2017 <span class="op">=</span> <span class="st">"2017"</span>,</span>
 <span>  wave_f2018 <span class="op">=</span> <span class="st">"2018"</span>,</span>
 <span>  wave_f2019 <span class="op">=</span> <span class="st">"2019"</span>,</span>
@@ -1149,8 +1156,8 @@ idencuesta | 0.222</code></pre>
 <span>               stars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.01</span>, <span class="fl">0.001</span><span class="op">)</span>,</span>
 <span>               custom.coef.map <span class="op">=</span> <span class="va">ccoef</span>,</span>
 <span>               digits <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>               groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"Age (Ref. = 18-29)"</span> <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>,<span class="st">"Political identification (Ref.= Left)"</span> <span class="op">=</span> <span class="fl">15</span><span class="op">:</span><span class="fl">17</span>, <span class="st">"Wave (Ref.= 2016)"</span> <span class="op">=</span> <span class="fl">19</span><span class="op">:</span><span class="fl">23</span><span class="op">)</span>,</span>
-<span>               custom.note <span class="op">=</span> <span class="st">"\\item Note: Cells contain regression coefficients with standard errors in parentheses. %stars. \\\\ \\item Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 4364)."</span>,</span>
+<span>               groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"Political identification (Ref.= Left)"</span> <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">12</span>, <span class="st">"Income (Ref.= Quintile 1)"</span> <span class="op">=</span> <span class="fl">13</span><span class="op">:</span><span class="fl">16</span>, <span class="st">"Age (Ref. = 18-29)"</span> <span class="op">=</span> <span class="fl">19</span><span class="op">:</span><span class="fl">21</span>, <span class="st">"Wave (Ref.= 2016)"</span> <span class="op">=</span> <span class="fl">23</span><span class="op">:</span><span class="fl">26</span><span class="op">)</span>,</span>
+<span>               custom.note <span class="op">=</span> <span class="st">"\\item Note: Cells contain regression coefficients with standard errors in parentheses. %stars. \\\\ \\item Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 4257)."</span>,</span>
 <span>               threeparttable <span class="op">=</span> <span class="cn">T</span>,</span>
 <span>               leading.zero <span class="op">=</span> <span class="cn">T</span>,</span>
 <span>               float.pos <span class="op">=</span> <span class="st">"h!"</span>,</span>
@@ -1194,25 +1201,25 @@ Model 7
 Intercept
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-2.147<sup>***</sup>
+2.107<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-1.885<sup>***</sup>
+1.800<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-2.113<sup>***</sup>
+2.086<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-1.836<sup>***</sup>
+1.777<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-1.791<sup>***</sup>
+1.725<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-1.547<sup>***</sup>
+1.562<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-1.431<sup>***</sup>
+1.487<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1220,25 +1227,25 @@ Intercept
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.019)
+(0.026)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.013)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.019)
+(0.016)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.026)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.027)
+(0.033)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.050)
+(0.035)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.060)
+(0.055)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.067)
 </td>
 </tr>
 <tr>
@@ -1246,25 +1253,25 @@ Intercept
 Perception inequality (WE)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.045<sup>***</sup>
+-0.050<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.095<sup>***</sup>
+-0.112<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.087<sup>***</sup>
+-0.100<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.087<sup>***</sup>
+-0.098<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.082<sup>***</sup>
+-0.091<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.050<sup>***</sup>
+-0.062<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1272,25 +1279,25 @@ Perception inequality (WE)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.005)
+(0.007)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
+(0.008)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
+(0.008)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
+(0.008)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.007)
+(0.010)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.007)
+(0.010)
 </td>
 </tr>
 <tr>
@@ -1301,22 +1308,22 @@ Justification inequality (WE)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.055<sup>***</sup>
+0.070<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.106<sup>***</sup>
+0.122<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.101<sup>***</sup>
+0.115<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.100<sup>***</sup>
+0.114<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.065<sup>***</sup>
+0.070<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.045<sup>***</sup>
+0.047<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1327,22 +1334,22 @@ Justification inequality (WE)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.005)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
 (0.007)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.007)
+(0.008)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.008)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.008)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.010)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.010)
 </td>
 </tr>
 <tr>
@@ -1359,16 +1366,16 @@ Merit: Effort (WE)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.100<sup>***</sup>
+0.107<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.073<sup>***</sup>
+0.076<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.058<sup>***</sup>
+0.064<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.061<sup>***</sup>
+0.064<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1385,16 +1392,16 @@ Merit: Effort (WE)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.006)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.008)
+(0.007)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.010)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.009)
+(0.012)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.011)
 </td>
 </tr>
 <tr>
@@ -1414,13 +1421,13 @@ Merit: Talent (WE)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.041<sup>***</sup>
+0.047<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.034<sup>***</sup>
+0.035<sup>**</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.040<sup>***</sup>
+0.039<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1440,13 +1447,13 @@ Merit: Talent (WE)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.008)
+(0.010)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.009)
+(0.011)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.009)
+(0.011)
 </td>
 </tr>
 <tr>
@@ -1469,10 +1476,10 @@ Perception inequality (BE)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.015
+-0.022
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.036<sup>**</sup>
+-0.040<sup>*</sup>
 </td>
 </tr>
 <tr>
@@ -1495,10 +1502,10 @@ Perception inequality (BE)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.013)
+(0.017)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.013)
+(0.016)
 </td>
 </tr>
 <tr>
@@ -1521,10 +1528,10 @@ Justification inequality (BE)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.109<sup>***</sup>
+0.105<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.108<sup>***</sup>
+0.099<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1547,10 +1554,10 @@ Justification inequality (BE)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.013)
+(0.015)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.013)
+(0.015)
 </td>
 </tr>
 <tr>
@@ -1573,10 +1580,62 @@ Merit: Effort (BE)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.058<sup>**</sup>
+0.033
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.045<sup>*</sup>
+0.028
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.021)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.021)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Merit: Talent (BE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.026
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.014
 </td>
 </tr>
 <tr>
@@ -1603,370 +1662,6 @@ Merit: Effort (BE)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.020)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Merit: Talent (BE)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.017
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.002
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.020)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.020)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Age (Ref. = 18-29)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30-49
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.013
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.023)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50-64
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.026
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.025)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;65 or more
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.059<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.028)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Female (Ref.= Male)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.095<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.017)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Subjective social status
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.011<sup>*</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.004)
 </td>
 </tr>
 <tr>
@@ -2044,59 +1739,7 @@ Political identification (Ref.= Left)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.124<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.019)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Right
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.259<sup>***</sup>
+0.111<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -2127,6 +1770,58 @@ Political identification (Ref.= Left)
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Right
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.256<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.025)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Does not identify
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
@@ -2148,7 +1843,7 @@ Political identification (Ref.= Left)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.119<sup>***</sup>
+0.120<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -2174,12 +1869,480 @@ Political identification (Ref.= Left)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.018)
+(0.021)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Income (Ref.= Quintile 1)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quintile 2
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.002
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.023)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quintile 3
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.002
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.024)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quintile 4
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.052<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.024)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quintile 5
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.090<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.026)
 </td>
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
 Universitary (Ref.= Less than universitary)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.009
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.023)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Subjective social status
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.009
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.005)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Age (Ref. = 18-29)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30-49
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.005
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.025)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50-64
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
@@ -2226,7 +2389,111 @@ Universitary (Ref.= Less than universitary)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.020)
+(0.027)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;65 or more
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.048
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.031)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Female (Ref.= Male)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.082<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.018)
 </td>
 </tr>
 <tr>
@@ -2304,7 +2571,59 @@ Wave (Ref.= 2016)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.138<sup>***</sup>
+-0.152<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.023)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.083<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -2335,58 +2654,6 @@ Wave (Ref.= 2016)
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
--0.084<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.020)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2019
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
@@ -2408,59 +2675,7 @@ Wave (Ref.= 2016)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.052<sup>**</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.020)
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2022
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-&nbsp;
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.262<sup>***</sup>
+-0.051<sup>*</sup>
 </td>
 </tr>
 <tr>
@@ -2512,7 +2727,7 @@ Wave (Ref.= 2016)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.257<sup>***</sup>
+0.263<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -2538,7 +2753,7 @@ Wave (Ref.= 2016)
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.021)
+(0.025)
 </td>
 </tr>
 <tr style="border-top: 1px solid #000000;">
@@ -2546,25 +2761,25 @@ Wave (Ref.= 2016)
 AIC
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-39452.317
+29020.661
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-39427.197
+28962.723
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-39174.466
+28779.568
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-38938.405
+28570.225
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-38923.607
+28556.028
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-38846.092
+28520.559
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-38072.391
+28166.918
 </td>
 </tr>
 <tr>
@@ -2572,25 +2787,25 @@ AIC
 BIC
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-39483.093
+29050.222
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-39457.973
+28992.284
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-39212.936
+28816.519
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-38984.569
+28614.567
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-38977.465
+28607.759
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-38930.725
+28601.852
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-38264.739
+28373.844
 </td>
 </tr>
 <tr>
@@ -2598,25 +2813,25 @@ BIC
 Log Likelihood
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--19722.158
+-14506.331
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--19709.599
+-14477.361
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--19582.233
+-14384.784
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--19463.202
+-14279.113
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--19454.803
+-14271.014
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--19412.046
+-14249.280
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--19011.195
+-14055.459
 </td>
 </tr>
 <tr>
@@ -2624,25 +2839,25 @@ Log Likelihood
 Num. obs.
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-16219
+11971
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-16219
+11971
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-16219
+11971
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-16219
+11971
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-16219
+11971
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-16219
+11971
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-16219
+11971
 </td>
 </tr>
 <tr>
@@ -2650,25 +2865,25 @@ Num. obs.
 Num. groups: idencuesta
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-4364
+4257
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-4364
+4257
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-4364
+4257
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-4364
+4257
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-4364
+4257
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-4364
+4257
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-4364
+4257
 </td>
 </tr>
 <tr>
@@ -2676,25 +2891,25 @@ Num. groups: idencuesta
 Var: idencuesta (Intercept)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.159
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
 0.149
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.143
+0.138
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.135
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.134
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.128
+0.131
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.123
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.123
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.119
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.109
 </td>
 </tr>
 <tr style="border-bottom: 2px solid #000000;">
@@ -2702,32 +2917,32 @@ Var: idencuesta (Intercept)
 Var: Residual
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.551
+0.542
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.556
+0.546
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.549
+0.541
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.544
+0.535
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.543
+0.534
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.543
+0.533
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.513
+0.516
 </td>
 </tr>
 </tbody>
 <tfoot><tr>
 <td style="font-size: 0.8em;" colspan="8">
 Note: Cells contain regression coefficients with standard errors in parentheses. <sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05. \
-Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 4364).
+Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 4257).
 </td>
 </tr></tfoot>
 </table>
