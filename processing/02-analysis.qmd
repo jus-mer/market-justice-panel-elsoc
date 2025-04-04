@@ -409,27 +409,44 @@ performance::icc(m0, by_group = T)
 m1 <- lmer(mjp ~ 1 + ola + (1 | idencuesta),
                 data = df_study1)
 
-m2 <- lmer(mjp ~ 1 + ola_num + ola_2 + (1 | idencuesta),
+m1.1 <- lmer(mjp ~ 1 + ola_num + ola_2 + (1 | idencuesta),
                 data = df_study1)
 
-m3 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + (1 | idencuesta), data = df_study1)
-
-m4 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + (1 | idencuesta),
+m2 <- lmer(mjp ~ 1 + ola_num + ola_2 + (1 + ola_num | idencuesta),
                 data = df_study1)
 
-m5 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + merit_effort + (1 | idencuesta),
+anova(m1.1, m2)
+
+m3 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + (1 + ola_num | idencuesta), 
+           data = df_study1)
+
+m4 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + (1 + ola_num | idencuesta),
                 data = df_study1)
 
-m6 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + merit_effort + merit_talent + (1 | idencuesta),
+m5 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + merit_effort + (1 + ola_num | idencuesta),
+                data = df_study1)
+
+m6 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + merit_effort + merit_talent + (1 + ola_num | idencuesta),
                 data = df_study1)
 
 
-m7 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + merit_effort + merit_talent + perc_inequality_mean + just_inequality_mean + merit_effort_mean + merit_talent_mean + (1 | idencuesta),
+m7 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + merit_effort + merit_talent + perc_inequality_mean + just_inequality_mean + merit_effort_mean + merit_talent_mean + (1 + ola_num | idencuesta),
                 data = df_study1)
 
-m8 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + merit_effort + merit_talent + perc_inequality_mean + just_inequality_mean + merit_effort_mean + merit_talent_mean + educ + quintil1 + ess + ideo + sex + age + (1 | idencuesta),
+m8 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + merit_effort + merit_talent + perc_inequality_mean + just_inequality_mean + merit_effort_mean + merit_talent_mean + educ + quintil1 + ess + ideo + sex + age + (1 + ola_num | idencuesta),
                 data = df_study1)
 
+m9 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality*ola_num + just_inequality + merit_effort + merit_talent + perc_inequality_mean + just_inequality_mean + merit_effort_mean + merit_talent_mean + educ + quintil1 + ess + ideo + sex + age + (1 + ola_num | idencuesta),
+                data = df_study1)
+
+m10 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality*ola_num + just_inequality*ola_num + merit_effort + merit_talent + perc_inequality_mean + just_inequality_mean + merit_effort_mean + merit_talent_mean + educ + quintil1 + ess + ideo + sex + age + (1 + ola_num | idencuesta),
+                data = df_study1)
+
+m11 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality*ola_num + just_inequality*ola_num + merit_effort*ola_num + merit_talent + perc_inequality_mean + just_inequality_mean + merit_effort_mean + merit_talent_mean + educ + quintil1 + ess + ideo + sex + age + (1 + ola_num | idencuesta),
+                data = df_study1)
+
+m12 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality*ola_num + just_inequality*ola_num + merit_effort*ola_num + merit_talent*ola_num + perc_inequality_mean + just_inequality_mean + merit_effort_mean + merit_talent_mean + educ + quintil1 + ess + ideo + sex + age + (1 + ola_num | idencuesta),
+                data = df_study1)
 ```
 
 
@@ -479,6 +496,37 @@ texreg::htmlreg(list(m1, m2, m3, m4, m5, m6, m7, m8),
                custom.coef.map = ccoef,
                digits = 3,
                groups = list("Wave (Ref.= 2016)" = 2:6, "Income (Ref.= Quintile 1)" = 18:22, "Political identification (Ref.= Left)" = 24:26, "Age (Ref. = 18-29)" = 28:30),
+               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars.",
+               threeparttable = T,
+               leading.zero = T,
+               float.pos = "h!",
+               use.packages = F,
+               booktabs = T,
+               scalebox = 1)
+```
+
+
+
+```{r}
+#| label: tbl-interactions
+#| results: asis
+#| tbl-cap: "Time interactions within effects for market justice preferences"
+#| tbl-cap-location: top
+
+ccoef <- list(
+  "(Intercept)" = "Intercept",
+  "ola_num:perc_inequality" = "Perception inequality (WE) x Wave",
+  "ola_num:just_inequality" = "Justification inequality (WE) x Wave",
+  "ola_num:merit_effort" = "Merit: Effort (WE) x Wave",
+  "ola_num:merit_talent" = "Merit: Talent (WE) x Wave"
+  )
+
+texreg::htmlreg(list(m9,m10,m11,m12),
+               custom.model.names = c(paste0("Model ", seq(9:12))),
+               caption = NULL,
+               stars = c(0.05, 0.01, 0.001),
+               custom.coef.map = ccoef,
+               digits = 3,
                custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars.",
                threeparttable = T,
                leading.zero = T,
