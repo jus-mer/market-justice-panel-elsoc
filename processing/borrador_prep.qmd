@@ -1,0 +1,617 @@
+---
+title: "Data preparation"
+subtitle: "Perceptions of Inequality and Meritocracy: Their Interplay in Shaping Preferences for Market Justice in Chile (2016-2023)"
+author: "Researcher"
+date: today
+lang: en
+fontsize: 12pt
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-depth: 2
+    toc-expand: 2
+    toc-title: Contents
+    number-sections: true
+    number-depth: 3
+    theme:
+      - cosmo
+      - edumer_html.scss
+    code-link: true
+    title-block-banner: true
+  pdf:
+    number-sections: true
+    number-depth: 3
+editor_options: 
+  chunk_output_type: console
+---
+
+# Presentation
+
+This is the data preparation code for the paper "Perceptions of Inequality and Meritocracy: Their Interplay in Shaping Preferences for Market Justice in Chile (2016-2023)". The prepared dataset is `ELSOC_Long_2016_2023_1.00.RData`.
+
+```{r}
+#| label: set
+#| echo: false
+#| message: false
+#| warning: false
+
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE, include = TRUE, warning = FALSE, message = FALSE)
+
+table_format <- if(is_html_output()) {
+  "html"
+} else if(is_latex_output()) {
+  "latex"
+}
+table_format2 <- if(is_html_output()) {
+  T
+} else if(is_latex_output()) {
+  F
+}
+
+options(kableExtra.html.bsTable = T)
+options(knitr.kable.NA = "")
+```
+
+
+# Libraries
+
+```{r}
+#| label: packages
+#| include: true
+
+if (! require("pacman")) install.packages("pacman")
+
+pacman::p_load(tidyverse,
+               sjmisc, 
+               here,
+               sjlabelled,
+               SciViews,
+               naniar)
+
+
+options(scipen=999)
+rm(list = ls())
+```
+
+# Data
+
+```{r}
+#| label: data
+#| echo: true
+#| output: false
+
+load(url("https://dataverse.harvard.edu/api/access/datafile/10797987"))
+
+glimpse(elsoc_long_2016_2023)
+
+```
+
+# Processing
+
+## Select
+
+```{r}
+db_proc <- elsoc_long_2016_2023 %>% 
+  select(idencuesta, ola, 
+         ponderador_long_total,segmento, estrato,
+         just_educ = d02_02, just_pension = d02_01, 
+         just_health = d02_03, merit_effort = c18_09,
+         merit_talent = c18_10, perc_sal_gerente = d03_01,
+         perc_sal_obrero = d03_02, just_sal_gerente = d04_01, 
+         just_sal_obrero = d04_02, age = m0_edad, m01, 
+         sex = m0_sexo, ess = d01_01, ideo = c15
+         ) %>% 
+  as_tibble()
+```
+
+## Filter
+
+```{r}
+#db_proc %>% 
+#  group_by(ola) %>% 
+#  count(just_educ,just_pension,just_health) %>% 
+#  na.omit() %>% 
+#  print(n = nrow(.)) 
+
+db_proc <- db_proc %>% dplyr::filter(ola %in% c(1,2,3,4,6,7))
+
+```
+
+
+## Recode and transform
+
+```{r}
+# general na's
+db_proc[db_proc ==-999] <- NA
+db_proc[db_proc ==-888] <- NA
+db_proc[db_proc ==-777] <- NA
+db_proc[db_proc ==-666] <- NA
+
+
+```
+
+
+```{r}
+# Market Justice Preferences
+
+frq(db_proc$just_health)
+frq(db_proc$just_pension)
+frq(db_proc$just_educ)
+
+
+db_proc <- cbind(db_proc, "mjp" = rowMeans(db_proc %>% select(just_health, just_pension, just_educ), na.rm=TRUE))
+
+summary(db_proc$mjp)
+
+db_proc <- db_proc %>% 
+  mutate(
+    across(
+      .cols = c(just_health, just_pension, just_educ),
+      .fns = ~ car::recode(., recodes = c("1='Strongly desagree'; 2='Desagree';
+                                          3='Neither agree nor desagree'; 4='Agree';
+                                          5='Strongly agree'"), 
+                           levels = c("Strongly desagree", "Desagree", "Neither agree nor desagree", "Agree", "Strongly agree"),
+                           as.factor = T)
+    )
+  )
+
+db_proc$just_health <- sjlabelled::set_label(db_proc$just_health, 
+                        label = "Health distributive justice")
+
+db_proc$just_pension <- sjlabelled::set_label(db_proc$just_pension, 
+                        label = "Pension distributive justice")
+
+db_proc$just_educ <- sjlabelled::set_label(db_proc$just_educ, 
+                        label = "Education distributive justice")
+
+db_proc$mjp <- sjlabelled::set_label(db_proc$mjp, 
+                        label = "Market justice preferences")
+```
+
+```{r}
+# Meritocracy
+
+frq(db_proc$merit_effort)
+frq(db_proc$merit_talent)
+
+db_proc <- db_proc %>% 
+  mutate(
+    across(
+      .cols = c(merit_effort, merit_talent),
+      .fns = ~ car::recode(., recodes = c("1='Strongly desagree'; 2='Desagree';
+                                          3='Neither agree nor desagree'; 4='Agree';
+                                          5='Strongly agree'"), 
+                           levels = c("Strongly desagree", "Desagree", "Neither agree nor desagree", "Agree", "Strongly agree"),
+                           as.factor = T)
+    )
+  )
+
+
+db_proc$merit_effort <- sjlabelled::set_label(db_proc$merit_effort, 
+                        label = "People are rewarded for their efforts")
+
+db_proc$merit_talent <- sjlabelled::set_label(db_proc$merit_talent, 
+                        label = "People are rewarded for their intelligence")
+
+
+```
+
+
+```{r}
+# Inequality
+
+# perc inequality gap 
+
+frq(db_proc$perc_sal_gerente)
+frq(db_proc$perc_sal_obrero)
+
+db_proc <- db_proc %>% 
+  mutate(perc_sal_obrero=replace(perc_sal_obrero, perc_sal_obrero <= 40000  | perc_sal_obrero>= 1000000, NA)) %>%
+  mutate(perc_sal_gerente=replace(perc_sal_gerente, perc_sal_gerente <= 250000 | perc_sal_gerente>= 100000001, NA)) 
+
+
+db_proc$perc_inequality <- SciViews::ln(db_proc$perc_sal_gerente/db_proc$perc_sal_obrero)
+
+summary(db_proc$perc_inequality)
+
+db_proc$perc_inequality <- sjlabelled::set_label(db_proc$perc_inequality, 
+                        label = "Inequality gap perception")
+
+
+# just inequality gap
+
+frq(db_proc$just_sal_gerente)
+frq(db_proc$just_sal_obrero)
+
+db_proc <- db_proc %>% 
+  mutate(just_sal_obrero=replace(just_sal_obrero, just_sal_obrero <= 40000  | just_sal_obrero>=999999999999999, NA)) %>%
+  mutate(just_sal_gerente=replace(just_sal_gerente, just_sal_gerente <= 100000 | just_sal_gerente>=999999999999999, NA)) 
+
+db_proc$just_inequality <- SciViews::ln(db_proc$just_sal_gerente/db_proc$just_sal_obrero)
+
+summary(db_proc$just_inequality)
+
+db_proc$just_inequality <- sjlabelled::set_label(db_proc$just_inequality, 
+                        label = "Inequality gap justification")
+
+```
+
+
+```{r}
+# Controls
+
+# sex
+db_proc$sex <- car::recode(db_proc$sex, 
+                           recodes = c("1='Male'; 2='Female'"), 
+                           levels = c("Male", "Female"),
+                           as.factor = T)
+
+db_proc$sex <- sjlabelled::set_label(db_proc$sex, 
+                        label = "Gender")
+
+# age
+frq(db_proc$age)
+
+db_proc$age <- 
+  factor(car::recode(db_proc$age, 
+                     "18:29=1;30:49=2;50:64=3;65:150=4"),
+         labels = c('18-29', '30-49', '50-64', '65 or more'))
+db_proc$age <-
+  sjlabelled::set_label(db_proc$age, 
+                        label = c("Age groups")) 
+
+
+# political indentification
+
+frq(db_proc$ideo)
+
+db_proc$ideo<-
+factor(
+  car::recode(
+    db_proc$ideo,
+    "c(11,12,-888,-999)='Does not identify';c(0,1,2,3,4)='Left';
+     c(5)='Center';c(6,7,8,9,10)='Right'"
+  ),
+  levels = c('Left', 'Center', 'Right', 'Does not identify')
+)
+
+db_proc$ideo<- factor(db_proc$ideo,levels = levels(db_proc$ideo))
+
+db_proc$ideo <- 
+sjlabelled::set_label(x = db_proc$ideo, 
+                      label = "Political identification") 
+
+frq(db_proc$ideo)
+
+# ess
+sjmisc::frq(db_proc$ess)
+
+db_proc$ess <- as.numeric(db_proc$ess)
+
+db_proc$ess <-  sjlabelled::set_label(x = db_proc$ess,
+                      label = "Subjective Social Status")
+
+
+```
+
+```{r}
+# Socioeconomic
+
+# Education
+
+frq(db_proc$m01)
+
+db_proc$educ <- 
+  car::recode(db_proc$m01,
+              "c(1,2,3,4,5,6,7)=1;c(8,9,10)=2; c(-888,-999)=NA")
+db_proc$educ <-
+  factor(db_proc$educ,
+         labels = c("Less than Universitary","Universitary"))
+
+db_proc$educ <- 
+sjlabelled::set_label(x = db_proc$educ,
+                      label = "Education")
+
+#Recoding of education to years based on casen 2017.
+db_proc$educyear<- as.numeric(
+  car::recode(db_proc$m01, 
+              "1=0;2=4.3;3=7.5;4=9.8;5=12.02;6=13.9;
+               7=14.8;8=14.9;9=16.9;10=19.07;c(-888,-999)=NA", 
+              as.numeric = T))
+
+db_proc$educyear <- 
+sjlabelled::set_label(x = db_proc$educyear,
+                      label = "Education in years")
+
+class(db_proc$educyear)
+frq(db_proc$educyear)
+
+
+
+
+```
+
+```{r}
+# Household income----------------------------------------------------------------
+
+
+
+
+
+```
+
+
+
+```{r}
+# Household income----------------------------------------------------------------
+
+# Ltop is the lower limit of the top category, Ltop-1 is the lower limit of the category before the
+# top one, ftop is the frequency in the top category, and ftop-1 is the frequency in the
+# category before the top one.
+
+sjmisc::frq( elsoc_long_2016_2023$m30)
+Ltop_1<- 1850001
+Ltop  <- 2700000
+
+ftop_1 <- 42
+ftop   <- 34
+
+V  = (log(ftop_1 + ftop) - log(ftop)) / (log(Ltop) -log(Ltop_1))
+M_top = 0.5* Ltop *(1+(V/(V-1)));M_top # = $3.897.232
+
+
+#Impute midpoint of income ranges
+elsoc_long_2016_2023$m30_rec <-
+  as.numeric(car::recode( elsoc_long_2016_2023$m30,
+                         "1=110000;2=251000;3=305000;4=355000;5=400000;
+            6=445000;7=490000;8=535000;9=585000;10=640000;11=700000;12=765000;
+            13=845000;14=935000;15=1040000;16=1180000;17=1375000;18=1670000;
+            19=2275000;20=3897232;NA=NA;c(-888,-999)=NA"))
+
+summary( elsoc_long_2016_2023$m30_rec)
+
+
+#Impute midpoint of income ranges (2021)
+
+frq(elsoc_long_2016_2023$m30b)
+Ltop_1<- 450000
+Ltop  <- 700000
+ftop_1 <- 18
+ftop   <- 27
+
+V  = (log(ftop_1 + ftop) - log(ftop)) / (log(Ltop) -log(Ltop_1))
+M_top = 0.5* Ltop *(1+(V/(V-1))) # = $2.941.412
+
+ elsoc_long_2016_2023$m30b_rec <-
+  as.numeric(car::recode( elsoc_long_2016_2023$m30b,
+                         "1=125000;2=300000;3=400000;4=575000;5=2941412;NA=NA;c(-888,-999)=NA"))
+summary( elsoc_long_2016_2023$m30b_rec)
+
+# Combine m30_rec with m30b_rec
+ elsoc_long_2016_2023$m30_rec <- 
+  ifelse(is.na( elsoc_long_2016_2023$m30_rec),
+         yes =  elsoc_long_2016_2023$m30b_rec,
+         no =  elsoc_long_2016_2023$m30_rec)
+summary( elsoc_long_2016_2023$m30_rec)
+
+#Recode DK/DA of Income to NA
+elsoc_long_2016_2023$m29_rec <-
+  as.numeric(car::recode( elsoc_long_2016_2023$m29,"c(-888,-999)=NA"))
+
+#replace NA of income with new imputed variable
+elsoc_long_2016_2023$m29_imp <- 
+  ifelse(test = !is.na( elsoc_long_2016_2023$m29_rec),
+         yes =   elsoc_long_2016_2023$m29_rec,
+         no =   elsoc_long_2016_2023$m30_rec)
+summary( elsoc_long_2016_2023$m29_imp)
+
+#  elsoc_long_2016_2023$m29_imp <- 
+#   ifelse(test = is.na( elsoc_long_2016_2023$m29_imp),
+#          yes =   elsoc_long_2016_2023$m30b_rec,
+#          no =   elsoc_long_2016_2023$m29_imp)
+
+summary( elsoc_long_2016_2023$m29_imp)
+
+# N Household:
+elsoc_long_2016_2023 <-
+   elsoc_long_2016_2023 %>%
+  mutate(n_hogar =
+           dplyr::case_when(ola == 1 ~ nhogar1,
+                            ola == 2 ~ m46_nhogar,
+                            ola == 3 ~ m54,
+                            ola == 4 ~ m54,
+                            ola == 5 ~ m54,
+                            ola == 6 ~ m54,
+                            ola == 7 ~ m54))
+
+summary( elsoc_long_2016_2023$n_hogar)
+#imputar tamanio del hogar de ola 5 a ola 6
+elsoc_long_2016_2023 <- 
+   elsoc_long_2016_2023 %>%  
+  group_by(idencuesta) %>%
+  mutate(n_hogar = if_else(ola == 6 & is.na(n_hogar), last(n_hogar[ola == 5]), n_hogar)) %>% 
+  ungroup() 
+
+sjmisc::frq( elsoc_long_2016_2023$n_hogar)
+table( elsoc_long_2016_2023$n_hogar, elsoc_long_2016_2023$ola)
+
+#Recode DK/DA to NA
+ elsoc_long_2016_2023$n_hogar_r<-
+  car::recode( elsoc_long_2016_2023$n_hogar,"c(-888,-999)=NA")
+
+
+table( elsoc_long_2016_2023$m13, elsoc_long_2016_2023$n_hogar_r)
+
+#ingresos individuales para hogares de 1 persona
+ elsoc_long_2016_2023 %>% sjmisc::find_var('Ingreso')
+ elsoc_long_2016_2023$inc_ind <- ifelse( elsoc_long_2016_2023$n_hogar_r==1, elsoc_long_2016_2023$m13,NA)
+summary( elsoc_long_2016_2023$inc_ind)
+# 
+# c(40000,
+# (40001 + 85000) / 2,
+# (85001 + 125000) / 2,
+# (125001 + 170000) / 2,
+# (170001 + 210000) / 2,
+# (210001 + 230000) / 2,
+# (230001 + 280000) / 2,
+# (280001 + 320000) / 2,
+# (320001 + 360000) / 2,
+# (360001 + 400000) / 2,
+# (400001 + 465000) / 2,
+# (465001 + 540000) / 2,
+# (540001 + 665000) / 2,
+# (665001 + 850000) / 2,
+# (850001 + 1300000) / 2,
+# 1300001)    
+
+frq( elsoc_long_2016_2023$m14)
+Ltop_1<- 850001
+Ltop  <- 1300001 
+ftop_1 <- 65
+ftop   <- 40
+
+V  = (log(ftop_1 + ftop) - log(ftop)) / (log(Ltop) -log(Ltop_1))
+M_top = 0.5* Ltop *(1+(V/(V-1))) # = $1.811.247
+
+ elsoc_long_2016_2023$m14_rec<- 
+  car::recode( elsoc_long_2016_2023$m14,
+              "1=40000.0;2=62500.5;3=105000.5;4=147500.5;5=190000.5;6=220000.5;
+              7=255000.5;8=300000.5;9=340000.5;10=380000.5;11=432500.5;12=502500.5;
+              13=602500.5;14=757500.5;15=1075000.5;16=1811247"
+  ) 
+
+ elsoc_long_2016_2023$inc_ind <- ifelse( elsoc_long_2016_2023$n_hogar_r==1 & is.na( elsoc_long_2016_2023$inc_ind), elsoc_long_2016_2023$m14_rec, elsoc_long_2016_2023$inc_ind)
+summary( elsoc_long_2016_2023$inc_ind)
+
+
+# Ingreso del hogar pegarle ingreso del hogar unipersonal
+summary( elsoc_long_2016_2023$m29_imp)
+ elsoc_long_2016_2023$m29_imp <- 
+  ifelse(is.na( elsoc_long_2016_2023$m29_imp) &  elsoc_long_2016_2023$n_hogar_r==1,
+          elsoc_long_2016_2023$inc_ind,
+          elsoc_long_2016_2023$m29_imp) #recupero 14 casos
+summary( elsoc_long_2016_2023$m29_imp)
+
+
+# Household Equivalent income 
+# 1.0 to the first adult;
+# 0.5 to the second and each subsequent person aged 14 and over;
+# 0.3 to each child aged under 14.
+
+ elsoc_long_2016_2023$n_hogar_r_eq <- ( elsoc_long_2016_2023$n_hogar_r + 1) /2
+table( elsoc_long_2016_2023$n_hogar_r_eq)
+
+frq( elsoc_long_2016_2023$n_hogar_r_eq)
+
+# Per capita household income:
+ elsoc_long_2016_2023$ing_pc <- 
+  (elsoc_long_2016_2023$m29_imp/ elsoc_long_2016_2023$n_hogar_r)
+
+# Per capita household income equivalized (OECD):
+ elsoc_long_2016_2023$ing_pc_eq <- 
+  ( elsoc_long_2016_2023$m29_imp/ elsoc_long_2016_2023$n_hogar_r_eq)
+
+descr( elsoc_long_2016_2023$ing_pc_eq)
+descr( elsoc_long_2016_2023$ing_pc)
+ elsoc_long_2016_2023$ing_pc <-
+  sjlabelled::set_label(x =  elsoc_long_2016_2023$ing_pc,
+                        label = "Household income per capita")  
+
+sjmisc::descr( elsoc_long_2016_2023$ing_pc)
+
+# Compute income quintiles
+ elsoc_long_2016_2023 <-  elsoc_long_2016_2023 %>% 
+  group_by(ola) %>% 
+  mutate(quintil = ntile(-desc(ing_pc), 5)) %>% 
+  ungroup()
+
+ elsoc_long_2016_2023$quintil <- 
+  factor( elsoc_long_2016_2023$quintil,
+         levels = c(1, 2, 3, 4, 5),
+         labels = c('Q1', 'Q2', 'Q3', 'Q4', 'Q5')) # Quintiles as factors
+
+elsoc_long_2016_2023$quintil <- 
+  sjlabelled::set_label(x =  elsoc_long_2016_2023$quintil,
+                        label = "Household income quintile per capita")  
+
+sjmisc::frq( elsoc_long_2016_2023$quintil)
+
+#include new quintile category with missing cases
+ elsoc_long_2016_2023$quintil1<-
+  car::recode( elsoc_long_2016_2023$quintil, 
+              "'Q1'='Q1';'Q2'= 'Q2';'Q3'='Q3';'Q4'='Q4';'Q5'='Q5'; NA='QNA'")
+
+# elsoc_long_2016_2023$quintil1 <- factor( elsoc_long_2016_2023$quintil1, c("Q1","Q2","Q3","Q4","Q5","QNA"))
+
+ elsoc_long_2016_2023$quintil1 <- 
+  sjlabelled::set_label(x =  elsoc_long_2016_2023$quintil1,
+                        label = "Household income quintile per capita (NA)") 
+sjmisc::frq( elsoc_long_2016_2023$quintil1)
+
+
+
+```
+
+
+```{r}
+elsoc_income <- elsoc_long_2016_2023 %>% 
+  dplyr::select(idencuesta, ola, ing_pc, quintil, quintil1) %>% 
+  dplyr::filter(ola %in% c(1,2,3,4,6,7))
+
+db_proc <- left_join(db_proc, elsoc_income, by = c("idencuesta", "wave" = "ola"))
+
+```
+
+
+```{r}
+# wave 
+db_proc <- db_proc %>% 
+  rename(wave = ola) %>% 
+  mutate(wave = case_when(wave == 1 ~ 1,
+                          wave == 2 ~ 2,
+                          wave == 3 ~ 3,
+                          wave == 4 ~ 4,
+                          wave == 6 ~ 5,
+                          wave == 7 ~ 6,
+                          TRUE ~ NA_real_))
+
+db_proc$wave <- sjlabelled::set_label(db_proc$wave, 
+                        label = "Wave")
+```
+
+
+
+
+
+## Missing values
+
+```{r}
+colSums(is.na(db_proc))
+
+n_miss(db_proc)
+
+prop_miss(db_proc)*100
+
+miss_var_summary(db_proc)
+
+miss_var_table(db_proc)
+
+vis_miss(db_proc) + theme(axis.text.x = element_text(angle=80))
+
+```
+
+
+# Save and export
+
+```{r}
+db_proc <- db_proc %>% 
+  select(-c(perc_sal_gerente, perc_sal_obrero, just_sal_gerente, just_sal_obrero, m01)) 
+
+df1 <- db_proc %>% na.omit()
+
+df1 <- sjlabelled::copy_labels(df_new = df1, df_origin = db_proc)
+
+save(df1, file = here("input/data/proc/df1.RData"))
+```

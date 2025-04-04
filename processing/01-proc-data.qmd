@@ -64,6 +64,7 @@ options(knitr.kable.NA = "")
 if (! require("pacman")) install.packages("pacman")
 
 pacman::p_load(tidyverse,
+               car,
                sjmisc, 
                here,
                sjlabelled,
@@ -90,71 +91,45 @@ glimpse(elsoc_long_2016_2023)
 
 # Processing
 
-## Select
 
 ```{r}
-db_proc <- elsoc_long_2016_2023 %>% 
-  select(idencuesta, ola, 
-         ponderador_long_total,segmento, estrato,
-         just_educ = d02_02, just_pension = d02_01, 
-         just_health = d02_03, merit_effort = c18_09,
-         merit_talent = c18_10, perc_sal_gerente = d03_01,
-         perc_sal_obrero = d03_02, just_sal_gerente = d04_01, 
-         just_sal_obrero = d04_02, age = m0_edad, m01, 
-         sex = m0_sexo, ess = d01_01, ideo = c15
-         ) %>% 
-  as_tibble()
-```
 
-## Filter
+elsoc_long_2016_2023[elsoc_long_2016_2023 ==-999] <- NA
+elsoc_long_2016_2023[elsoc_long_2016_2023 ==-888] <- NA
+elsoc_long_2016_2023[elsoc_long_2016_2023 ==-777] <- NA
+elsoc_long_2016_2023[elsoc_long_2016_2023 ==-666] <- NA
 
-```{r}
-#db_proc %>% 
-#  group_by(ola) %>% 
-#  count(just_educ,just_pension,just_health) %>% 
-#  na.omit() %>% 
-#  print(n = nrow(.)) 
-
-db_proc <- db_proc %>% dplyr::filter(ola %in% c(1,2,3,4,6,7))
-
+elsoc_long_2016_2023 <- elsoc_long_2016_2023 %>% 
+  mutate(just_educ = d02_02, 
+         just_pension = d02_01, 
+         just_health = d02_03, 
+         merit_effort = c18_09,
+         merit_talent = c18_10, 
+         perc_sal_gerente = d03_01,
+         perc_sal_obrero = d03_02, 
+         just_sal_gerente = d04_01, 
+         just_sal_obrero = d04_02, 
+         age = m0_edad, m01, 
+         sex = m0_sexo, 
+         ess = d01_01, 
+         ideo = c15) %>% 
+  as_tibble() %>% 
+  sjlabelled::drop_labels(., drop.na = FALSE)
 ```
 
 
-## Recode and transform
-
 ```{r}
-# general na's
-db_proc[db_proc ==-999] <- NA
-db_proc[db_proc ==-888] <- NA
-db_proc[db_proc ==-777] <- NA
-db_proc[db_proc ==-666] <- NA
+# Market Justice Preferences
 
-# mjp
+frq(elsoc_long_2016_2023$just_health)
+frq(elsoc_long_2016_2023$just_pension)
+frq(elsoc_long_2016_2023$just_educ)
 
-frq(db_proc$just_health)
-frq(db_proc$just_pension)
-frq(db_proc$just_educ)
+elsoc_long_2016_2023 <- cbind(elsoc_long_2016_2023, "mjp" = rowMeans(elsoc_long_2016_2023 %>% select(just_health, just_pension, just_educ), na.rm=TRUE))
 
-labels1 <- c("Strongly desagree" = 1, 
-             "Desagree" = 2, 
-             "Neither agree nor desagree" = 3, 
-             "Agree" = 4, 
-             "Strongly agree" = 5)
+summary(elsoc_long_2016_2023$mjp)
 
-db_proc <- db_proc %>% 
-  mutate(
-    across(
-      .cols = c(just_health, just_pension, just_educ),
-      .fns = ~ sjlabelled::set_labels(., labels = labels1)
-      )
-    )
-
-db_proc <- cbind(db_proc, "mjp" = rowMeans(db_proc %>% select(just_health, just_pension, just_educ), na.rm=TRUE))
-
-summary(db_proc$mjp)
-
-
-db_proc <- db_proc %>% 
+elsoc_long_2016_2023 <- elsoc_long_2016_2023 %>% 
   mutate(
     across(
       .cols = c(just_health, just_pension, just_educ),
@@ -166,35 +141,27 @@ db_proc <- db_proc %>%
     )
   )
 
-
-
-db_proc$just_health <- sjlabelled::set_label(db_proc$just_health, 
+elsoc_long_2016_2023$just_health <- sjlabelled::set_label(elsoc_long_2016_2023$just_health, 
                         label = "Health distributive justice")
 
-db_proc$just_pension <- sjlabelled::set_label(db_proc$just_pension, 
+elsoc_long_2016_2023$just_pension <- sjlabelled::set_label(elsoc_long_2016_2023$just_pension, 
                         label = "Pension distributive justice")
 
-db_proc$just_educ <- sjlabelled::set_label(db_proc$just_educ, 
+elsoc_long_2016_2023$just_educ <- sjlabelled::set_label(elsoc_long_2016_2023$just_educ, 
                         label = "Education distributive justice")
 
-db_proc$mjp <- sjlabelled::set_label(db_proc$mjp, 
+elsoc_long_2016_2023$mjp <- sjlabelled::set_label(elsoc_long_2016_2023$mjp, 
                         label = "Market justice preferences")
+```
 
 
-# merit
+```{r}
+# Meritocracy
 
-frq(db_proc$merit_effort)
-frq(db_proc$merit_talent)
+frq(elsoc_long_2016_2023$merit_effort)
+frq(elsoc_long_2016_2023$merit_talent)
 
-db_proc <- db_proc %>% 
-  mutate(
-    across(
-      .cols = c(merit_effort, merit_talent),
-      .fns = ~ sjlabelled::set_labels(., labels = labels1)
-      )
-    )
-
-db_proc <- db_proc %>% 
+elsoc_long_2016_2023 <- elsoc_long_2016_2023 %>% 
   mutate(
     across(
       .cols = c(merit_effort, merit_talent),
@@ -207,214 +174,244 @@ db_proc <- db_proc %>%
   )
 
 
-
-db_proc$merit_effort <- sjlabelled::set_label(db_proc$merit_effort, 
+elsoc_long_2016_2023$merit_effort <- sjlabelled::set_label(elsoc_long_2016_2023$merit_effort, 
                         label = "People are rewarded for their efforts")
 
-db_proc$merit_talent <- sjlabelled::set_label(db_proc$merit_talent, 
+elsoc_long_2016_2023$merit_talent <- sjlabelled::set_label(elsoc_long_2016_2023$merit_talent, 
                         label = "People are rewarded for their intelligence")
 
-# perc inequality gap
 
-frq(db_proc$perc_sal_gerente)
-frq(db_proc$perc_sal_obrero)
+```
 
-db_proc <- db_proc %>% 
+```{r}
+# Inequality
+
+# perc inequality gap 
+
+frq(elsoc_long_2016_2023$perc_sal_gerente)
+frq(elsoc_long_2016_2023$perc_sal_obrero)
+
+elsoc_long_2016_2023 <- elsoc_long_2016_2023 %>% 
   mutate(perc_sal_obrero=replace(perc_sal_obrero, perc_sal_obrero <= 40000  | perc_sal_obrero>= 1000000, NA)) %>%
   mutate(perc_sal_gerente=replace(perc_sal_gerente, perc_sal_gerente <= 250000 | perc_sal_gerente>= 100000001, NA)) 
 
 
-db_proc$perc_inequality <- SciViews::ln(db_proc$perc_sal_gerente/db_proc$perc_sal_obrero)
+elsoc_long_2016_2023$perc_inequality <- SciViews::ln(elsoc_long_2016_2023$perc_sal_gerente/elsoc_long_2016_2023$perc_sal_obrero)
 
-summary(db_proc$perc_inequality)
+summary(elsoc_long_2016_2023$perc_inequality)
 
-db_proc$perc_inequality <- sjlabelled::set_label(db_proc$perc_inequality, 
+elsoc_long_2016_2023$perc_inequality <- sjlabelled::set_label(elsoc_long_2016_2023$perc_inequality, 
                         label = "Inequality gap perception")
 
 
 # just inequality gap
 
-frq(db_proc$just_sal_gerente)
-frq(db_proc$just_sal_obrero)
+frq(elsoc_long_2016_2023$just_sal_gerente)
+frq(elsoc_long_2016_2023$just_sal_obrero)
 
-db_proc <- db_proc %>% 
+elsoc_long_2016_2023 <- elsoc_long_2016_2023 %>% 
   mutate(just_sal_obrero=replace(just_sal_obrero, just_sal_obrero <= 40000  | just_sal_obrero>=999999999999999, NA)) %>%
   mutate(just_sal_gerente=replace(just_sal_gerente, just_sal_gerente <= 100000 | just_sal_gerente>=999999999999999, NA)) 
 
-db_proc$just_inequality <- SciViews::ln(db_proc$just_sal_gerente/db_proc$just_sal_obrero)
+elsoc_long_2016_2023$just_inequality <- SciViews::ln(elsoc_long_2016_2023$just_sal_gerente/elsoc_long_2016_2023$just_sal_obrero)
 
-summary(db_proc$just_inequality)
+summary(elsoc_long_2016_2023$just_inequality)
 
-db_proc$just_inequality <- sjlabelled::set_label(db_proc$just_inequality, 
+elsoc_long_2016_2023$just_inequality <- sjlabelled::set_label(elsoc_long_2016_2023$just_inequality, 
                         label = "Inequality gap justification")
 
+```
+
+
+```{r}
+# Controls
+
 # sex
-db_proc$sex <- car::recode(db_proc$sex, 
+elsoc_long_2016_2023$sex <- car::recode(elsoc_long_2016_2023$sex, 
                            recodes = c("1='Male'; 2='Female'"), 
                            levels = c("Male", "Female"),
                            as.factor = T)
 
-db_proc$sex <- sjlabelled::set_label(db_proc$sex, 
+elsoc_long_2016_2023$sex <- sjlabelled::set_label(elsoc_long_2016_2023$sex, 
                         label = "Gender")
 
-# wave 
-db_proc <- db_proc %>% 
-  rename(wave = ola) %>% 
-  mutate(wave = case_when(wave == 1 ~ 1,
-                          wave == 2 ~ 2,
-                          wave == 3 ~ 3,
-                          wave == 4 ~ 4,
-                          wave == 6 ~ 5,
-                          wave == 7 ~ 6,
-                          TRUE ~ NA_real_))
-
-db_proc$wave <- sjlabelled::set_label(db_proc$wave, 
-                        label = "Wave")
-
 # age
-frq(db_proc$age)
+frq(elsoc_long_2016_2023$age)
 
-db_proc$age <- 
-  factor(car::recode(db_proc$age, 
+elsoc_long_2016_2023$age <- 
+  factor(car::recode(elsoc_long_2016_2023$age, 
                      "18:29=1;30:49=2;50:64=3;65:150=4"),
          labels = c('18-29', '30-49', '50-64', '65 or more'))
-db_proc$age <-
-  sjlabelled::set_label(db_proc$age, 
+elsoc_long_2016_2023$age <-
+  sjlabelled::set_label(elsoc_long_2016_2023$age, 
                         label = c("Age groups")) 
+
 
 # political indentification
 
-frq(db_proc$ideo)
+frq(elsoc_long_2016_2023$ideo)
 
-db_proc$ideo<-
+elsoc_long_2016_2023$ideo<-
 factor(
   car::recode(
-    db_proc$ideo,
+    elsoc_long_2016_2023$ideo,
     "c(11,12,-888,-999)='Does not identify';c(0,1,2,3,4)='Left';
      c(5)='Center';c(6,7,8,9,10)='Right'"
   ),
   levels = c('Left', 'Center', 'Right', 'Does not identify')
 )
 
-db_proc$ideo<- factor(db_proc$ideo,levels = levels(db_proc$ideo))
+elsoc_long_2016_2023$ideo<- factor(elsoc_long_2016_2023$ideo,levels = levels(elsoc_long_2016_2023$ideo))
 
-db_proc$ideo <- 
-sjlabelled::set_label(x = db_proc$ideo, 
+elsoc_long_2016_2023$ideo <- 
+sjlabelled::set_label(x = elsoc_long_2016_2023$ideo, 
                       label = "Political identification") 
 
-frq(db_proc$ideo)
+frq(elsoc_long_2016_2023$ideo)
 
 # ess
-sjmisc::frq(db_proc$ess)
+sjmisc::frq(elsoc_long_2016_2023$ess)
 
-db_proc$ess <- as.numeric(db_proc$ess)
+elsoc_long_2016_2023$ess <- as.numeric(elsoc_long_2016_2023$ess)
 
-db_proc$ess <-  sjlabelled::set_label(x = db_proc$ess,
+elsoc_long_2016_2023$ess <-  sjlabelled::set_label(x = elsoc_long_2016_2023$ess,
                       label = "Subjective Social Status")
 
-# educ
-frq(db_proc$m01)
 
-db_proc$educ <- 
-  car::recode(db_proc$m01,
+```
+
+```{r}
+# Socioeconomic_________________________________________________________________
+
+# Education_______________________________________
+elsoc_long_2016_2023$educ <- 
+  car::recode(elsoc_long_2016_2023$m01,
               "c(1,2,3,4,5,6,7)=1;c(8,9,10)=2; c(-888,-999)=NA")
-db_proc$educ <-
-  factor(db_proc$educ,
+elsoc_long_2016_2023$educ <-
+  factor(elsoc_long_2016_2023$educ,
          labels = c("Less than Universitary","Universitary"))
 
-db_proc$educ <- 
-sjlabelled::set_label(x = db_proc$educ,
+#reverse education, reference level is the highest level
+#elsoc_long_2016_2023$educ <- forcats::fct_rev(elsoc_long_2016_2023$educ)
+
+elsoc_long_2016_2023$educ <- 
+sjlabelled::set_label(x = elsoc_long_2016_2023$educ,
                       label = "Education")
+sjmisc::frq(elsoc_long_2016_2023$educ)
 
 #Recoding of education to years based on casen 2017.
-db_proc$educyear<- as.numeric(
-  car::recode(db_proc$m01, 
+elsoc_long_2016_2023$educyear<- as.numeric(
+  car::recode(elsoc_long_2016_2023$m01, 
               "1=0;2=4.3;3=7.5;4=9.8;5=12.02;6=13.9;
                7=14.8;8=14.9;9=16.9;10=19.07;c(-888,-999)=NA", 
               as.numeric = T))
 
-db_proc$educyear <- 
-sjlabelled::set_label(x = db_proc$educyear,
+elsoc_long_2016_2023$educyear <- 
+sjlabelled::set_label(x = elsoc_long_2016_2023$educyear,
                       label = "Education in years")
 
-class(db_proc$educyear)
-frq(db_proc$educyear)
+class(elsoc_long_2016_2023$educyear)
+sjmisc::frq(elsoc_long_2016_2023$educyear)
 ```
 
-
 ```{r}
-# Household income----------------------------------------------------------------
+# N Household:
+# Select variables______________________________________________________________
 
-# Ltop is the lower limit of the top category, Ltop-1 is the lower limit of the category before the
-# top one, ftop is the frequency in the top category, and ftop-1 is the frequency in the
-# category before the top one.
+df_study1 <- 
+elsoc_long_2016_2023 %>% 
+  filter(muestra == 1) %>% #keep original sample (vs refresh)
+  select(idencuesta,ola,region,region_cod,comuna,comunacod=comuna_cod,
+         muestra,
+         ponderador_long_total, segmento, estrato,
+         just_educ,
+         just_pension,
+         just_health,
+         mjp,
+         merit_effort,
+         merit_talent,
+         perc_sal_gerente,
+         perc_sal_obrero,
+         just_sal_gerente,
+         just_sal_obrero,
+         perc_inequality,
+         just_inequality,
+         educ,
+         educyear,
+         sex,
+         age,
+         ess,
+         ideo,
+         nhogar1,
+         m46_nhogar,
+         m54, m30, m30b, m29)
 
-sjmisc::frq( elsoc_long_2016_2023$m30)
-Ltop_1<- 1850001
-Ltop  <- 2700000
-
-ftop_1 <- 42
-ftop   <- 34
-
-V  = (log(ftop_1 + ftop) - log(ftop)) / (log(Ltop) -log(Ltop_1))
-M_top = 0.5* Ltop *(1+(V/(V-1)));M_top # = $3.897.232
-
+# Household income_________________________________________
 
 #Impute midpoint of income ranges
-elsoc_long_2016_2023$m30_rec <-
-  as.numeric(car::recode( elsoc_long_2016_2023$m30,
-                         "1=110000;2=251000;3=305000;4=355000;5=400000;
+df_study1$m30_rec <-
+as.numeric(car::recode(df_study1$m30,
+           "1=110000;2=251000;3=305000;4=355000;5=400000;
             6=445000;7=490000;8=535000;9=585000;10=640000;11=700000;12=765000;
             13=845000;14=935000;15=1040000;16=1180000;17=1375000;18=1670000;
-            19=2275000;20=3897232;NA=NA;c(-888,-999)=NA"))
-
-summary( elsoc_long_2016_2023$m30_rec)
-
+            19=2275000;20=2700000;NA=NA;c(-888,-999)=NA"))
 
 #Impute midpoint of income ranges (2021)
+df_study1$m30b_rec <-
+as.numeric(car::recode(df_study1$m30b,
+           "1=125000;2=300000;3=400000;4=575000;5=70000;NA=NA;c(-888,-999)=NA"))
 
-frq(elsoc_long_2016_2023$m30b)
-Ltop_1<- 450000
-Ltop  <- 700000
-ftop_1 <- 18
-ftop   <- 27
-
-V  = (log(ftop_1 + ftop) - log(ftop)) / (log(Ltop) -log(Ltop_1))
-M_top = 0.5* Ltop *(1+(V/(V-1))) # = $2.941.412
-
- elsoc_long_2016_2023$m30b_rec <-
-  as.numeric(car::recode( elsoc_long_2016_2023$m30b,
-                         "1=125000;2=300000;3=400000;4=575000;5=2941412;NA=NA;c(-888,-999)=NA"))
-summary( elsoc_long_2016_2023$m30b_rec)
-
-# Combine m30_rec with m30b_rec
- elsoc_long_2016_2023$m30_rec <- 
-  ifelse(is.na( elsoc_long_2016_2023$m30_rec),
-         yes =  elsoc_long_2016_2023$m30b_rec,
-         no =  elsoc_long_2016_2023$m30_rec)
-summary( elsoc_long_2016_2023$m30_rec)
+sjmisc::frq(df_study1$m30b_rec)
 
 #Recode DK/DA of Income to NA
-elsoc_long_2016_2023$m29_rec <-
-  as.numeric(car::recode( elsoc_long_2016_2023$m29,"c(-888,-999)=NA"))
+df_study1$m29_rec <-
+  as.numeric(car::recode(df_study1$m29,"c(-888,-999)=NA"))
 
 #replace NA of income with new imputed variable
-elsoc_long_2016_2023$m29_imp <- 
-  ifelse(test = !is.na( elsoc_long_2016_2023$m29_rec),
-         yes =   elsoc_long_2016_2023$m29_rec,
-         no =   elsoc_long_2016_2023$m30_rec)
-summary( elsoc_long_2016_2023$m29_imp)
+df_study1$m29_imp <- 
+  ifelse(test = !is.na(df_study1$m29_rec),
+         yes =  df_study1$m29_rec,
+         no =  df_study1$m30_rec)
+summary(df_study1$m29_imp)
 
-#  elsoc_long_2016_2023$m29_imp <- 
-#   ifelse(test = is.na( elsoc_long_2016_2023$m29_imp),
-#          yes =   elsoc_long_2016_2023$m30b_rec,
-#          no =   elsoc_long_2016_2023$m29_imp)
+df_study1$m29_imp <- 
+  ifelse(test = is.na(df_study1$m29_imp),
+         yes =  df_study1$m30b_rec,
+         no =  df_study1$m29_imp)
+summary(df_study1$m29_imp)
 
-summary( elsoc_long_2016_2023$m29_imp)
+# deflate at each year's prices
+df_study1$deflactor <-
+  with(df_study1, case_when(
+    ola == 2016 ~ 113.88 / 123.82,
+    ola == 2017 ~ 116.46 / 123.82,
+    ola == 2018 ~ 119.45 / 123.82,
+    ola == 2019 ~ 123.82 / 123.82
+  ))
 
-# N Household:
-elsoc_long_2016_2023 <-
-   elsoc_long_2016_2023 %>%
+# Reshape long to wide
+df_study1_wide <- df_study1 %>% 
+  tidyr::pivot_wider(id_cols = c("idencuesta","muestra"),
+                     names_from = "ola",
+                     # names_prefix = c("educ","educyear","ing_pc","quintil","quintil1"),
+                     values_from = names(select(df_study1,comuna,comunacod,ponderador_long_total,segmento, estrato, just_educ:ideo, nhogar1, m46_nhogar, m54, m30, m30b, m29_imp))
+                     )
+
+df_study1_wide$m54_6 <- df_study1_wide$m54_7
+
+# reshape from long to wide
+pacman::p_load(datasets,data.table)
+df_study1_long <- data.table::melt.data.table(data.table::setDT(df_study1_wide),
+              id.vars = c("idencuesta","muestra"),
+              variable.name = c("ola"),
+              measure = patterns("^comuna_","^comunacod_","^ponderador_long_total_", "^segmento_", "^estrato_", "^just_educ_", "^just_pension_", "^just_health_", "^mjp_","^merit_effort_","^merit_talent_", "^perc_sal_gerente_", "^perc_sal_obrero_", "^just_sal_gerente_", "^just_sal_obrero_", "^perc_inequality_", "^just_inequality_", "^educ_","^educyear_","^sex_", "^age_","^ess_", "^ideo_","^nhogar1_", "^m46_nhogar_", "^m54_", "^m30_", "^m30b_", "^m29_imp_"),
+              value.name = c("comuna","comunacod","ponderador_long_total","segmento","estrato", "just_educ", "just_pension","just_health","mjp","merit_effort","merit_talent", "perc_sal_gerente","perc_sal_obrero","just_sal_gerente","just_sal_obrero", "perc_inequality", "just_inequality", "educ","educyear","sex", "age", "ess", "ideo", "nhogar1", "m46_nhogar", "m54", "m30", "m30b", "m29_imp"),
+              na.rm = F,value.factor = TRUE
+              )
+
+
+df_study1_long <-
+  df_study1_long %>%
   mutate(n_hogar =
            dplyr::case_when(ola == 1 ~ nhogar1,
                             ola == 2 ~ m46_nhogar,
@@ -423,173 +420,202 @@ elsoc_long_2016_2023 <-
                             ola == 5 ~ m54,
                             ola == 6 ~ m54,
                             ola == 7 ~ m54))
-
-summary( elsoc_long_2016_2023$n_hogar)
-#imputar tamanio del hogar de ola 5 a ola 6
-elsoc_long_2016_2023 <- 
-   elsoc_long_2016_2023 %>%  
-  group_by(idencuesta) %>%
-  mutate(n_hogar = if_else(ola == 6 & is.na(n_hogar), last(n_hogar[ola == 5]), n_hogar)) %>% 
-  ungroup() 
-
-sjmisc::frq( elsoc_long_2016_2023$n_hogar)
-table( elsoc_long_2016_2023$n_hogar, elsoc_long_2016_2023$ola)
+sjmisc::frq(df_study1_long$n_hogar)
 
 #Recode DK/DA to NA
- elsoc_long_2016_2023$n_hogar_r<-
-  car::recode( elsoc_long_2016_2023$n_hogar,"c(-888,-999)=NA")
-
-
-table( elsoc_long_2016_2023$m13, elsoc_long_2016_2023$n_hogar_r)
-
-#ingresos individuales para hogares de 1 persona
- elsoc_long_2016_2023 %>% sjmisc::find_var('Ingreso')
- elsoc_long_2016_2023$inc_ind <- ifelse( elsoc_long_2016_2023$n_hogar_r==1, elsoc_long_2016_2023$m13,NA)
-summary( elsoc_long_2016_2023$inc_ind)
-# 
-# c(40000,
-# (40001 + 85000) / 2,
-# (85001 + 125000) / 2,
-# (125001 + 170000) / 2,
-# (170001 + 210000) / 2,
-# (210001 + 230000) / 2,
-# (230001 + 280000) / 2,
-# (280001 + 320000) / 2,
-# (320001 + 360000) / 2,
-# (360001 + 400000) / 2,
-# (400001 + 465000) / 2,
-# (465001 + 540000) / 2,
-# (540001 + 665000) / 2,
-# (665001 + 850000) / 2,
-# (850001 + 1300000) / 2,
-# 1300001)    
-
-frq( elsoc_long_2016_2023$m14)
-Ltop_1<- 850001
-Ltop  <- 1300001 
-ftop_1 <- 65
-ftop   <- 40
-
-V  = (log(ftop_1 + ftop) - log(ftop)) / (log(Ltop) -log(Ltop_1))
-M_top = 0.5* Ltop *(1+(V/(V-1))) # = $1.811.247
-
- elsoc_long_2016_2023$m14_rec<- 
-  car::recode( elsoc_long_2016_2023$m14,
-              "1=40000.0;2=62500.5;3=105000.5;4=147500.5;5=190000.5;6=220000.5;
-              7=255000.5;8=300000.5;9=340000.5;10=380000.5;11=432500.5;12=502500.5;
-              13=602500.5;14=757500.5;15=1075000.5;16=1811247"
-  ) 
-
- elsoc_long_2016_2023$inc_ind <- ifelse( elsoc_long_2016_2023$n_hogar_r==1 & is.na( elsoc_long_2016_2023$inc_ind), elsoc_long_2016_2023$m14_rec, elsoc_long_2016_2023$inc_ind)
-summary( elsoc_long_2016_2023$inc_ind)
-
-
-# Ingreso del hogar pegarle ingreso del hogar unipersonal
-summary( elsoc_long_2016_2023$m29_imp)
- elsoc_long_2016_2023$m29_imp <- 
-  ifelse(is.na( elsoc_long_2016_2023$m29_imp) &  elsoc_long_2016_2023$n_hogar_r==1,
-          elsoc_long_2016_2023$inc_ind,
-          elsoc_long_2016_2023$m29_imp) #recupero 14 casos
-summary( elsoc_long_2016_2023$m29_imp)
-
-
-# Household Equivalent income 
-# 1.0 to the first adult;
-# 0.5 to the second and each subsequent person aged 14 and over;
-# 0.3 to each child aged under 14.
-
- elsoc_long_2016_2023$n_hogar_r_eq <- ( elsoc_long_2016_2023$n_hogar_r + 1) /2
-table( elsoc_long_2016_2023$n_hogar_r_eq)
-
-frq( elsoc_long_2016_2023$n_hogar_r_eq)
+df_study1_long$n_hogar_r<-
+  car::recode(df_study1_long$n_hogar,"c(-888,-999)=NA")
 
 # Per capita household income:
- elsoc_long_2016_2023$ing_pc <- 
-  (elsoc_long_2016_2023$m29_imp/ elsoc_long_2016_2023$n_hogar_r)
+df_study1_long$ing_pc <- 
+  (df_study1_long$m29_imp/df_study1_long$n_hogar_r)
 
-# Per capita household income equivalized (OECD):
- elsoc_long_2016_2023$ing_pc_eq <- 
-  ( elsoc_long_2016_2023$m29_imp/ elsoc_long_2016_2023$n_hogar_r_eq)
+df_study1_long$ing_pc <-
+sjlabelled::set_label(x = df_study1_long$ing_pc,
+                      label = "Household income per capita")  
 
-descr( elsoc_long_2016_2023$ing_pc_eq)
-descr( elsoc_long_2016_2023$ing_pc)
- elsoc_long_2016_2023$ing_pc <-
-  sjlabelled::set_label(x =  elsoc_long_2016_2023$ing_pc,
-                        label = "Household income per capita")  
-
-sjmisc::descr( elsoc_long_2016_2023$ing_pc)
+sjmisc::descr(df_study1_long$ing_pc)
 
 # Compute income quintiles
- elsoc_long_2016_2023 <-  elsoc_long_2016_2023 %>% 
+df_study1_long <- df_study1_long %>% 
   group_by(ola) %>% 
   mutate(quintil = ntile(-desc(ing_pc), 5)) %>% 
   ungroup()
 
- elsoc_long_2016_2023$quintil <- 
-  factor( elsoc_long_2016_2023$quintil,
+df_study1_long$quintil <- 
+  factor(df_study1_long$quintil,
          levels = c(1, 2, 3, 4, 5),
          labels = c('Q1', 'Q2', 'Q3', 'Q4', 'Q5')) # Quintiles as factors
 
-elsoc_long_2016_2023$quintil <- 
-  sjlabelled::set_label(x =  elsoc_long_2016_2023$quintil,
-                        label = "Household income quintile per capita")  
+#reverse quintile, reference level is the highest quintile
+#elsoc_long_2016_2023$quintil <- forcats::fct_rev(elsoc_long_2016_2023$quintil)
 
-sjmisc::frq( elsoc_long_2016_2023$quintil)
+df_study1_long$quintil <- 
+sjlabelled::set_label(x = df_study1_long$quintil,
+                      label = "Household income quintile per capita")  
+
+sjmisc::frq(df_study1_long$quintil)
 
 #include new quintile category with missing cases
- elsoc_long_2016_2023$quintil1<-
-  car::recode( elsoc_long_2016_2023$quintil, 
+df_study1_long$quintil1<-
+  car::recode(df_study1_long$quintil, 
               "'Q1'='Q1';'Q2'= 'Q2';'Q3'='Q3';'Q4'='Q4';'Q5'='Q5'; NA='QNA'")
 
-# elsoc_long_2016_2023$quintil1 <- factor( elsoc_long_2016_2023$quintil1, c("Q1","Q2","Q3","Q4","Q5","QNA"))
+#elsoc_long_2016_2023$quintil1 <- factor(elsoc_long_2016_2023$quintil1, c("Q1","Q2","Q3","Q4","Q5","QNA"))
 
- elsoc_long_2016_2023$quintil1 <- 
-  sjlabelled::set_label(x =  elsoc_long_2016_2023$quintil1,
-                        label = "Household income quintile per capita (NA)") 
-sjmisc::frq( elsoc_long_2016_2023$quintil1)
-
-
-
+df_study1_long$quintil1 <- 
+sjlabelled::set_label(x = df_study1_long$quintil1,
+                      label = "Household income quintile per capita (NA)") 
+sjmisc::frq(df_study1_long$quintil1)
 ```
 
 
 ```{r}
-elsoc_income <- elsoc_long_2016_2023 %>% 
-  dplyr::select(idencuesta, ola, ing_pc, quintil, quintil1) %>% 
-  dplyr::filter(ola %in% c(1,2,3,4,6,7))
+# Reshape long to wide
+df_study1_wide <- df_study1_long %>% 
+  tidyr::pivot_wider(id_cols = c("idencuesta","muestra"),
+                     names_from = "ola",
+                     # names_prefix = c("educ","educyear","ing_pc","quintil","quintil1"),
+                     values_from = names(select(df_study1_long,comuna,comunacod,ponderador_long_total,segmento, estrato, just_educ:ideo, quintil, quintil1, ing_pc)))
 
-db_proc <- left_join(db_proc, elsoc_income, by = c("idencuesta", "wave" = "ola"))
+# fix data to w01 values
+df_study1_wide$age_2 <-df_study1_wide$age_1 #age
+df_study1_wide$age_3 <-df_study1_wide$age_1
+df_study1_wide$age_4 <-df_study1_wide$age_1
+df_study1_wide$age_5 <-df_study1_wide$age_1
+df_study1_wide$age_6 <-df_study1_wide$age_1
+df_study1_wide$age_7 <-df_study1_wide$age_1
 
+df_study1_wide$sex_2 <-df_study1_wide$sex_1 #sex
+df_study1_wide$sex_3 <-df_study1_wide$sex_1
+df_study1_wide$sex_4 <-df_study1_wide$sex_1
+df_study1_wide$sex_5 <-df_study1_wide$sex_1
+df_study1_wide$sex_6 <-df_study1_wide$sex_1
+df_study1_wide$sex_7 <-df_study1_wide$sex_1
+
+df_study1_wide$educ_2 <-df_study1_wide$educ_1 #education
+df_study1_wide$educ_3 <-df_study1_wide$educ_1
+df_study1_wide$educ_4 <-df_study1_wide$educ_1
+df_study1_wide$educ_5 <-df_study1_wide$educ_1
+df_study1_wide$educ_6 <-df_study1_wide$educ_1
+df_study1_wide$educ_7 <-df_study1_wide$educ_1
+
+df_study1_wide$educyear_2 <-df_study1_wide$educyear_1 #education years
+df_study1_wide$educyear_3 <-df_study1_wide$educyear_1
+df_study1_wide$educyear_4 <-df_study1_wide$educyear_1
+df_study1_wide$educyear_5 <-df_study1_wide$educyear_1
+df_study1_wide$educyear_6 <-df_study1_wide$educyear_1
+df_study1_wide$educyear_7 <-df_study1_wide$educyear_1
+
+df_study1_wide$quintil1_2 <-df_study1_wide$quintil1_1 #quintiles
+df_study1_wide$quintil1_3 <-df_study1_wide$quintil1_1
+df_study1_wide$quintil1_4 <-df_study1_wide$quintil1_1
+df_study1_wide$quintil1_5 <-df_study1_wide$quintil1_1
+df_study1_wide$quintil1_6 <-df_study1_wide$quintil1_1
+df_study1_wide$quintil1_7 <-df_study1_wide$quintil1_1
+
+df_study1_wide$ing_pc_2 <-df_study1_wide$ing_pc_1 #income per capita
+df_study1_wide$ing_pc_3 <-df_study1_wide$ing_pc_1
+df_study1_wide$ing_pc_4 <-df_study1_wide$ing_pc_1
+df_study1_wide$ing_pc_5 <-df_study1_wide$ing_pc_1
+df_study1_wide$ing_pc_6 <-df_study1_wide$ing_pc_1
+df_study1_wide$ing_pc_7 <-df_study1_wide$ing_pc_1
+
+
+df_study1_wide$ess_2 <-df_study1_wide$ess_1 # subjective status
+df_study1_wide$ess_3 <-df_study1_wide$ess_1
+df_study1_wide$ess_4 <-df_study1_wide$ess_1
+df_study1_wide$ess_5 <-df_study1_wide$ess_1
+df_study1_wide$ess_6 <-df_study1_wide$ess_1
+df_study1_wide$ess_7 <-df_study1_wide$ess_1
+
+df_study1_wide$ideo_2 <-df_study1_wide$ideo_1 # political position
+df_study1_wide$ideo_3 <-df_study1_wide$ideo_1
+df_study1_wide$ideo_4 <-df_study1_wide$ideo_1
+df_study1_wide$ideo_5 <-df_study1_wide$ideo_1
+df_study1_wide$ideo_6 <-df_study1_wide$ideo_1
+df_study1_wide$ideo_7 <-df_study1_wide$ideo_1
+
+df_study1_wide$comuna_2 <-df_study1_wide$comuna_1 #comuna
+df_study1_wide$comuna_3 <-df_study1_wide$comuna_1
+df_study1_wide$comuna_4 <-df_study1_wide$comuna_1
+df_study1_wide$comuna_5 <-df_study1_wide$comuna_1
+df_study1_wide$comuna_6 <-df_study1_wide$comuna_1
+df_study1_wide$comuna_7 <-df_study1_wide$comuna_1
+
+df_study1_wide$comunacod_2 <-df_study1_wide$comunacod_1 #comuna
+df_study1_wide$comunacod_3 <-df_study1_wide$comunacod_1
+df_study1_wide$comunacod_4 <-df_study1_wide$comunacod_1
+df_study1_wide$comunacod_5 <-df_study1_wide$comunacod_1
+df_study1_wide$comunacod_6 <-df_study1_wide$comunacod_1
+df_study1_wide$comunacod_7 <-df_study1_wide$comunacod_1
+
+dim(df_study1_wide)
+
+sjPlot::view_df(df_study1_wide,
+                show.frq = T,show.values = T,show.na = T,show.prc = T, show.type = T)
 ```
 
-
-## Missing values
 
 ```{r}
-colSums(is.na(db_proc))
-
-n_miss(db_proc)
-
-prop_miss(db_proc)*100
-
-miss_var_summary(db_proc)
-
-miss_var_table(db_proc)
-
-vis_miss(db_proc) + theme(axis.text.x = element_text(angle=80))
-
+# reshape from long to wide
+pacman::p_load(datasets,data.table)
+df_study1_long <- data.table::melt.data.table(data.table::setDT(df_study1_wide),
+              id.vars = c("idencuesta","muestra"),
+              variable.name = c("ola"),
+              measure = 
+patterns("^comuna_","^comunacod_","^ponderador_long_total_", "^segmento_", "^estrato_", "^just_educ_", "^just_pension_", "^just_health_", "^mjp_","^merit_effort_","^merit_talent_", "^perc_sal_gerente_", "^perc_sal_obrero_", "^just_sal_gerente_", "^just_sal_obrero_", "^perc_inequality_", "^just_inequality_", "^educ_","^educyear_","^sex_", "^age_","^ess_", "^ideo_","^quintil_", "^quintil1_", "^ing_pc_"),
+              value.name = c("comuna","comunacod","ponderador_long_total","segmento","estrato", "just_educ", "just_pension","just_health","mjp","merit_effort","merit_talent", "perc_sal_gerente","perc_sal_obrero","just_sal_gerente","just_sal_obrero", "perc_inequality", "just_inequality", "educ","educyear","sex", "age", "ess", "ideo", "quintil", "quintil1", "ing_pc"),
+              na.rm = F,value.factor = TRUE
+              )
 ```
 
 
-# Save and export
 
 ```{r}
-db_proc <- db_proc %>% 
-  select(-c(perc_sal_gerente, perc_sal_obrero, just_sal_gerente, just_sal_obrero, m01)) 
+names(df_study1_long) #check names of long dataset
+dim(df_study1_long) #check dimensions of the dataframe
+# Original dataset with 7 waves
+df_study2_long <- df_study1_long
 
-df1 <- db_proc %>% na.omit()
+# filter the dataset for the waves 1 to 4 and 6 to 7
+df_study1_long <-
+df_study1_long %>% 
+  filter(ola %in% c(1,2,3,4,6,7)) %>% 
+  mutate(ola=factor(ola,levels = 1:7,labels = 1:7))
+dim(df_study1_long) #check, now is OK
 
-df1 <- sjlabelled::copy_labels(df_new = df1, df_origin = db_proc)
+# df_study1_long <- 
+# set_label(x = df_study1_long,
+#           label = get_label(select(df_study1,names(df_study1_long))))
+  
 
-save(df1, file = here("input/data/proc/df1.RData"))
+sjPlot::view_df(df_study1_long,
+                show.frq = T,show.values = T,show.na = T,show.prc = T,
+                show.type = T)
+#______________________________________________________________________________
+# obtain the idencuesta for wave 7
+ids <- 
+  df_study1 %>% 
+  select(idencuesta,ola) %>% 
+  filter(ola==7) %>% 
+  sjmisc::frq(idencuesta,show.na = F) %>% as.data.frame()
+
+
+# filter data by the idencuesta of t7
+df_study1_long_t7 <- 
+  df_study1_long %>%
+  filter(idencuesta %in% ids$val)
+
+names(df_study1_long_t7)
+dim(df_study1_long_t7)
+sjmisc::frq(df_study1_long_t7$ola)
 ```
+
+
+```{r}
+save(df_study1_long,file = here::here("input/data/proc/df_study1_long.RData"))
+save(df_study1_long_t7,file = here::here("input/data/proc/df_study1_long_t7.RData"))
+save(df_study2_long,file = here::here("input/data/proc/df_study2_long.RData"))
+```
+

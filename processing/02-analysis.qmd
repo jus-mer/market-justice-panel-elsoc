@@ -30,7 +30,7 @@ editor_options:
 
 # Presentation
 
-This is the analysis code for the paper "Perceptions of Inequality and Meritocracy: Their Interplay in Shaping Preferences for Market Justice in Chile (2016-2023)". The dataset used is `df1.RData`.
+This is the analysis code for the paper "Perceptions of Inequality and Meritocracy: Their Interplay in Shaping Preferences for Market Justice in Chile (2016-2023)". The dataset used is `df_study1_long_t7.RData`.
 
 ```{r}
 #| label: set
@@ -95,9 +95,9 @@ rm(list = ls())
 #| label: data
 #| echo: true
 
-load(file = here("input/data/proc/df1.RData"))
+load(file = here("input/data/proc/df_study1_long_t7.RData"))
 
-glimpse(df1)
+glimpse(df_study1_long_t7)
 
 ```
 
@@ -110,7 +110,7 @@ glimpse(df1)
 #| label: tbl-summary
 #| tbl-cap: "Estadísticos descriptivos"
 #| tbl-cap-location: top
-t1 <- df1 %>% 
+t1 <- df_study1_long_t7 %>% 
   select(just_health, just_pension, just_educ, mjp, perc_inequality, just_inequality, merit_effort, merit_talent, ess, ideo, educ, sex, age) 
 
 print(summarytools::dfSummary(t1), method="render")
@@ -124,19 +124,19 @@ print(summarytools::dfSummary(t1), method="render")
 #| fig-cap-location: top
 
 
-datos.health <- df1 %>% 
-  group_by(idencuesta, wave) %>% 
+datos.health <- df_study1_long_t7 %>% 
+  group_by(idencuesta, ola) %>% 
   count(just_health) %>% 
-  group_by(wave) %>% 
+  group_by(ola) %>% 
   mutate(porcentaje=n/sum(n)) %>% 
   ungroup() %>% 
   na.omit() %>% 
-  mutate(wave = case_when(wave == 1 ~ "2016",
-                          wave == 2 ~ "2017",
-                          wave == 3 ~ "2018",
-                          wave == 4 ~ "2019",
-                          wave == 5 ~ "2022",
-                          wave == 6 ~ "2023"),
+  mutate(wave = case_when(ola == 1 ~ "2016",
+                          ola == 2 ~ "2017",
+                          ola == 3 ~ "2018",
+                          ola == 4 ~ "2019",
+                          ola == 6 ~ "2022",
+                          ola == 7 ~ "2023"),
          wave = factor(wave, levels = c("2016",
                                       "2017",
                                       "2018",
@@ -146,25 +146,28 @@ datos.health <- df1 %>%
 
 
 
-etiquetas.health <- df1 %>%
-  group_by(wave, just_health) %>%
+etiquetas.health <- df_study1_long_t7 %>%
+  group_by(ola, just_health) %>%
   summarise(count = n(), .groups = "drop") %>%
-  group_by(wave) %>%
+  group_by(ola) %>%
   mutate(porcentaje = count / sum(count)) %>% 
   na.omit() %>% 
   mutate(idencuesta = 1,
-         wave = case_when(wave == 1 ~ "2016",
-                          wave == 2 ~ "2017",
-                          wave == 3 ~ "2018",
-                          wave == 4 ~ "2019",
-                          wave == 5 ~ "2022",
-                          wave == 6 ~ "2023"),
+         wave = case_when(ola == 1 ~ "2016",
+                          ola == 2 ~ "2017",
+                          ola == 3 ~ "2018",
+                          ola == 4 ~ "2019",
+                          ola == 6 ~ "2022",
+                          ola == 7 ~ "2023"),
          wave = factor(wave, levels = c("2016",
                                         "2017",
                                         "2018",
                                         "2019",
                                         "2022",
                                         "2023")))
+
+
+
 
 p1 <- datos.health %>% 
   ggplot(aes(x = wave, fill = just_health, stratum = just_health,
@@ -189,19 +192,19 @@ p1 <- datos.health %>%
   
 
 
-datos.pension <- df1 %>% 
-  group_by(idencuesta, wave) %>% 
+datos.pension <- df_study1_long_t7 %>% 
+  group_by(idencuesta, ola) %>% 
   count(just_pension) %>% 
-  group_by(wave) %>% 
+  group_by(ola) %>% 
   mutate(porcentaje=n/sum(n)) %>% 
   ungroup() %>% 
   na.omit() %>% 
-  mutate(wave = case_when(wave == 1 ~ "2016",
-                          wave == 2 ~ "2017",
-                          wave == 3 ~ "2018",
-                          wave == 4 ~ "2019",
-                          wave == 5 ~ "2022",
-                          wave == 6 ~ "2023"),
+  mutate(wave = case_when(ola == 1 ~ "2016",
+                          ola == 2 ~ "2017",
+                          ola == 3 ~ "2018",
+                          ola == 4 ~ "2019",
+                          ola == 6 ~ "2022",
+                          ola == 7 ~ "2023"),
          wave = factor(wave, levels = c("2016",
                                         "2017",
                                         "2018",
@@ -211,19 +214,19 @@ datos.pension <- df1 %>%
 
 
 
-etiquetas.pension <- df1 %>%
-  group_by(wave, just_pension) %>%
+etiquetas.pension <- df_study1_long_t7 %>%
+  group_by(ola, just_pension) %>%
   summarise(count = n(), .groups = "drop") %>%
-  group_by(wave) %>%
+  group_by(ola) %>%
   mutate(porcentaje = count / sum(count)) %>% 
   na.omit() %>% 
   mutate(idencuesta = 1,
-         wave = case_when(wave == 1 ~ "2016",
-                          wave == 2 ~ "2017",
-                          wave == 3 ~ "2018",
-                          wave == 4 ~ "2019",
-                          wave == 5 ~ "2022",
-                          wave == 6 ~ "2023"),
+         wave = case_when(ola == 1 ~ "2016",
+                          ola == 2 ~ "2017",
+                          ola == 3 ~ "2018",
+                          ola == 4 ~ "2019",
+                          ola == 6 ~ "2022",
+                          ola == 7 ~ "2023"),
          wave = factor(wave, levels = c("2016",
                                         "2017",
                                         "2018",
@@ -253,19 +256,19 @@ p2 <- datos.pension %>%
   theme(legend.position = "none") 
 
 
-datos.educ <- df1 %>% 
-  group_by(idencuesta, wave) %>% 
+datos.educ <- df_study1_long_t7 %>% 
+  group_by(idencuesta, ola) %>% 
   count(just_educ) %>% 
-  group_by(wave) %>% 
+  group_by(ola) %>% 
   mutate(porcentaje=n/sum(n)) %>% 
   ungroup() %>% 
   na.omit() %>% 
-  mutate(wave = case_when(wave == 1 ~ "2016",
-                          wave == 2 ~ "2017",
-                          wave == 3 ~ "2018",
-                          wave == 4 ~ "2019",
-                          wave == 5 ~ "2022",
-                          wave == 6 ~ "2023"),
+  mutate(wave = case_when(ola == 1 ~ "2016",
+                          ola == 2 ~ "2017",
+                          ola == 3 ~ "2018",
+                          ola == 4 ~ "2019",
+                          ola == 6 ~ "2022",
+                          ola == 7 ~ "2023"),
          wave = factor(wave, levels = c("2016",
                                         "2017",
                                         "2018",
@@ -275,19 +278,19 @@ datos.educ <- df1 %>%
 
 
 
-etiquetas.educ <- df1 %>%
-  group_by(wave, just_educ) %>%
+etiquetas.educ <- df_study1_long_t7 %>%
+  group_by(ola, just_educ) %>%
   summarise(count = n(), .groups = "drop") %>%
-  group_by(wave) %>%
+  group_by(ola) %>%
   mutate(porcentaje = count / sum(count)) %>% 
   na.omit() %>% 
   mutate(idencuesta = 1,
-         wave = case_when(wave == 1 ~ "2016",
-                          wave == 2 ~ "2017",
-                          wave == 3 ~ "2018",
-                          wave == 4 ~ "2019",
-                          wave == 5 ~ "2022",
-                          wave == 6 ~ "2023"),
+         wave = case_when(ola == 1 ~ "2016",
+                          ola == 2 ~ "2017",
+                          ola == 3 ~ "2018",
+                          ola == 4 ~ "2019",
+                          ola == 6 ~ "2022",
+                          ola == 7 ~ "2023"),
          wave = factor(wave, levels = c("2016",
                                         "2017",
                                         "2018",
@@ -324,7 +327,8 @@ p3 <- datos.educ %>%
 ## Correlations
 
 ```{r}
-df1 %>% 
+df_study1_long_t7 %>%
+  filter(ola == 7) %>% 
   select(mjp, perc_inequality, just_inequality, merit_effort, merit_talent) %>% 
   mutate_all(.funs = ~ as.numeric(.)) %>% 
   sjPlot::tab_corr(., triangle = "lower")
@@ -333,24 +337,46 @@ df1 %>%
 ## Longitudinal multilevel models
 
 ```{r}
-m0 <- lmer(mjp ~ 1 + (1 | idencuesta), 
-                data = df1)
+# Generate analytical sample
 
-performance::icc(m0, by_group = T)
-```
+df_study1 <- df_study1_long_t7 %>%
+  select(idencuesta,
+         ola,
+         ponderador_long_total,
+         mjp, 
+         perc_inequality, 
+         just_inequality,
+         merit_effort, 
+         merit_talent, 
+         educ,
+         quintil1,
+         sex,
+         age,
+         ess, 
+         ideo) %>% 
+  na.omit() %>% 
+  mutate(ola = as.factor(ola),
+         ola_num = as.numeric(ola),
+         ola_2=as.numeric(ola)^2)
 
+df_study1 <- df_study1 %>%
+  group_by(idencuesta) %>%             # Agrupar por el identificador del participante
+  mutate(n_participaciones = n()) %>%  # Contar el número de filas (participaciones) por participante
+  ungroup()
 
-```{r}
-df1$merit_effort <- as_numeric(df1$merit_effort)
-df1$merit_talent <- as_numeric(df1$merit_talent)
-df1 <- df1 %>% 
-  mutate(wave_f = case_when(wave == 1 ~ "2016",
-                          wave == 2 ~ "2017",
-                          wave == 3 ~ "2018",
-                          wave == 4 ~ "2019",
-                          wave == 5 ~ "2022",
-                          wave == 6 ~ "2023"),
-         wave_f = factor(wave_f, levels = c("2016",
+df_study1 <- df_study1 %>% filter(n_participaciones>1)
+
+df_study1$merit_effort <- as_numeric(df_study1$merit_effort)
+df_study1$merit_talent <- as_numeric(df_study1$merit_talent)
+
+df_study1 <- df_study1 %>% 
+  mutate(ola = case_when(ola == 1 ~ "2016",
+                         ola == 2 ~ "2017",
+                         ola == 3 ~ "2018",
+                         ola == 4 ~ "2019",
+                         ola == 6 ~ "2022",
+                         ola == 7 ~ "2023"),
+         ola = factor(ola, levels = c("2016",
                                         "2017",
                                         "2018",
                                         "2019",
@@ -358,7 +384,7 @@ df1 <- df1 %>%
                                         "2023")))
 
 
-df1 <- df1 %>% 
+df_study1 <- df_study1 %>% 
   group_by(idencuesta) %>% 
   mutate(perc_inequality_mean = mean(perc_inequality, na.rm = T),
          perc_inequality_cwc = perc_inequality - perc_inequality_mean,
@@ -370,35 +396,40 @@ df1 <- df1 %>%
          merit_talent_cwc = merit_talent - merit_talent_mean,
          ) %>% 
   ungroup()
+```
 
-m1 <- lmer(mjp ~ 1 + perc_inequality + (1 | idencuesta),
-                data = df1)
 
-m2 <- lmer(mjp ~ 1 + just_inequality + (1 | idencuesta),
-                data = df1)
 
-m3 <- lmer(mjp ~ 1 + perc_inequality + just_inequality + (1 | idencuesta),
-                data = df1)
+```{r}
+m0 <- lmer(mjp ~ 1 + (1 | idencuesta), 
+                data = df_study1)
 
-m4 <- lmer(mjp ~ 1 + perc_inequality + just_inequality + 
-             merit_effort +  (1 | idencuesta),
-                data = df1)
+performance::icc(m0, by_group = T)
 
-m5 <- lmer(mjp ~ 1 + perc_inequality + just_inequality + 
-             merit_effort + merit_talent + (1 | idencuesta),
-                data = df1)
+m1 <- lmer(mjp ~ 1 + ola + (1 | idencuesta),
+                data = df_study1)
 
-m6 <- lmer(mjp ~ 1 + perc_inequality + just_inequality + 
-             merit_effort + merit_talent + perc_inequality_mean +
-             just_inequality_mean + merit_effort_mean + 
-             merit_talent_mean + (1 | idencuesta),
-                data = df1)
+m2 <- lmer(mjp ~ 1 + ola_num + ola_2 + (1 | idencuesta),
+                data = df_study1)
 
-m7 <- lmer(mjp ~ 1 + perc_inequality + just_inequality + 
-             merit_effort + merit_talent + perc_inequality_mean +
-             just_inequality_mean + merit_effort_mean + 
-             merit_talent_mean + ideo + quintil + educ + ess + age + sex + wave_f + (1 | idencuesta),
-                data = df1)
+m3 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + (1 | idencuesta), data = df_study1)
+
+m4 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + (1 | idencuesta),
+                data = df_study1)
+
+m5 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + merit_effort + (1 | idencuesta),
+                data = df_study1)
+
+m6 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + merit_effort + merit_talent + (1 | idencuesta),
+                data = df_study1)
+
+
+m7 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + merit_effort + merit_talent + perc_inequality_mean + just_inequality_mean + merit_effort_mean + merit_talent_mean + (1 | idencuesta),
+                data = df_study1)
+
+m8 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + merit_effort + merit_talent + perc_inequality_mean + just_inequality_mean + merit_effort_mean + merit_talent_mean + educ + quintil1 + ess + ideo + sex + age + (1 | idencuesta),
+                data = df_study1)
+
 ```
 
 
@@ -410,6 +441,13 @@ m7 <- lmer(mjp ~ 1 + perc_inequality + just_inequality +
 
 ccoef <- list(
   "(Intercept)" = "Intercept",
+  "ola2017" = "Wave 2017",
+  "ola2018" = "Wave 2018",
+  "ola2019" = "Wave 2019",
+  "ola2022" = "Wave 2022",
+  "ola2023" = "Wave 2023",
+  ola_num = "Wave",
+  ola_2 = "Wave^2",
   perc_inequality = "Perception inequality (WE)",
   just_inequality = "Justification inequality (WE)",
   merit_effort = "Merit: Effort (WE)",
@@ -418,34 +456,30 @@ ccoef <- list(
   just_inequality_mean = "Justification inequality (BE)",
   merit_effort_mean = "Merit: Effort (BE)",
   merit_talent_mean = "Merit: Talent (BE)",
+  educUniversitary = "Universitary (Ref.= Less than universitary)",
+  quintil1Q2 = "Quintile 2",
+  quintil1Q3 = "Quintile 3",
+  quintil1Q4 = "Quintile 4",
+  quintil1Q5 = "Quintile 5",
+  quintil1QNA = "Quintile NA",
+  ess = "Subjective social status",
   ideoCenter = "Center",
   ideoRight = "Right",
   "ideoDoes not identify" = "Does not identify",
-  quintilQ2 = "Quintile 2",
-  quintilQ3 = "Quintile 3",
-  quintilQ4 = "Quintile 4",
-  quintilQ5 = "Quintile 5",
-  educUniversitary = "Universitary (Ref.= Less than universitary)",
-  ess = "Subjective social status",
+  sexFemale = "Female (Ref.= Male)",
   "age30-49" = "30-49",
   "age50-64" = "50-64",
-  "age65 or more" = "65 or more",
-  sexFemale = "Female (Ref.= Male)",
-  wave_f2017 = "2017",
-  wave_f2018 = "2018",
-  wave_f2019 = "2019",
-  wave_f2022 = "2022",
-  wave_f2023 = "2023"
+  "age65 or more" = "65 or more"
   )
 
-texreg::htmlreg(list(m1, m2, m3, m4, m5, m6, m7),
-               custom.model.names = c(paste0("Model ", seq(1:7))),
+texreg::htmlreg(list(m1, m2, m3, m4, m5, m6, m7, m8),
+               custom.model.names = c(paste0("Model ", seq(1:8))),
                caption = NULL,
                stars = c(0.05, 0.01, 0.001),
                custom.coef.map = ccoef,
                digits = 3,
-               groups = list("Political identification (Ref.= Left)" = 10:12, "Income (Ref.= Quintile 1)" = 13:16, "Age (Ref. = 18-29)" = 19:21, "Wave (Ref.= 2016)" = 23:26),
-               custom.note = "\\item Note: Cells contain regression coefficients with standard errors in parentheses. %stars. \\\\ \\item Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 4257).",
+               groups = list("Wave (Ref.= 2016)" = 2:6, "Income (Ref.= Quintile 1)" = 18:22, "Political identification (Ref.= Left)" = 24:26, "Age (Ref. = 18-29)" = 28:30),
+               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars.",
                threeparttable = T,
                leading.zero = T,
                float.pos = "h!",
