@@ -258,7 +258,7 @@ p1 <- datos.health %>%
                   color = rep('white'),
                   bg.colour='grey30')+
   labs(y = "%",
-       x = NULL,
+       x = "Wave",
        fill = NULL,
        title = "a. Health") +
   theme_ggdist() +
@@ -335,7 +335,7 @@ p2 <- datos.pension %>%
                   color = rep('white'),
                   bg.colour='grey30')+
   labs(y = "%",
-       x = NULL,
+       x = "Wave",
        fill = NULL,
        title = "b. Pension") +
   theme_ggdist() +
@@ -411,7 +411,7 @@ p3 <- datos.educ %>%
                   color = rep('white'),
                   bg.colour='grey30')+
   labs(y = "%",
-       x = NULL,
+       x = "Wave",
        fill = NULL,
        title = "c. Education",
        caption = "Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 8460)") +
@@ -444,7 +444,7 @@ df_pond <- df_study1 %>%
                    strata = estrato, 
                    weights = ponderador_long_total)
 
-df_pond %>% 
+p4 <- df_pond %>% 
   select(ola, mjp, perc_inequality, just_inequality, merit_effort, merit_talent) %>% 
   mutate_at(.vars = 2:6, .funs = ~ as.numeric(.)) %>% 
   group_by(ola) %>% 
@@ -489,7 +489,7 @@ df_pond %>%
                                          )) +
   scale_shape_manual(values=c(15, 16, 17, 18, 4)) +
   labs(y = "Mean",
-       x = NULL,
+       x = "Wave",
        color = NULL,
        shape = NULL,
        caption = "Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 8460)") +

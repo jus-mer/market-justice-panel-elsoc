@@ -12,7 +12,7 @@ keywords:
   - third
   - fourth
   - fifth
-bibliography: "input/bib/refs.bib"
+bibliography: "input/bib/merit-edjust.bib"
 csl: "input/bib/apa6.csl"
 link-citations: true
 linestretch: 1.15       

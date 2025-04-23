@@ -8,9 +8,7 @@ format:
     html-math-method: katex
     number-sections: true
   pdf: 
-    geometry: 
-      - top=30mm
-      - left=20mm
+    geometry: margin=2cm
     template-partials: 
       - title.tex
     keep-tex: true
@@ -23,7 +21,7 @@ format:
         \renewcommand\Affilfont{\small}
     number-sections: true
 editor: source
-bibliography: "input/bib/refs.bib"
+bibliography: "input/bib/merit-edjust.bib"
 csl: "input/bib/apa6.csl"
 author:
   - name: Juan Carlos Castillo
@@ -109,5 +107,7 @@ header-includes:
 
 {{< include 06-conclusion.qmd >}}
 
+# References
 
-{{< include 07-supplementary-material.qmd >}}
+::: {#refs}
+:::
