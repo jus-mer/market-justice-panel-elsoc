@@ -63,7 +63,7 @@ Here is the description of the pre-registration of the analysis plan in the Open
 
 ### Repository and reproducibility:
 
-In the web page it is possible to see/download the paper in html and pdf formats. The data and analysis files are in the Github repo [market-justice-panel-elsoc]([link](https://github.com/educacion-meritocracia/market-justice-panel-elsoc)) and follow the logic of the [IPO protocol](https://github.com/juancarloscastillo/ipo) for academic workflows, based on three main components = **I**nput -> **P**rocessing -> **O**utput.
+In the web page it is possible to see/download the paper in html and pdf formats. The data and analysis files are in the Github repo [market-justice-panel-elsoc]([link](https://github.com/justicia-distributiva/market-justice-panel-elsoc)) and follow the logic of the [IPO protocol](https://github.com/juancarloscastillo/ipo) for academic workflows, based on three main components = **I**nput -> **P**rocessing -> **O**utput.
 
 
 ## Files:
@@ -71,3 +71,4 @@ In the web page it is possible to see/download the paper in html and pdf formats
 
 - [Data preparation](https://justicia-distributiva.github.io/market-justice-panel-elsoc/processing/01-proc-data.html)
 - [Data analysis](https://justicia-distributiva.github.io/market-justice-panel-elsoc/processing/02-analysis.html)
+- [Paper Draft](https://justicia-distributiva.github.io/market-justice-panel-elsoc/paper.html)

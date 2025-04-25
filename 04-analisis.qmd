@@ -130,7 +130,7 @@ df_study1$merit_talent <- sjlabelled::set_label(df_study1$merit_talent,
 ```{r}
 #| label: fig-alluvial
 #| out-width: '100%'
-#| fig-asp: 1
+#| fig-asp: 1.2
 #| fig-cap: "Change in the justification of inequality in health, pensions and education over time (2016-2023)"
 #| fig-cap-location: top
 #| echo: false
@@ -209,7 +209,7 @@ p1 <- datos.health %>%
                   color = rep('white'),
                   bg.colour='grey30')+
   labs(y = "%",
-       x = "Wave",
+       x = NULL,
        fill = NULL,
        title = "a. Health") +
   theme_ggdist() +
@@ -286,7 +286,7 @@ p2 <- datos.pension %>%
                   color = rep('white'),
                   bg.colour='grey30')+
   labs(y = "%",
-       x = "Wave",
+       x = NULL,
        fill = NULL,
        title = "b. Pension") +
   theme_ggdist() +
@@ -379,11 +379,13 @@ Regarding the main variables of this study, @fig-meanchange depicts their averag
 ```{r}
 #| label: fig-meanchange
 #| out-width: '100%'
-#| fig-asp: 1
+#| fig-asp: 0.8
 #| fig-cap: "Change in the mean of market justice preferences, economic inequality perception and justification, and meritocracy (2016-2023)"
 #| fig-cap-location: top
 #| echo: false
 #| results: asis
+
+
 library(srvyr)
 
 df_pond <- df_study1 %>% 
@@ -425,12 +427,12 @@ df_pond %>%
     names_from  = ci,
     values_from = valor
   ) %>% 
-  mutate(variable = case_when(variable == "mjp" ~ "Market justice preferences",
+  mutate(variable = case_when(variable == "mjp" ~ "Market justice",
                               variable == "perc_inequality"  ~ "Inequality perception",
                               variable == "just_inequality"  ~ "Inequality justification",
                               variable == "merit_effort"     ~ "Merit: Effort",
                               variable == "merit_talent"     ~ "Merit: Talent"),
-         variable = factor(variable, levels = c("Market justice preferences",
+         variable = factor(variable, levels = c("Market justice",
                                       "Inequality perception",
                                       "Inequality justification",
                                       "Merit: Effort",
@@ -464,7 +466,7 @@ df_pond %>%
 
 ```{r}
 #| label: fig-matrix
-#| out-width: '100%'
+#| out-width: '90%'
 #| fig-asp: 1
 #| fig-cap: "Correlation matrix of the main variables for the last wave (2023)"
 #| fig-cap-location: top
@@ -504,7 +506,7 @@ corrplot::corrplot(M,
 
 ## Multilevel models
 
-@tbl-modelos presents the results of the multilevel models estimated for market justice preferences, examining both individuals (within) and group-level (between) effects. The intraclass correlation [ICC, @hoxMultilevelAnalysisTechniques2017] from the empty model (see Supplementary Material), which decomposes the variance of market justice preferences, is 0.23, indicating that approximately 23% of the variation is attributable to differences between individuals. Complementary, 77% of the variation corresponds to within-individual differences over time.
+@tbl-modelos presents the results of the multilevel models estimated for market justice preferences, examining both individuals (within) and group-level (between) effects. The intraclass correlation [@hoxMultilevelAnalysisTechniques2017a] from the empty model (see Supplementary Material), which decomposes the variance of market justice preferences, is 0.23, indicating that approximately 23% of the variation is attributable to differences between individuals. Complementary, 77% of the variation corresponds to within-individual differences over time.
 
 According to Model 1, which includes the survey waves to capture intertemporal variations in the dependent variable, there is a decrease in 2017 ($\beta$ = -0.162, $p$ < .001) relative to 2016, and similarly in 2018 ($\beta$ = -0.015, $p$ > .05) and 2019 ($\beta$ = -0.041, $p$ > .05), although the latter effects are not statistically significant. In contrast, in the more recent waves of 2022 and 2023, there is a statistically significant increase in market justice preferences ($\beta$ = 0.289, $p$ < .001; $\beta$ = 0.286, $p$ < .001), suggesting a non-linear effect. To model this trajectory over time, Model 2 incorporates time (survey waves) as a continuous variable, along with its quadratic term, representing the non-linear association initially observed in Model 1. While the linear term (survey wave) shows a negative association, reflecting an overall decline in market preferences over time, the positive quadratic term indicates a reversal of this pattern in the final measurement points.
 
@@ -599,12 +601,12 @@ m12 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality + just_inequality + meri
 ```
 
 
-```{r}
+```{r echo=FALSE, results='asis'}
 #| label: tbl-modelos
 #| tbl-cap: "Longitudinal multilevel models for market justice preferences"
 #| tbl-cap-location: top
-#| results: asis
-#| echo: false
+
+omit <- "(educ)|(quintil1)|(ess)|(ideo)|(sex)|(age)"
 
 ccoef <- list(
   "(Intercept)" = "Intercept",
@@ -629,18 +631,20 @@ texreg::texreg(list(m1, m2, m3, m4, m5, m6, m7, m8),
                custom.model.names = c(paste0("Model ", seq(1:8))),
                caption = NULL,
                stars = c(0.05, 0.01, 0.001),
+               omit.coef = omit,
                custom.coef.map = ccoef,
                digits = 3,
                groups = list("Wave (Ref.= 2016)" = 2:6),
                custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars.",
-               threeparttable = T,
                leading.zero = T,
-               float.pos = "H",
                use.packages = F,
-               booktabs = T,
-               scalebox = 1,
-              custom.gof.rows = list("Controls"=c(rep("No",7), "Yes")))
-
+               booktabs = F,
+               scalebox = 0.75,
+               include.loglik = FALSE,
+               include.aic = FALSE,
+               center = T,
+               custom.gof.rows = list("Controls"=c(rep("No",7), "Yes")))
+               
 
 ```
 
@@ -652,7 +656,9 @@ When examining the between-group effects (BE) in Model 7, which capture differen
 Model 8 introduces the control variables. The within- and between-effects of the main predictors retain both their direction and statistical significance, indicating that the associations are robust to adjustment. Regarding the controls, belonging to higher household-income quintiles is associated with stronger market-justice preferences: individuals in the fourth and fifth quintiles score higher than those in the bottom quintile ($\beta$ = 0.093, $p$ < .05; $\beta$ = 0.147, $p$ < .001, respectively). Respondents who did not report their income also express greater support for market justice ($\beta$ = 0.172, $p$ < .01). Political orientation matters as well: compared with those on the left, individuals who place themselves on the right ($\beta$ = 0.246, $p$ < .001) or who declare no political position ($\beta$ = 0.092, $p$ < .01) display higher market-justice preferences. Finally, women exhibit lower market-justice preferences than men ($\beta$ = −0.080, $p$ < .01).
 
 
-```{r}
+@tbl-interactions displays 
+
+```{r echo=FALSE, results='asis'}
 #| label: tbl-interactions
 #| tbl-cap: "Intereactions for within effects and time"
 #| tbl-cap-location: top
@@ -672,12 +678,17 @@ texreg::texreg(list(m9,m10,m11,m12),
                custom.coef.map = ccoef,
                digits = 3,
                custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars.",
-               threeparttable = T,
                leading.zero = T,
-               float.pos = "h!",
                use.packages = F,
-               booktabs = T,
-               scalebox = 1,
+               booktabs = F,
+               scalebox = 0.95,
+               include.loglik = FALSE,
+               include.aic = FALSE,
+               center = T,
                custom.gof.rows = list("Controls"=c(rep("Yes",4))))
+
+
+
+
 ```
 

@@ -54,6 +54,46 @@
   \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
@@ -113,12 +153,25 @@
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \usepackage[noblocks]{authblk}
 \renewcommand*{\Authsep}{, }
 \renewcommand*{\Authand}{, }
 \renewcommand*{\Authands}{, }
 \renewcommand\Affilfont{\small}
-\usepackage{threeparttable}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -213,8 +266,27 @@ Shaping Preferences for Market Justice in Chile (2016-2023)}
 \begin{document}
 \maketitle
 \begin{abstract}
-My abstract. \newline \textbf{Keywords}: meritocracy, social inequality,
-inequality justification, COVID-19
+This study examines the interplay between perceptions of economic
+inequality and meritocracy in shaping preferences for market justice in
+Chile from 2016 to 2023. Economic inequality has intensified globally,
+raising concerns about its social impacts and the legitimacy of
+market-based distributions of resources. By utilizing longitudinal data
+from the Chilean Longitudinal Social Survey (ELSOC), the research
+investigates how subjective assessments of inequality influence
+attitudes towards social justice, focusing on the extent to which
+individuals believe access to essential services like healthcare,
+education, and pensions should depend on personal merit. The findings
+suggest that as perceptions of economic inequality rise, individuals
+tend to favor redistributive policies, although those with strong
+meritocratic beliefs are more likely to justify existing inequalities.
+The analysis also highlights the effect of major social movements in
+Chile during this period, which have shifted public discourse and
+potentially altered perceptions of inequality and meritocracy. This
+paper contributes to the understanding of how individual beliefs about
+fairness and equity evolve within a socio-political context
+characterized by high inequality and extensive free-market principles.
+\newline \textbf{Keywords}: Economic inequality, meritocracy, market
+justice, Chile, public preferences
 \end{abstract}
 
 \setstretch{1.15}
@@ -590,6 +662,39 @@ systems by shaping political attitudes and personal perceptions of
 success and failure.
 
 \subsection{This study (hypotheses)}\label{this-study-hypotheses}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#| include: false}
+\CommentTok{\#| echo: false}
+
+\ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!} \FunctionTok{require}\NormalTok{(}\StringTok{"pacman"}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"pacman"}\NormalTok{)}
+
+\NormalTok{pacman}\SpecialCharTok{::}\FunctionTok{p\_load}\NormalTok{(tidyverse, }
+\NormalTok{               sjmisc, }
+\NormalTok{               sjPlot, }
+\NormalTok{               lme4, }
+\NormalTok{               here, }
+\NormalTok{               performance,}
+\NormalTok{               influence.ME, }
+\NormalTok{               marginaleffects,}
+\NormalTok{               MLMusingR,}
+\NormalTok{               texreg, }
+\NormalTok{               ggdist,}
+\NormalTok{               misty,}
+\NormalTok{               kableExtra,}
+\NormalTok{               ggalluvial, }
+\NormalTok{               shadowtext,}
+\NormalTok{               MetBrewer,}
+\NormalTok{               patchwork,}
+\NormalTok{               sjlabelled,}
+\NormalTok{               summarytools)}
+
+
+\FunctionTok{options}\NormalTok{(}\AttributeTok{scipen=}\DecValTok{999}\NormalTok{)}
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
 
 \section{Data, Variables and Methods}\label{data-variables-and-methods}
 
@@ -993,7 +1098,7 @@ the last wave (2023)}
 
 \centering{
 
-\includegraphics[width=1\textwidth,height=\textheight]{paper_files/figure-pdf/fig-matrix-1.pdf}
+\includegraphics[width=0.9\textwidth,height=\textheight]{paper_files/figure-pdf/fig-matrix-1.pdf}
 
 }
 
@@ -1004,8 +1109,7 @@ the last wave (2023)}
 Table~\ref{tbl-modelos} presents the results of the multilevel models
 estimated for market justice preferences, examining both individuals
 (within) and group-level (between) effects. The intraclass correlation
-(ICC,
-\citeproc{ref-hoxMultilevelAnalysisTechniques2017}{\textbf{hoxMultilevelAnalysisTechniques2017?}})
+(\citeproc{ref-hoxMultilevelAnalysisTechniques2017a}{Hox et al., 2017})
 from the empty model (see Supplementary Material), which decomposes the
 variance of market justice preferences, is 0.23, indicating that
 approximately 23\% of the variation is attributable to differences
@@ -1036,14 +1140,12 @@ justice preferences}
 
 \centering{
 
-[H]
 \begin{center}
-\scalebox{1}{
-\begin{threeparttable}
+\scalebox{0.75}{
 \begin{tabular}{l c c c c c c c c}
-\toprule
+\hline
  & Model 1 & Model 2 & Model 3 & Model 4 & Model 5 & Model 6 & Model 7 & Model 8 \\
-\midrule
+\hline
 Intercept                            & $1.964^{***}$  & $1.966^{***}$  & $2.103^{***}$  & $2.059^{***}$  & $1.752^{***}$  & $1.721^{***}$  & $1.541^{***}$  & $1.574^{***}$  \\
                                      & $(0.022)$      & $(0.033)$      & $(0.046)$      & $(0.045)$      & $(0.052)$      & $(0.053)$      & $(0.095)$      & $(0.112)$      \\
 Wave (Ref.= 2016)                    &                &                &                &                &                &                &                &                \\
@@ -1078,23 +1180,18 @@ Merit: Effort (BE)                   &                &                &        
                                      &                &                &                &                &                &                & $(0.033)$      & $(0.033)$      \\
 Merit: Talent (BE)                   &                &                &                &                &                &                & $-0.006$       & $-0.016$       \\
                                      &                &                &                &                &                &                & $(0.033)$      & $(0.033)$      \\
-\midrule
+\hline
 Controls                             & No             & No             & No             & No             & No             & No             & No             & Yes            \\
-AIC                                  & $20273.132$    & $20260.158$    & $20251.351$    & $20140.808$    & $20002.562$    & $20005.214$    & $19957.283$    & $19986.833$    \\
 BIC                                  & $20329.477$    & $20309.460$    & $20307.696$    & $20204.196$    & $20072.993$    & $20082.688$    & $20062.929$    & $20191.083$    \\
-Log Likelihood                       & $-10128.566$   & $-10123.079$   & $-10117.676$   & $-10061.404$   & $-9991.281$    & $-9991.607$    & $-9963.641$    & $-9964.417$    \\
 Num. obs.                            & $8460$         & $8460$         & $8460$         & $8460$         & $8460$         & $8460$         & $8460$         & $8460$         \\
 Num. groups: idencuesta              & $1681$         & $1681$         & $1681$         & $1681$         & $1681$         & $1681$         & $1681$         & $1681$         \\
 Var: idencuesta (Intercept)          & $0.174$        & $0.214$        & $0.210$        & $0.204$        & $0.179$        & $0.178$        & $0.180$        & $0.172$        \\
 Var: Residual                        & $0.528$        & $0.494$        & $0.494$        & $0.493$        & $0.490$        & $0.490$        & $0.488$        & $0.488$        \\
 Var: idencuesta ola\_num             & $$             & $0.007$        & $0.007$        & $0.007$        & $0.006$        & $0.006$        & $0.006$        & $0.006$        \\
 Cov: idencuesta (Intercept) ola\_num & $$             & $-0.018$       & $-0.017$       & $-0.018$       & $-0.015$       & $-0.015$       & $-0.016$       & $-0.016$       \\
-\bottomrule
+\hline
+\multicolumn{9}{l}{\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$.}}
 \end{tabular}
-\begin{tablenotes}[flushleft]
-\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$.}
-\end{tablenotes}
-\end{threeparttable}
 }
 \caption{}
 \label{table:coefficients}
@@ -1155,6 +1252,8 @@ who declare no political position (\(\beta\) = 0.092, \(p\) \textless{}
 lower market-justice preferences than men (\(\beta\) = −0.080, \(p\)
 \textless{} .01).
 
+Table~\ref{tbl-interactions} displays
+
 \begin{table}
 
 \caption{\label{tbl-interactions}Intereactions for within effects and
@@ -1162,16 +1261,12 @@ time}
 
 \centering{
 
-\begin{verbatim}
-
-\begin{table}[h!]
 \begin{center}
-\scalebox{1}{
-\begin{threeparttable}
+\scalebox{0.95}{
 \begin{tabular}{l c c c c}
-\toprule
+\hline
  & Model 9 & Model 10 & Model 11 & Model 12 \\
-\midrule
+\hline
 Intercept                                    & $1.605^{***}$ & $1.679^{***}$ & $1.425^{***}$ & $1.444^{***}$ \\
                                              & $(0.123)$     & $(0.112)$     & $(0.117)$     & $(0.117)$     \\
 Perception inequality (WE) x Wave            & $0.002$       &               &               &               \\
@@ -1182,11 +1277,9 @@ Merit: Effort (WE) x Wave                    &               &               & $
                                              &               &               & $(0.004)$     &               \\
 Merit: Talent (WE) x Wave                    &               &               &               & $-0.010^{*}$  \\
                                              &               &               &               & $(0.004)$     \\
-\midrule
+\hline
 Controls                                     & Yes           & Yes           & Yes           & Yes           \\
-AIC                                          & $19995.908$   & $19923.216$   & $19940.577$   & $19932.452$   \\
 BIC                                          & $20228.331$   & $20155.638$   & $20172.999$   & $20164.875$   \\
-Log Likelihood                               & $-9964.954$   & $-9928.608$   & $-9937.289$   & $-9933.226$   \\
 Num. obs.                                    & $8460$        & $8460$        & $8460$        & $8460$        \\
 Num. groups: idencuesta                      & $1681$        & $1681$        & $1681$        & $1681$        \\
 Var: idencuesta (Intercept)                  & $0.305$       & $0.198$       & $0.137$       & $0.123$       \\
@@ -1205,18 +1298,13 @@ Cov: idencuesta merit\_effort ola\_num       & $$            & $$            & $
 Var: idencuesta merit\_talent                & $$            & $$            & $$            & $0.021$       \\
 Cov: idencuesta (Intercept) merit\_talent    & $$            & $$            & $$            & $-0.023$      \\
 Cov: idencuesta merit\_talent ola\_num       & $$            & $$            & $$            & $-0.005$      \\
-\bottomrule
+\hline
+\multicolumn{5}{l}{\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$.}}
 \end{tabular}
-\begin{tablenotes}[flushleft]
-\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$.}
-\end{tablenotes}
-\end{threeparttable}
 }
 \caption{}
 \label{table:coefficients}
 \end{center}
-\end{table}
-\end{verbatim}
 
 }
 
@@ -1348,6 +1436,10 @@ J., David Polo, J., \& Rentería Pérez, E. (2018). Perceptions of
 Gimpelson, V., \& Treisman, D. (2018). Misperceiving inequality.
 \emph{Economics \& Politics}, \emph{30}(1), 27--54.
 \url{https://doi.org/10.1111/ecpo.12103}
+
+\bibitem[\citeproctext]{ref-hoxMultilevelAnalysisTechniques2017a}
+Hox, J. J., Moerbeek, M., \& Van de Schoot, R. (2017). \emph{Multilevel
+{Analysis}: {Techniques} and {Applications}}.
 
 \bibitem[\citeproctext]{ref-immergut_it_2020}
 Immergut, E. M., \& Schneider, S. M. (2020). Is it unfair for the
