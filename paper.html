@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -243,39 +209,6 @@ window.Quarto = {
 </section>
 <section id="this-study-hypotheses" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="this-study-hypotheses"><span class="header-section-number">2.4</span> This study (hypotheses)</h2>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span> <span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               sjmisc, </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>               sjPlot, </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>               lme4, </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>               here, </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>               performance,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>               influence.ME, </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>               marginaleffects,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>               MLMusingR,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>               texreg, </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>               ggdist,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>               misty,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>               kableExtra,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>               ggalluvial, </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>               shadowtext,</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>               MetBrewer,</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>               patchwork,</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>               sjlabelled,</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>               summarytools)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen=</span><span class="dv">999</span>)</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
 </section>
 </section>
 <section id="data-variables-and-methods" class="level1" data-number="3">
@@ -469,7 +402,7 @@ IQR (CV) : 1.7 (0.6)</td>
 <h2 data-number="4.1" class="anchored" data-anchor-id="descriptive"><span class="header-section-number">4.1</span> Descriptive</h2>
 <p><a href="#fig-alluvial" class="quarto-xref">Figure&nbsp;1</a> shows the annual frequencies of market justice preferences for healthcare, pensions, and education from 2016 to 2023. Each year presents stacked percentage frequencies, and the flows between them reflect opinion changes among the same individuals from one year to the next, given that we are using panel data. For instance, of the 40.9% who strongly disagreed with justifying inequality in healthcare in 2019, around 24.3% maintained that position in 2022, while the remaining 16.6% shifted toward other response categories—primarily moving into disagreement rather than strong disagreement. Overall, more than half of the respondents exhibit a high level of disagreement (disagree + strongly disagree) with inequality in these three social service areas over time. Despite this general pattern, recent waves show a slight decrease in disagreement and a corresponding rise in support for inequality. Specifically, in healthcare and education, although disagreement remains substantial, agreement increased from 8.9% and 7.6% in 2019 to 12% and 12.5% in 2023, respectively. This shift is most evident in pensions, where the combined agree/strongly agree category grew by about 10 percentage points, from 16.9% in 2016 to 27.8% in 2023.</p>
 <div class="cell fig-cap-location-top">
-<div id="fig-alluvial" class="quarto-figure quarto-figure-center quarto-float anchored" data-cap-location="top" data-fig-pos="H">
+<div id="fig-alluvial" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="H" data-cap-location="top">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-alluvial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Change in the justification of inequality in health, pensions and education over time (2016-2023)
@@ -482,7 +415,7 @@ Figure&nbsp;1: Change in the justification of inequality in health, pensions and
 </div>
 <p>Regarding the main variables of this study, <a href="#fig-meanchange" class="quarto-xref">Figure&nbsp;2</a> depicts their average changes over the years. We observe an increase in the average level of market justice preferences in the most recent waves, which begins in 2019. The highest average consistently appears for perceived economic inequality, although this variable shows a downward trend of roughly one point over time. Interestingly, while perceptions of economic inequality declined in the latest measurements (2022–2023), market justice preferences increased. With respect to economic inequality justification, there is a steady decrease in average levels over the years, registering the lowest mean compared to the other variables. The meritocracy measures remain stable, though the perception that individuals are rewarded for intelligence is slightly higher than the perception that they are rewarded for their effort.</p>
 <div class="cell fig-cap-location-top">
-<div id="fig-meanchange" class="quarto-figure quarto-figure-center quarto-float anchored" data-cap-location="top" data-fig-pos="H">
+<div id="fig-meanchange" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="H" data-cap-location="top">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-meanchange-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Change in the mean of market justice preferences, economic inequality perception and justification, and meritocracy (2016-2023)
@@ -495,7 +428,7 @@ Figure&nbsp;2: Change in the mean of market justice preferences, economic inequa
 </div>
 <p><a href="#fig-matrix" class="quarto-xref">Figure&nbsp;3</a> presents the correlation matrix for the main variables in the latest wave (2023). Overall, the coefficients range from low to moderate. The association between market justice preferences and economic inequality perception is negative but small and not statistically significant (<span class="math inline">r</span> = -0.05, <span class="math inline">p</span> &gt; .05). By contrast, market justice preferences positively and significantly correlate with the justification of economic inequality (<span class="math inline">r</span> = 0.16, <span class="math inline">p</span> &lt; .01), as well as show low, positive associations with the two meritocracy variables (<span class="math inline">r</span> = 0.14, <span class="math inline">p</span> &lt; .01; <span class="math inline">r</span> = 0.12, <span class="math inline">p</span> &lt; .01). Perceived economic inequality has a strong, positive correlation with justifying economic inequality (<span class="math inline">r</span> = 0.53, <span class="math inline">p</span> &lt; .01), but negative and nonsignificant correlations with both meritocracy perceptions (<span class="math inline">r</span> = -0.04, <span class="math inline">p</span> &gt; .05; <span class="math inline">r</span> = -0.04, <span class="math inline">p</span> &gt; .05). The justification of economic inequality indicator also has small yet statistically significant positive correlations with the meritocracy variables (<span class="math inline">r</span> = 0.05, <span class="math inline">p</span> &lt; .05; <span class="math inline">r</span> = 0.07, <span class="math inline">p</span> &lt; .01). Finally, the two meritocracy variables exhibit a strong positive association with each other (<span class="math inline">r</span> = 0.69, <span class="math inline">p</span> &lt; .01).</p>
 <div class="cell fig-cap-location-top">
-<div id="fig-matrix" class="quarto-figure quarto-figure-center quarto-float anchored" data-cap-location="top" data-fig-pos="H">
+<div id="fig-matrix" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="H" data-cap-location="top">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Correlation matrix of the main variables for the last wave (2023)
