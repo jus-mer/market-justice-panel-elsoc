@@ -29,8 +29,9 @@ options(knitr.kable.NA = "")
 
 ```{r}
 #| label: packages
-#| include: true
 #| echo: false
+#| include: false
+
 
 if (! require("pacman")) install.packages("pacman")
 

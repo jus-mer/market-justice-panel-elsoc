@@ -71,4 +71,5 @@ In the web page it is possible to see/download the paper in html and pdf formats
 
 - [Data preparation](https://justicia-distributiva.github.io/market-justice-panel-elsoc/processing/01-proc-data.html)
 - [Data analysis](https://justicia-distributiva.github.io/market-justice-panel-elsoc/processing/02-analysis.html)
-- [Paper Draft](https://justicia-distributiva.github.io/market-justice-panel-elsoc/paper.html)
+- [Paper Draft (PDF)](https://justicia-distributiva.github.io/market-justice-panel-elsoc/paper.pdf)
+- [Paper Draft (HTML)](https://justicia-distributiva.github.io/market-justice-panel-elsoc/paper.html)
