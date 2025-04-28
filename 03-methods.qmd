@@ -80,7 +80,6 @@ df_study1 <- df_study1_long_t7 %>%
          just_educ,
          mjp, 
          perc_inequality, 
-         just_inequality,
          merit_effort, 
          merit_talent, 
          educ,
@@ -163,13 +162,15 @@ print(df)
 ```
 
 
-**Perception of economic inequality**: The main independent variable refers to the perception of economic inequality, measured through the perceived wage gap. [@castillo_perception_2022] [acá citar a Hadler, Gijsberts, Castillo 2009 (CEP)]. This measure is derived from the salary gap between the perceived salaries of jobs at opposite ends of the occupational hierarchy. Specifically, it relies on the division between the perceived salary of a large-company president and that of an unskilled worker [@Castillo2011]. Higher values of this term indicate a greater perception of economic inequality between occupations located at the extremes of the status continuum. This measure includes a logarithmic term in order to adjust income magnitudes (usually fewer cases with high income):
+
+**Perception of economic inequality**: The main independent variable refers to the perception of economic inequality, measured through the perceived wage gap. [@castillo_cual_2009; @hadler_why_2005; @gijsberts_thelegitimation_1999]. This measure is derived from the salary gap between the perceived salaries of jobs at opposite ends of the occupational hierarchy. Specifically, it relies on the division between the perceived salary of a large-company president and that of an unskilled worker [@Castillo2011]. Higher values of this term indicate a greater perception of economic inequality between occupations located at the extremes of the status continuum. This measure includes a logarithmic term in order to adjust income magnitudes (usually fewer cases with high income):
 
 $$
 \text{perceived wage gap} = \log_{10}\left(\frac{\text{perceived salary of a large-company president}}{\text{perceived salary of an unskilled worker}}\right)
 $$
 
 **Perception of Meritocracy**: this variable is operationalized through two components, namely effort and talent [@young_rise_1962]. The item used to gauge effort is: "In Chile, people are rewarded for their efforts," while the item for talent is: "In Chile, people are rewarded for their intelligence and skills". In both cases, respondents indicate their level of agreement on a five-point Likert scale, ranging from 1 ("strongly disagree") to 5 ("strongly agree").
+
 
 Table 2 shows the independent variables used, their response categories and their frequencies.
 
@@ -183,7 +184,7 @@ Table 2 shows the independent variables used, their response categories and thei
 
 t2 <- df_study1 %>% 
   filter(ola == 1) %>% 
-  select(perc_inequality, just_inequality, merit_effort, merit_talent) 
+  select(perc_inequality, merit_effort, merit_talent) 
 
 df<-dfSummary(t2,
                plain.ascii = FALSE,

@@ -107,8 +107,8 @@ elsoc_long_2016_2023 <- elsoc_long_2016_2023 %>%
          merit_talent = c18_10, 
          perc_sal_gerente = d03_01,
          perc_sal_obrero = d03_02, 
-         just_sal_gerente = d04_01, 
-         just_sal_obrero = d04_02, 
+         #just_sal_gerente = d04_01, 
+         #just_sal_obrero = d04_02, 
          age = m0_edad, m01, 
          sex = m0_sexo, 
          ess = d01_01, 
@@ -206,20 +206,20 @@ elsoc_long_2016_2023$perc_inequality <- sjlabelled::set_label(elsoc_long_2016_20
 
 # just inequality gap
 
-frq(elsoc_long_2016_2023$just_sal_gerente)
-frq(elsoc_long_2016_2023$just_sal_obrero)
-
-elsoc_long_2016_2023 <- elsoc_long_2016_2023 %>% 
-  mutate(just_sal_obrero=replace(just_sal_obrero, just_sal_obrero <= 40000  | just_sal_obrero>=999999999999999, NA)) %>%
-  mutate(just_sal_gerente=replace(just_sal_gerente, just_sal_gerente <= 100000 | just_sal_gerente>=999999999999999, NA)) 
-
-elsoc_long_2016_2023$just_inequality <- SciViews::ln(elsoc_long_2016_2023$just_sal_gerente/elsoc_long_2016_2023$just_sal_obrero)
-
-summary(elsoc_long_2016_2023$just_inequality)
-
-elsoc_long_2016_2023$just_inequality <- sjlabelled::set_label(elsoc_long_2016_2023$just_inequality, 
-                        label = "Inequality gap justification")
-
+#frq(elsoc_long_2016_2023$just_sal_gerente)
+#frq(elsoc_long_2016_2023$just_sal_obrero)
+#
+#elsoc_long_2016_2023 <- elsoc_long_2016_2023 %>% 
+#  mutate(just_sal_obrero=replace(just_sal_obrero, just_sal_obrero <= 40000  | #just_sal_obrero>=999999999999999, NA)) %>%
+#  mutate(just_sal_gerente=replace(just_sal_gerente, just_sal_gerente <= 100000 | #just_sal_gerente>=999999999999999, NA)) 
+#
+#elsoc_long_2016_2023$just_inequality <- #SciViews::ln(elsoc_long_2016_2023$just_sal_gerente/elsoc_long_2016_2023$just_sal_obrero#)
+#
+#summary(elsoc_long_2016_2023$just_inequality)
+#
+#elsoc_long_2016_2023$just_inequality <- #sjlabelled::set_label(elsoc_long_2016_2023$just_inequality, 
+#                        label = "Inequality gap justification")
+#
 ```
 
 
@@ -332,10 +332,10 @@ elsoc_long_2016_2023 %>%
          merit_talent,
          perc_sal_gerente,
          perc_sal_obrero,
-         just_sal_gerente,
-         just_sal_obrero,
+         #just_sal_gerente,
+         #just_sal_obrero,
          perc_inequality,
-         just_inequality,
+         #just_inequality,
          educ,
          educyear,
          sex,
@@ -404,8 +404,8 @@ pacman::p_load(datasets,data.table)
 df_study1_long <- data.table::melt.data.table(data.table::setDT(df_study1_wide),
               id.vars = c("idencuesta","muestra"),
               variable.name = c("ola"),
-              measure = patterns("^comuna_","^comunacod_","^ponderador_long_total_", "^segmento_", "^estrato_", "^just_educ_", "^just_pension_", "^just_health_", "^mjp_","^merit_effort_","^merit_talent_", "^perc_sal_gerente_", "^perc_sal_obrero_", "^just_sal_gerente_", "^just_sal_obrero_", "^perc_inequality_", "^just_inequality_", "^educ_","^educyear_","^sex_", "^age_","^ess_", "^ideo_","^nhogar1_", "^m46_nhogar_", "^m54_", "^m30_", "^m30b_", "^m29_imp_"),
-              value.name = c("comuna","comunacod","ponderador_long_total","segmento","estrato", "just_educ", "just_pension","just_health","mjp","merit_effort","merit_talent", "perc_sal_gerente","perc_sal_obrero","just_sal_gerente","just_sal_obrero", "perc_inequality", "just_inequality", "educ","educyear","sex", "age", "ess", "ideo", "nhogar1", "m46_nhogar", "m54", "m30", "m30b", "m29_imp"),
+              measure = patterns("^comuna_","^comunacod_","^ponderador_long_total_", "^segmento_", "^estrato_", "^just_educ_", "^just_pension_", "^just_health_", "^mjp_","^merit_effort_","^merit_talent_", "^perc_sal_gerente_", "^perc_sal_obrero_", "^perc_inequality_", "^educ_","^educyear_","^sex_", "^age_","^ess_", "^ideo_","^nhogar1_", "^m46_nhogar_", "^m54_", "^m30_", "^m30b_", "^m29_imp_"),
+              value.name = c("comuna","comunacod","ponderador_long_total","segmento","estrato", "just_educ", "just_pension","just_health","mjp","merit_effort","merit_talent", "perc_sal_gerente","perc_sal_obrero", "perc_inequality", "educ","educyear","sex", "age", "ess", "ideo", "nhogar1", "m46_nhogar", "m54", "m30", "m30b", "m29_imp"),
               na.rm = F,value.factor = TRUE
               )
 
@@ -564,8 +564,8 @@ df_study1_long <- data.table::melt.data.table(data.table::setDT(df_study1_wide),
               id.vars = c("idencuesta","muestra"),
               variable.name = c("ola"),
               measure = 
-patterns("^comuna_","^comunacod_","^ponderador_long_total_", "^segmento_", "^estrato_", "^just_educ_", "^just_pension_", "^just_health_", "^mjp_","^merit_effort_","^merit_talent_", "^perc_sal_gerente_", "^perc_sal_obrero_", "^just_sal_gerente_", "^just_sal_obrero_", "^perc_inequality_", "^just_inequality_", "^educ_","^educyear_","^sex_", "^age_","^ess_", "^ideo_","^quintil_", "^quintil1_", "^ing_pc_"),
-              value.name = c("comuna","comunacod","ponderador_long_total","segmento","estrato", "just_educ", "just_pension","just_health","mjp","merit_effort","merit_talent", "perc_sal_gerente","perc_sal_obrero","just_sal_gerente","just_sal_obrero", "perc_inequality", "just_inequality", "educ","educyear","sex", "age", "ess", "ideo", "quintil", "quintil1", "ing_pc"),
+patterns("^comuna_","^comunacod_","^ponderador_long_total_", "^segmento_", "^estrato_", "^just_educ_", "^just_pension_", "^just_health_", "^mjp_","^merit_effort_","^merit_talent_", "^perc_sal_gerente_", "^perc_sal_obrero_", "^perc_inequality_", "^educ_","^educyear_","^sex_", "^age_","^ess_", "^ideo_","^quintil_", "^quintil1_", "^ing_pc_"),
+              value.name = c("comuna","comunacod","ponderador_long_total","segmento","estrato", "just_educ", "just_pension","just_health","mjp","merit_effort","merit_talent", "perc_sal_gerente","perc_sal_obrero", "perc_inequality", "educ","educyear","sex", "age", "ess", "ideo", "quintil", "quintil1", "ing_pc"),
               na.rm = F,value.factor = TRUE
               )
 ```

@@ -48,10 +48,10 @@ Additionally, this study examines whether these relationships vary over time in 
 
 Based on these arguments, we propose the following hypotheses:
 
-H1: Lower perceived economic inequality is associated with stronger market justice preferences.
+$H1$: Greater perceived economic inequality is associated with stronger market justice preferences.
 
-H2: Stronger meritocratic beliefs are associated with stronger market justice preferences.
+$H2$: Stronger meritocratic beliefs are associated with stronger market justice preferences.
 
-H3: The positive association between meritocratic beliefs and market justice preferences is moderated by perceived economic inequality; specifically, this association is weaker when perceived economic inequality is high.
+$H3$: The positive association between meritocratic beliefs and market justice preferences is moderated by perceived economic inequality; specifically, this association is weaker when perceived economic inequality is high.
 
-H4: The effects described in H1–H3 are attenuated after major social mobilizations (2019–2022), reflecting increased critical views of the market's role in allocating social goods.
+$H4$: The effects described in H1–H3 are attenuated after major social mobilizations (2019–2022), reflecting increased critical views of the market's role in allocating social goods.
