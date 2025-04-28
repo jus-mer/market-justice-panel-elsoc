@@ -130,8 +130,6 @@ The survey has been conducted yearly since 2016, except in 2020, when it was sus
 
 ## Variables
 
-*Dependent variable*
-
 **Market justice preferences**: The dependent variable in this study is preferences for market justice. This construct is operationalized through three items that capture how strongly individuals justify conditioning access to social services---healthcare, pensions, and education---on income. Specifically, the justification of inequality in healthcare is assessed by the question: "Is it fair in Chile that people with higher incomes can access better healthcare than people with lower incomes?" The same question is posed for pensions and education. In all cases, respondents indicate their level of agreement on a five-point Likert scale ranging from 1 ("strongly disagree") to 5 ("strongly agree"). Additionally, we include a composite measure of "market justice preferences", calculated as the average of these three items ($\alpha$ = 0.84). This index ranges from 1 to 5, with higher values indicating stronger preferences for market justice (see @tbl-summary1).
 
 ```{r}
@@ -165,13 +163,13 @@ print(df)
 ```
 
 
-*Independent variables*
+**Perception of economic inequality**: The main independent variable refers to the perception of economic inequality, measured through the perceived wage gap. [@castillo_perception_2022] [acá citar a Hadler, Gijsberts, Castillo 2009 (CEP)]. This measure is derived from the salary gap between the perceived salaries of jobs at opposite ends of the occupational hierarchy. Specifically, it relies on the division between the perceived salary of a large-company president and that of an unskilled worker [@Castillo2011]. Higher values of this term indicate a greater perception of economic inequality between occupations located at the extremes of the status continuum. This measure includes a logarithmic term in order to adjust income magnitudes (usually fewer cases with high income):
 
-**Perception of economic inequality**: The main independent variable refers to the perception of economic inequality, measured through the perceived wage gap, which serves as an absolute indicator of inequality perceptions [@castillo_perception_2022]. This measure is derived from the gap between the perceived salaries of jobs at opposite ends of the occupational hierarchy. Specifically, it relies on the logarithm of the division between the perceived salary of a large-company president and that of an unskilled worker [@Castillo2011]. Higher values of this term indicate a greater perception of economic inequality between occupations located at the extremes of the status continuum.
+$$
+\text{perceived wage gap} = \log_{10}\left(\frac{\text{perceived salary of a large-company president}}{\text{perceived salary of an unskilled worker}}\right)
+$$
 
-**Justification of economic inequality**: This construct is measured as the just earnings gap, an approach to measuring the justification of economic inequality based on earning differences considered just between high and low status occupations [@Castillo2011]. Similarly to economic inequality perception, this indicator relies on the logarithmic ratio between the just salary of a large-company president and that of an unskilled worker. Higher values of this term indicate a greater justification of economic inequality.
-
-**Meritocracy**: Meritocratic perception is operationalized through two components: one addressing effort and another focusing on talent [@young_rise_1962]. The item used to gauge effort is: "In Chile, people are rewarded for their efforts," while the item for talent is: "In Chile, people are rewarded for their intelligence and skills." In both cases, respondents indicate their level of agreement on a five-point Likert scale, ranging from 1 ("strongly disagree") to 5 ("strongly agree").
+**Perception of Meritocracy**: this variable is operationalized through two components, namely effort and talent [@young_rise_1962]. The item used to gauge effort is: "In Chile, people are rewarded for their efforts," while the item for talent is: "In Chile, people are rewarded for their intelligence and skills". In both cases, respondents indicate their level of agreement on a five-point Likert scale, ranging from 1 ("strongly disagree") to 5 ("strongly agree").
 
 Table 2 shows the independent variables used, their response categories and their frequencies.
 
@@ -207,7 +205,7 @@ print(df)
 
 *Controls*
 
-Sociodemographic and attitudinal variables are included to control for potential composition effects in the population. In terms of sociodemographic characteristics, we incorporate per capita household income quintile, educational level (1=Less than Universitary, 2=Universitary), age (in years), and sex (1=Male, 2=Female), which have been shown to influence market justice preferences significantly [@lindh_public_2015; @castillo_socialization_2024]. Regarding attitudinal variables, we include political identification (1=Left, 2=Center, 3=Right, 4=No identification) and subjective social status (ranging from 1 to 10) because they may confound the relationship between market justice preferences and perceptions of inequality and meritocracy [@schneider_poverty_2015].
+Sociodemographic and attitudinal variables are included to control for potential composition effects in the population. In terms of sociodemographic characteristics, we incorporate per capita household income quintile, educational level (1=Less than Universitary, 2=Universitary), age (in years), and sex (1=Male, 2=Female), which have been previously shown to influence market justice preferences significantly [@lindh_public_2015; @castillo_socialization_2024]. Regarding attitudinal variables, we include political identification (1=Left, 2=Center, 3=Right, 4=No identification) and subjective social status (ranging from 1 to 10) as they may confound the relationship between market justice preferences and perceptions of inequality and meritocracy [@schneider_poverty_2015].
 
 ## Methods
 
