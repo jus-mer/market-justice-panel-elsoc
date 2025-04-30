@@ -91,6 +91,12 @@ df_study1 <- df_study1_long_t7 %>%
          ess, 
          ideo) %>% 
   na.omit() %>% 
+  mutate(ola = case_when(ola == 1 ~ 1,
+                         ola == 2 ~ 2, 
+                         ola == 3 ~ 3,
+                         ola == 4 ~ 4,
+                         ola == 6 ~ 5,
+                         ola == 7 ~ 6)) %>% 
   mutate(ola = as.factor(ola),
          ola_num = as.numeric(ola),
          ola_2=as.numeric(ola)^2)
@@ -154,8 +160,8 @@ datos.health <- df_study1 %>%
                           ola == 2 ~ "2017",
                           ola == 3 ~ "2018",
                           ola == 4 ~ "2019",
-                          ola == 6 ~ "2022",
-                          ola == 7 ~ "2023"),
+                          ola == 5 ~ "2022",
+                          ola == 6 ~ "2023"),
          wave = factor(wave, levels = c("2016",
                                       "2017",
                                       "2018",
@@ -182,8 +188,8 @@ etiquetas.health <- df_study1 %>%
                           ola == 2 ~ "2017",
                           ola == 3 ~ "2018",
                           ola == 4 ~ "2019",
-                          ola == 6 ~ "2022",
-                          ola == 7 ~ "2023"),
+                          ola == 5 ~ "2022",
+                          ola == 6 ~ "2023"),
          wave = factor(wave, levels = c("2016",
                                         "2017",
                                         "2018",
@@ -234,8 +240,8 @@ datos.pension <- df_study1 %>%
                           ola == 2 ~ "2017",
                           ola == 3 ~ "2018",
                           ola == 4 ~ "2019",
-                          ola == 6 ~ "2022",
-                          ola == 7 ~ "2023"),
+                          ola == 5 ~ "2022",
+                          ola == 6 ~ "2023"),
          wave = factor(wave, levels = c("2016",
                                         "2017",
                                         "2018",
@@ -262,8 +268,8 @@ etiquetas.pension <- df_study1 %>%
                           ola == 2 ~ "2017",
                           ola == 3 ~ "2018",
                           ola == 4 ~ "2019",
-                          ola == 6 ~ "2022",
-                          ola == 7 ~ "2023"),
+                          ola == 5 ~ "2022",
+                          ola == 6 ~ "2023"),
          wave = factor(wave, levels = c("2016",
                                         "2017",
                                         "2018",
@@ -310,8 +316,8 @@ datos.educ <- df_study1 %>%
                           ola == 2 ~ "2017",
                           ola == 3 ~ "2018",
                           ola == 4 ~ "2019",
-                          ola == 6 ~ "2022",
-                          ola == 7 ~ "2023"),
+                          ola == 5 ~ "2022",
+                          ola == 6 ~ "2023"),
          wave = factor(wave, levels = c("2016",
                                         "2017",
                                         "2018",
@@ -338,8 +344,8 @@ etiquetas.educ <- df_study1 %>%
                           ola == 2 ~ "2017",
                           ola == 3 ~ "2018",
                           ola == 4 ~ "2019",
-                          ola == 6 ~ "2022",
-                          ola == 7 ~ "2023"),
+                          ola == 5 ~ "2022",
+                          ola == 6 ~ "2023"),
          wave = factor(wave, levels = c("2016",
                                         "2017",
                                         "2018",
@@ -393,8 +399,8 @@ df_pond <- df_study1 %>%
                          ola == 2 ~ "2017",
                          ola == 3 ~ "2018",
                          ola == 4 ~ "2019",
-                         ola == 6 ~ "2022",
-                         ola == 7 ~ "2023"),
+                         ola == 5 ~ "2022",
+                         ola == 6 ~ "2023"),
          ola = factor(ola, levels = c("2016",
                                         "2017",
                                         "2018",
@@ -472,7 +478,7 @@ df_pond %>%
 
 
 M <- df_study1 %>%
-  filter(ola == 7) %>% 
+  filter(ola == 6) %>% 
   select(mjp, perc_inequality, merit_effort, merit_talent) %>% 
   mutate_all(.funs = ~ as.numeric(.)) %>% 
   cor(use = "pairwise.complete.obs", method = "pearson")
@@ -515,8 +521,8 @@ df_study1 <- df_study1 %>%
                          ola == 2 ~ "2017",
                          ola == 3 ~ "2018",
                          ola == 4 ~ "2019",
-                         ola == 6 ~ "2022",
-                         ola == 7 ~ "2023"),
+                         ola == 5 ~ "2022",
+                         ola == 6 ~ "2023"),
          ola = factor(ola, levels = c("2016",
                                         "2017",
                                         "2018",
@@ -666,7 +672,7 @@ According to Model 1, which includes the survey waves to capture intertemporal v
 
 Models 3 and 4 incorporate the within-group effects (WE) of the primary independent variables, capturing how individual changes in these variables over time shape the dependent variable. The results in Model 3 suggest that the within effect of perceived economic inequality is negative and statistically significant ($p$ < .001). Specifically, each one-point increase in an individual’s perception of economic inequality between waves is associated with a 0.034 point decrease in market justice preferences. Model 4 shows that meritocratic beliefs operate in the opposite direction. An upward shift in the perception that effort is rewarded exerts a positive within effect ($\beta$ = 0.071, $p$ < .001), and a parallel increase in the perception that intelligence and ability are rewarded is likewise associated with higher market-justice preferences ($\beta$ = 0.028, $p$ < .05). Taken together, these results suggest that individuals who increasingly perceive meritocracy—whether through effort or talent—tend to hold stronger market justice preferences.
 
-When examining the between-group effects (BE) in Model 5 and 6, which capture differences between individuals in the average of the main variables, a similar pattern emerges. Individuals who perceive higher levels of economic inequality tend to prefer less market justice ($\beta$ = -0.042, $p$ < .05). In Model 6, the meritocratic belief that effort is rewarded is positively associated with market justice preferences ($\beta$ = 0.186, $p$ < .001). , whereas the belief that talent is rewarded shows a positive but non-significant coefficient ($\beta$ = 0.040). Notably, once the meritocratic variables are included, the negative coefficient for perceived economic inequality remains but is no longer statistically significant.
+When examining the between-group effects (BE) in Model 5 and 6, which capture differences between individuals in the average of the main variables, a similar pattern emerges. Individuals who perceive higher levels of economic inequality tend to prefer less market justice ($\beta$ = -0.042, $p$ < .05). In Model 6, the meritocratic perception that effort is rewarded is positively associated with market justice preferences ($\beta$ = 0.186, $p$ < .001), whereas the perception that talent is rewarded shows a positive but non-significant coefficient ($\beta$ = 0.040). Notably, once the meritocratic variables are included, the negative coefficient for perceived economic inequality remains but is no longer statistically significant.
 
 Model 7 adds the control variables. With the exception of the between-effect for perceived economic inequality—which becomes nonsignificant—the within- and between-effects of the principal predictors retain both their direction and statistical significance, confirming the robustness of the associations (see Supplementary Material for effects of control variables).
 
@@ -694,7 +700,7 @@ texreg::texreg(list(m8,m9),
                leading.zero = T,
                use.packages = F,
                booktabs = F,
-               scalebox = 0.95,
+               scalebox = 0.8,
                include.loglik = FALSE,
                include.aic = FALSE,
                center = T,
@@ -704,10 +710,49 @@ texreg::texreg(list(m8,m9),
 
 
 ```
-@tbl-interactions1 reports whether perceived economic inequality moderates the impact of meritocratic beliefs on market-justice preferences. In neither the within-person specification (Model 8) nor the between-person specification (Model 9) do the interaction terms reach statistical significance, indicating that higher perceptions of economic inequality do not meaningfully alter the effect of meritocracy on support for market allocation of social services.
 
 
-With regard to how the effects of perceived economic inequality, meritocratic beliefs, and their interaction evolve over time...
+@tbl-interactions1 reports whether perceived economic inequality moderates the impact of meritocratic perceptions on market-justice preferences. In neither the within-person specification (Model 8) nor the between-person specification (Model 9) do the interaction terms reach statistical significance, indicating that higher perceptions of economic inequality do not meaningfully alter the effect of meritocracy on support for market allocation of social services.
 
-Valores predichos o marginales??
 
+```{r}
+#| label: fig-growth
+#| out-width: '100%'
+#| fig-asp: 1
+#| fig-cap: "Time varying within effects of meritocratic perceptions on market justice preferences"
+#| fig-cap-location: top
+#| echo: false
+#| results: asis
+
+
+library(ggeffects)
+
+
+p4 <- ggpredict(m11, terms = c("ola_num [all]", "merit_effort")) %>% 
+  plot() + 
+  scale_x_continuous(n.breaks = 6) +
+  labs(x = "Wave",
+       title = "(A) People are rewarded for their efforts",
+       color = NULL) +
+  ggdist::theme_ggdist() +
+  theme(legend.position = "none")
+  
+
+p5 <- ggpredict(m12, terms = c("ola_num [all]", "merit_talent")) %>% 
+  plot() + 
+  scale_x_continuous(n.breaks = 6) +
+  labs(x = "Wave",
+       title = "(B) People are rewarded for their intelligence",
+       caption = "Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 8460)",
+       color = NULL) +
+  ggdist::theme_ggdist() +
+  theme(legend.position = "bottom")
+
+
+p4 / p5
+
+
+```
+
+
+With respect to the temporal dynamics of the key predictors, @fig-growth illustrates the interaction between survey wave and the within-person effects of the meritocracy variables on market-justice preferences (complete models appear in the Supplementary Material). As time advances, the positive within-person effect of perceiving that effort is rewarded (panel A) or that intelligence is rewarded (panel B) progressively attenuates. Put differently, the uplift in market justice preferences associated with a strong meritocratic perception becomes smaller in each successive wave.

@@ -27,10 +27,10 @@ options(kableExtra.html.bsTable = T)
 options(knitr.kable.NA = "")
 ```
 
-```{r}
 
-#| include: false
+```{r}
 #| echo: false
+#| include: false 
 
 if (! require("pacman")) install.packages("pacman")
 
@@ -57,15 +57,8 @@ pacman::p_load(tidyverse,
 
 options(scipen=999)
 rm(list = ls())
-```
-
-```{r}
-#| echo: false
-#| include: false 
 
 load(file = here("input/data/proc/df_study1_long_t7.RData"))
-
-glimpse(df_study1_long_t7)
 
 # Generate analytical sample
 
@@ -89,6 +82,12 @@ df_study1 <- df_study1_long_t7 %>%
          ess, 
          ideo) %>% 
   na.omit() %>% 
+  mutate(ola = case_when(ola == 1 ~ 1,
+                         ola == 2 ~ 2, 
+                         ola == 3 ~ 3,
+                         ola == 4 ~ 4,
+                         ola == 6 ~ 5,
+                         ola == 7 ~ 6)) %>% 
   mutate(ola = as.factor(ola),
          ola_num = as.numeric(ola),
          ola_2=as.numeric(ola)^2)
