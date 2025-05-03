@@ -42,7 +42,7 @@ Additionally, this study examines whether these relationships vary over time in 
 
 Based on these arguments, we propose the following hypotheses:
 
-$H1$: Higher perceived economic inequality is associated with higher market justice preferences.
+$H1$: Higher perceived economic inequality is associated with less market justice preferences.
 
 $H2$: Higher meritocratic beliefs are associated with higher market justice preferences.
 

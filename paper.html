@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -89,7 +55,7 @@ div.csl-indent {
 <link href="paper_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="paper_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -104,7 +70,7 @@ div.csl-indent {
    });
 }}});
   </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -249,43 +215,10 @@ window.Quarto = {
 <p>Third, we propose that perceptions of meritocracy and perceptions of economic inequality interact in shaping market justice attitudes. Specifically, we argue that the legitimizing effect of perceived meritocracy on market justice preferences is moderated by perceived economic inequality: when perceived inequality is low, the positive association between meritocratic beliefs and market justice preferences will be stronger. However, when perceived inequality is high, this association will weaken, as greater awareness of large economic gaps may challenge the view that outcomes are purely merit-based.</p>
 <p>Additionally, this study examines whether these relationships vary over time in response to significant social and political events. In particular, we explore whether the political outburst of 2019 and the subsequent constitutional processes in Chile have altered how perceptions of inequality and meritocracy shape market justice attitudes. We expect that after these critical events, perceptions of inequality may have a stronger negative effect on market justice preferences, reflecting increased societal questioning of market-based allocation mechanisms.</p>
 <p>Based on these arguments, we propose the following hypotheses:</p>
-<p><span class="math inline">H1</span>: Higher perceived economic inequality is associated with higher market justice preferences.</p>
+<p><span class="math inline">H1</span>: Higher perceived economic inequality is associated with less market justice preferences.</p>
 <p><span class="math inline">H2</span>: Higher meritocratic beliefs are associated with higher market justice preferences.</p>
 <p><span class="math inline">H3</span>: The positive association between meritocratic beliefs and market justice preferences is moderated by perceived economic inequality; specifically, this association is weaker when perceived economic inequality is high.</p>
 <p><span class="math inline">H4</span>: The effects described in H1–H3 are attenuated after major social mobilizations (2019–2022), reflecting increased critical views of the market’s role in allocating social goods.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span> <span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               sjmisc, </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>               sjPlot, </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>               lme4, </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>               here, </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>               performance,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>               influence.ME, </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>               marginaleffects,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>               MLMusingR,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>               texreg, </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>               ggdist,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>               misty,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>               kableExtra,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>               ggalluvial, </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>               shadowtext,</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>               MetBrewer,</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>               patchwork,</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>               sjlabelled,</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>               summarytools)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen=</span><span class="dv">999</span>)</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
 </section>
 </section>
 <section id="data-variables-and-methods" class="level1" data-number="3">
@@ -298,13 +231,13 @@ window.Quarto = {
 <section id="variables" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="variables"><span class="header-section-number">3.2</span> Variables</h2>
 <p><strong>Market justice preferences</strong>: The dependent variable in this study is preferences for market justice. This construct is operationalized through three items that capture how strongly individuals justify conditioning access to social services—healthcare, pensions, and education—on income. Specifically, the justification of inequality in healthcare is assessed by the question: “Is it fair in Chile that people with higher incomes can access better healthcare than people with lower incomes?” The same question is posed for pensions and education. In all cases, respondents indicate their level of agreement on a five-point Likert scale ranging from 1 (“strongly disagree”) to 5 (“strongly agree”). Additionally, we include a composite measure of “market justice preferences”, calculated as the average of these three items (<span class="math inline">\alpha</span> = 0.84). This index ranges from 1 to 5, with higher values indicating stronger preferences for market justice (see <a href="#tbl-summary1" class="quarto-xref">Table&nbsp;1</a>).</p>
-<div id="tbl-summary1" class="cell quarto-float anchored" data-tbl-cap-location="top">
+<div id="tbl-summary1" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-tbl-cap-location="top">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-summary1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Dependent variables for the first wave (2016)
 </figcaption>
 <div aria-describedby="tbl-summary1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="cell table table-sm table-striped small">
+<table class="cell caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 33%">
 <col style="width: 33%">
@@ -386,13 +319,13 @@ IQR (CV) : 0.7 (0.4)</td>
 </span></p>
 <p><strong>Perception of Meritocracy</strong>: this variable is operationalized through two components, namely effort and talent <span class="citation" data-cites="young_rise_1962">(<a href="#ref-young_rise_1962" role="doc-biblioref">Young, 1962</a>)</span>. The item used to gauge effort is: “In Chile, people are rewarded for their efforts,” while the item for talent is: “In Chile, people are rewarded for their intelligence and skills”. In both cases, respondents indicate their level of agreement on a five-point Likert scale, ranging from 1 (“strongly disagree”) to 5 (“strongly agree”).</p>
 <p>Table 2 shows the independent variables used, their response categories and their frequencies.</p>
-<div id="tbl-summary2" class="cell quarto-float anchored" data-tbl-cap-location="top">
+<div id="tbl-summary2" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-tbl-cap-location="top">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-summary2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Independent variables for the first wave (2016)
 </figcaption>
 <div aria-describedby="tbl-summary2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="cell table table-sm table-striped small">
+<table class="cell caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 37%">
 <col style="width: 31%">
@@ -469,7 +402,7 @@ IQR (CV) : 1.6 (0.3)</td>
 <h2 data-number="4.1" class="anchored" data-anchor-id="descriptive"><span class="header-section-number">4.1</span> Descriptive</h2>
 <p><a href="#fig-alluvial" class="quarto-xref">Figure&nbsp;1</a> shows the annual frequencies of market justice preferences for healthcare, pensions, and education from 2016 to 2023. Each year presents stacked percentage frequencies, and the flows between them reflect opinion changes among the same individuals from one year to the next, given that we are using panel data. For instance, of the 40.8% who strongly disagreed with justifying inequality in healthcare in 2019, around 24.3% maintained that position in 2022, while the remaining 16.5% shifted toward other response categories—primarily moving into disagreement rather than strong disagreement. Overall, more than half of the respondents exhibit a high level of disagreement (disagree + strongly disagree) with inequality in these three social service areas over time. Despite this general pattern, recent waves show a slight decrease in disagreement and a corresponding rise in support for inequality. Specifically, in healthcare and education, although disagreement remains substantial, agreement (agree + strongly agree) increased from 7.4% and 7.2% in 2019 to 13.1% and 14.2% in 2023, respectively. This shift is most evident in pensions, where the combined agree/strongly agree category grew by about 10 percentage points, from 16.9% in 2016 to 28% in 2023.</p>
 <div class="cell fig-cap-location-top">
-<div id="fig-alluvial" class="quarto-figure quarto-figure-center quarto-float anchored" data-cap-location="top" data-fig-pos="H">
+<div id="fig-alluvial" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="top" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-alluvial-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Change in the justification of inequality in healthcare, pensions and education over time (2016-2023)
@@ -482,7 +415,7 @@ Figure&nbsp;1: Change in the justification of inequality in healthcare, pensions
 </div>
 <p>Regarding the main variables of this study, <a href="#fig-meanchange" class="quarto-xref">Figure&nbsp;2</a> depicts their average changes over the years. We observe an increase in the average level of market justice preferences in the most recent waves, which begins in 2019. The highest average consistently appears for perceived economic inequality, although this variable shows a downward trend of roughly one point over time. Interestingly, while perceptions of economic inequality declined in the latest measurements (2022–2023), market justice preferences increased. The meritocracy measures remain stable, though the perception that individuals are rewarded for intelligence is slightly higher than the perception that they are rewarded for their effort.</p>
 <div class="cell fig-cap-location-top">
-<div id="fig-meanchange" class="quarto-figure quarto-figure-center quarto-float anchored" data-cap-location="top" data-fig-pos="H">
+<div id="fig-meanchange" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="top" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-meanchange-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Change in the mean of market justice preferences, economic inequality perception, and meritocracy (2016-2023)
@@ -495,7 +428,7 @@ Figure&nbsp;2: Change in the mean of market justice preferences, economic inequa
 </div>
 <p><a href="#fig-matrix" class="quarto-xref">Figure&nbsp;3</a> presents the correlation matrix for the main variables in the latest wave (2023). Overall, the coefficients range from low to moderate. The association between market justice preferences and economic inequality perception is negative but small and statistically significant (<span class="math inline">r</span> = -0.05, <span class="math inline">p</span> &lt; .05). By contrast, market justice preferences positively and significantly correlate with the two meritocracy variables (<span class="math inline">r</span> = 0.15, <span class="math inline">p</span> &lt; .01; <span class="math inline">r</span> = 0.13, <span class="math inline">p</span> &lt; .01). Perceived economic inequality has negative and nonsignificant correlations with both meritocracy perceptions (<span class="math inline">r</span> = -0.04, <span class="math inline">p</span> &gt; .05; <span class="math inline">r</span> = -0.04, <span class="math inline">p</span> &gt; .05). Finally, the two meritocracy variables exhibit a strong positive association with each other (<span class="math inline">r</span> = 0.69, <span class="math inline">p</span> &lt; .01).</p>
 <div class="cell fig-cap-location-top">
-<div id="fig-matrix" class="quarto-figure quarto-figure-center quarto-float anchored" data-cap-location="top" data-fig-pos="H">
+<div id="fig-matrix" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="top" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-matrix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Correlation matrix of the main variables for the last wave (2023)
@@ -510,13 +443,1039 @@ Figure&nbsp;3: Correlation matrix of the main variables for the last wave (2023)
 <section id="multilevel-models" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="multilevel-models"><span class="header-section-number">4.2</span> Multilevel models</h2>
 <p><a href="#tbl-modelos" class="quarto-xref">Table&nbsp;3</a> presents the results of the multilevel models estimated for market justice preferences, examining both individuals (within) and group-level (between) effects. The intraclass correlation <span class="citation" data-cites="hoxMultilevelAnalysisTechniques2017a">(<a href="#ref-hoxMultilevelAnalysisTechniques2017a" role="doc-biblioref">Hox et al., 2017</a>)</span> from the empty model (see Supplementary Material), which decomposes the variance of market justice preferences, is 0.23, indicating that approximately 23% of the variation is attributable to differences between individuals. Complementary, 77% of the variation corresponds to within-individual differences over time.</p>
-<div id="tbl-modelos" class="cell quarto-float anchored" data-tbl-cap-location="top">
+<div id="tbl-modelos" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-tbl-cap-location="top">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-modelos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3: Longitudinal multilevel models for market justice preferences
 </figcaption>
 <div aria-describedby="tbl-modelos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 1
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 2
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 3
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 4
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 5
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 6
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 7
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Intercept
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.968<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.015<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.030<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.028<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.169<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.456<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.547<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.021)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.035)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.035)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.035)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.070)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.097)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.115)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Wave (Ref.= 2016)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wave 2017
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.167<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.027)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wave 2018
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.025
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.027)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wave 2019
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.046
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.027)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wave 2022
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.285<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.028)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wave 2023
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.284<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.027)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Wave
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.121<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.125<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.128<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.128<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.128<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.129<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.022)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.022)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.022)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.022)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.022)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.022)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Wave^2
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.028<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.028<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.029<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.029<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.029<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.029<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.003)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.003)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.003)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.003)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.003)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Perception inequality (WE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.039<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.034<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.034<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.034<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.034<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.010)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.010)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.010)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.010)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Merit: Effort (WE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.070<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.070<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.069<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.069<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.012)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.012)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.012)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Merit: Talent (WE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.027<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.027<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.027<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.027<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.012)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.012)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.012)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Perception inequality (BE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.042<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.006
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.033
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.018)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.018)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.018)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Merit: Effort (BE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.186<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.178<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.032)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.031)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Merit: Talent (BE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.040
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.019
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.032)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.031)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Controls
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+No
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+No
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+No
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+No
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+No
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+No
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20780.594
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20780.617
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20781.113
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20726.753
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20736.627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20655.172
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20749.047
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. groups: idencuesta
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta (Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.172
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.223
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.219
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.209
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.207
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.182
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.171
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: Residual
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.530
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.499
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.498
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.495
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.495
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.495
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.495
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta ola_num
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.011
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.010
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.009
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.009
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.009
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.009
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta (Intercept) ola_num
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.025
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.024
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.021
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.020
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.019
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.019
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="8">
+Note: Cells contain regression coefficients with standard errors in parentheses. <sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05.
+</td>
+</tr>
+</tfoot>
+</table>
 </div>
 </figure>
 </div>
@@ -524,22 +1483,1436 @@ Table&nbsp;3: Longitudinal multilevel models for market justice preferences
 <p>Models 3 and 4 incorporate the within-group effects (WE) of the primary independent variables, capturing how individual changes in these variables over time shape the dependent variable. The results in Model 3 suggest that the within effect of perceived economic inequality is negative and statistically significant (<span class="math inline">p</span> &lt; .001). Specifically, each one-point increase in an individual’s perception of economic inequality between waves is associated with a 0.034 point decrease in market justice preferences. Model 4 shows that meritocratic beliefs operate in the opposite direction. An upward shift in the perception that effort is rewarded exerts a positive within effect (<span class="math inline">\beta</span> = 0.071, <span class="math inline">p</span> &lt; .001), and a parallel increase in the perception that intelligence and ability are rewarded is likewise associated with higher market-justice preferences (<span class="math inline">\beta</span> = 0.028, <span class="math inline">p</span> &lt; .05). Taken together, these results suggest that individuals who increasingly perceive meritocracy—whether through effort or talent—tend to hold stronger market justice preferences.</p>
 <p>When examining the between-group effects (BE) in Model 5 and 6, which capture differences between individuals in the average of the main variables, a similar pattern emerges. Individuals who perceive higher levels of economic inequality tend to prefer less market justice (<span class="math inline">\beta</span> = -0.042, <span class="math inline">p</span> &lt; .05). In Model 6, the meritocratic perception that effort is rewarded is positively associated with market justice preferences (<span class="math inline">\beta</span> = 0.186, <span class="math inline">p</span> &lt; .001), whereas the perception that talent is rewarded shows a positive but non-significant coefficient (<span class="math inline">\beta</span> = 0.040). Notably, once the meritocratic variables are included, the negative coefficient for perceived economic inequality remains but is no longer statistically significant.</p>
 <p>Model 7 adds the control variables. With the exception of the between-effect for perceived economic inequality—which becomes nonsignificant—the within- and between-effects of the principal predictors retain both their direction and statistical significance, confirming the robustness of the associations (see Supplementary Material for effects of control variables).</p>
-<div id="tbl-interactions1" class="cell quarto-float anchored" data-tbl-cap-location="top">
+<div id="tbl-interactions1" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-tbl-cap-location="top">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-interactions1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;4: Interactions for meritocracy, perceived economic inequality and market justice preferences
 </figcaption>
 <div aria-describedby="tbl-interactions1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 8
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 9
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 10
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 11
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Intercept
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.561<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.555<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.187<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.340<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.115)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.115)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.265)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.281)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Merit: Effort (WE) x Perception inequality (WE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.017
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.012)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Merit: Talent (WE) x Perception inequality (WE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.011
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.012)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Merit: Effort (BE) x Perception inequality (BE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.072<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.028)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Merit: Talent (BE) x Perception inequality (BE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.082<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.027)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Controls
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+Yes
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+Yes
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+Yes
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20842.694
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20835.920
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20808.677
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20806.384
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. groups: idencuesta
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta (Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.145
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.145
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.141
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.141
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta merit_effort_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.020
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta perc_inequality_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.000
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.000
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta (Intercept) merit_effort_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.004
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta (Intercept) perc_inequality_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.006
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.005
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta merit_effort_cwc perc_inequality_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.000
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: Residual
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.512
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.511
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.528
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.528
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta merit_talent_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.020
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta (Intercept) merit_talent_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.012
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta merit_talent_cwc perc_inequality_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.001
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="5">
+Note: Cells contain regression coefficients with standard errors in parentheses. <sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05.
+</td>
+</tr>
+</tfoot>
+</table>
 </div>
 </figure>
 </div>
-<p><a href="#tbl-interactions1" class="quarto-xref">Table&nbsp;4</a> reports whether perceived economic inequality moderates the impact of meritocratic perceptions on market-justice preferences. In neither the within-person specification (Model 8) nor the between-person specification (Model 9) do the interaction terms reach statistical significance, indicating that higher perceptions of economic inequality do not meaningfully alter the effect of meritocracy on support for market allocation of social services.</p>
 <div class="cell fig-cap-location-top">
-<div id="fig-growth" class="quarto-figure quarto-figure-center quarto-float anchored" data-cap-location="top" data-fig-pos="H">
+<div id="fig-interact" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="top" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-interact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Within effects of perception of inequality and meritocratic perceptions on market justice preferences
+</figcaption>
+<div aria-describedby="fig-interact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="paper_files/figure-html/fig-interact-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-pos="H">
+</div>
+</figure>
+</div>
+</div>
+<p><a href="#tbl-interactions1" class="quarto-xref">Table&nbsp;4</a> reports whether perceived economic inequality moderates the impact of meritocratic perceptions on market-justice preferences. The interaction terms in the within-person specification (Model 8 and Model 9) do not reach statistical significance. However, in the between-person specification (Model 10 and Model 11), interaction terms reach statistical significance, indicating that perceptions of economic inequality do meaningfully alter the effect of meritocracy on support for market allocation of social services. These effects are positive and mean that when the perception of inequality is greater, the positive effect of the meritocratic variables on market justice preferences is greater. These interaction effects are visualized in <a href="#fig-interact" class="quarto-xref">Figure&nbsp;4</a></p>
+<div id="tbl-interactions2" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-tbl-cap-location="top">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-interactions2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: Interactions for meritocracy, perceived economic inequality and market justice preferences
+</figcaption>
+<div aria-describedby="tbl-interactions2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 12
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 13
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 14
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 15
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 16
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 17
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Intercept
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.543<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.527<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.521<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.680<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.374<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.362<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.115)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.114)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.114)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.139)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.133)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.134)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Wave x Perception inequality (WE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.004
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.006)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Wave x Merit: effort (WE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.008
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.006)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Wave x Merit: talent (WE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.006
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.006)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Wave x Perception inequality (BE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.011
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.007)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Wave x Merit: effort (BE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.021<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.008)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Wave x Merit: talent (BE)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.020<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.008)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Controls
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+Yes
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+Yes
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+Yes
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+Yes
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+Yes
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+Yes
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20792.212
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20767.372
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20754.324
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20782.058
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20749.596
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+20754.413
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8643
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. groups: idencuesta
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1687
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta (Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.176
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.167
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.168
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.384
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.254
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.007
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta perc_inequality_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.000
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta ola_num
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.010
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.009
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.009
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.009
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.009
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.009
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta (Intercept) perc_inequality_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.007
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta (Intercept) ola_num
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.021
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.018
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.018
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.048
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.003
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.006
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta perc_inequality_cwc ola_num
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.002
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: Residual
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.495
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.480
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.479
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.494
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.494
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.494
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta merit_effort_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.019
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta (Intercept) merit_effort_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.023
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta merit_effort_cwc ola_num
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.005
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta merit_talent_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.019
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta (Intercept) merit_talent_cwc
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.034
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta merit_talent_cwc ola_num
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.006
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta perc_inequality_mean
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.008
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta (Intercept) perc_inequality_mean
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.045
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta perc_inequality_mean ola_num
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.009
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta merit_effort_mean
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.053
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta (Intercept) merit_effort_mean
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.089
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta merit_effort_mean ola_num
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.006
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: idencuesta merit_talent_mean
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.024
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta (Intercept) merit_talent_mean
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.006
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Cov: idencuesta merit_talent_mean ola_num
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.009
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="7">
+Note: Cells contain regression coefficients with standard errors in parentheses. <sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05.
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</figure>
+</div>
+<div class="cell fig-cap-location-top">
+<div id="fig-growth" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="top" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-growth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Time varying within effects of meritocratic perceptions on market justice preferences
+Figure&nbsp;5: Time varying within effects of meritocratic perceptions on market justice preferences
 </figcaption>
 <div aria-describedby="fig-growth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="paper_files/figure-html/fig-growth-1.png" class="img-fluid figure-img" style="width:100.0%" data-fig-pos="H">
@@ -547,7 +2920,7 @@ Figure&nbsp;4: Time varying within effects of meritocratic perceptions on market
 </figure>
 </div>
 </div>
-<p>With respect to the temporal dynamics of the key predictors, <a href="#fig-growth" class="quarto-xref">Figure&nbsp;4</a> illustrates the interaction between survey wave and the within-person effects of the meritocracy variables on market-justice preferences (complete models appear in the Supplementary Material). As time advances, the positive within-person effect of perceiving that effort is rewarded (panel A) or that intelligence is rewarded (panel B) progressively attenuates. Put differently, the uplift in market justice preferences associated with a strong meritocratic perception becomes smaller in each successive wave.</p>
+<p>With respect to the temporal dynamics of the key predictors, <a href="#tbl-interactions2" class="quarto-xref">Table&nbsp;5</a> shows that time only has significant effects on the between effects of the meritocratic variables (Model 16 and Model 17). These interaction effects are negative and mean that in the last waves, the impact of meritocratic variables on market justice preferences is attenuated. <a href="#fig-growth" class="quarto-xref">Figure&nbsp;5</a> illustrates the interaction between survey wave and the within-person effects of the meritocracy variables on market-justice preferences. As time advances, the positive within-person effect of perceiving that effort is rewarded (panel A) or that intelligence is rewarded (panel B) progressively attenuates. Put differently, the uplift in market justice preferences associated with a strong meritocratic perception becomes smaller in each successive wave.</p>
 </section>
 </section>
 <section id="discussion" class="level1" data-number="5">
@@ -761,18 +3134,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -804,7 +3166,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -812,7 +3196,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
