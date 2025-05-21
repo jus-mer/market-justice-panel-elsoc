@@ -1,11 +1,11 @@
 ---
 title: "Perceptions of Inequality and Meritocracy: Their Interplay in Shaping Preferences for Market Justice in Chile (2016-2023)"
 format:
-  docx:
-    number-sections: true
   html: 
     code-fold: true
     html-math-method: katex
+    number-sections: true
+  docx:
     number-sections: true
   pdf: 
     geometry: margin=2cm
@@ -60,9 +60,9 @@ affiliations:
     name: International Graduate School of Social Sciencies (BIGSSS), University of Bremen, Germany
 citeproc: true
 abstract: | 
-  This study examines the interplay between perceptions of economic inequality and meritocracy in shaping preferences for market justice in Chile from 2016 to 2023. Economic inequality has intensified globally, raising concerns about its social impacts and the legitimacy of market-based distributions of resources. By utilizing longitudinal data from the Chilean Longitudinal Social Survey (ELSOC), the research investigates how subjective assessments of inequality influence attitudes towards social justice, focusing on the extent to which individuals believe access to essential services like healthcare, education, and pensions should depend on personal merit. The findings suggest that as perceptions of economic inequality rise, individuals tend to favor redistributive policies, although those with strong meritocratic beliefs are more likely to justify existing inequalities. The analysis also highlights the effect of major social movements in Chile during this period, which have shifted public discourse and potentially altered perceptions of inequality and meritocracy. This paper contributes to the understanding of how individual beliefs about fairness and equity evolve within a socio-political context characterized by high inequality and extensive free-market principles. 
+  This study investigates the relationship between perceptions of economic inequality, meritocratic beliefs, and preferences for market justice in Chile between 2016 and 2023. Using six waves of panel data from the Chilean Longitudinal Social Survey (ELSOC; N = 1,519), the analysis examines how subjective assessments of inequality shape attitudes toward the role of merit in access to key social services such as healthcare, education, and pensions. Results indicate that rising perceptions of inequality are associated with greater support for redistributive policies; however, individuals with strong meritocratic convictions are more likely to legitimize existing disparities. The study also considers the influence of major social movements during this period, which appear to have reshaped public discourse and perceptions of fairness. These findings contribute to a deeper understanding of how beliefs about justice and equity evolve in contexts marked by persistent inequality and entrenched market-oriented frameworks.
   \newline
-  **Keywords**: Economic inequality, meritocracy, market justice, Chile, public preferences
+  **Keywords**: Economic inequality, meritocracy, market justice, Chile, public preferences, inequality perception
 link-citations: true
 linestretch: 1.15       
 mainfont: Times New Roman

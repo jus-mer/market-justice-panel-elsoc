@@ -131,7 +131,7 @@ df_study1$merit_talent <- sjlabelled::set_label(df_study1$merit_talent,
 ## Descriptive 
 
 
-@fig-alluvial shows the annual frequencies of market justice preferences for healthcare, pensions, and education from 2016 to 2023. Each year presents stacked percentage frequencies, and the flows between them reflect opinion changes among the same individuals from one year to the next, given that we are using panel data. For instance, of the 40.8% who strongly disagreed with justifying inequality in healthcare in 2019, around 24.3% maintained that position in 2022, while the remaining 16.5% shifted toward other response categories—primarily moving into disagreement rather than strong disagreement. Overall, more than half of the respondents exhibit a high level of disagreement (disagree + strongly disagree) with inequality in these three social service areas over time. Despite this general pattern, recent waves show a slight decrease in disagreement and a corresponding rise in support for inequality. Specifically, in healthcare and education, although disagreement remains substantial, agreement (agree + strongly agree) increased from 7.4% and 7.2% in 2019 to 13.1% and 14.2% in 2023, respectively. This shift is most evident in pensions, where the combined agree/strongly agree category grew by about 10 percentage points, from 16.9% in 2016 to 28% in 2023.
+@fig-alluvial shows the annual frequencies of market justice preferences for healthcare, pensions, and education from 2016 to 2023. Each year presents stacked percentage frequencies, and the flows between them reflect opinion changes among the same individuals from one year to the next, given that we are using panel data. For instance, of the 40.8% who strongly disagreed with justifying inequality in healthcare in 2019, around 24.3% maintained that position in 2022, while the remaining 16.5% shifted toward other response categories—primarily moving into disagreement rather than strong disagreement. Overall, more than half of the respondents exhibit a high level of disagreement (disagree + strongly disagree) with inequality in these three social service areas over time. Despite this general pattern, recent waves show a slight decrease in disagreement and a corresponding rise in support for market-justice inequality. Specifically, in healthcare and education, although disagreement remains substantial, agreement (agree + strongly agree) increased from 7.4% and 7.2% in 2019 to 13.1% and 14.2% in 2023, respectively. This shift is most evident in pensions, where the combined agree/strongly agree category grew by about 10 percentage points, from 16.9% in 2016 to 28% in 2023.
 
 ```{r}
 #| label: fig-alluvial
@@ -147,9 +147,9 @@ datos.health <- df_study1 %>%
   mutate(just_health = factor(just_health, 
                               levels = c("Strongly agree",
                                          "Agree",
-                                         "Neither agree nor desagree",
-                                         "Desagree",
-                                         "Strongly desagree"))) %>% 
+                                         "Neither agree nor disagree",
+                                         "Disagree",
+                                         "Strongly disagree"))) %>% 
   group_by(idencuesta, ola) %>% 
   count(just_health) %>% 
   group_by(ola) %>% 
@@ -175,9 +175,9 @@ etiquetas.health <- df_study1 %>%
   mutate(just_health = factor(just_health, 
                               levels = c("Strongly agree",
                                          "Agree",
-                                         "Neither agree nor desagree",
-                                         "Desagree",
-                                         "Strongly desagree"))) %>% 
+                                         "Neither agree nor disagree",
+                                         "Disagree",
+                                         "Strongly disagree"))) %>% 
   group_by(ola, just_health) %>%
   summarise(count = n(), .groups = "drop") %>%
   group_by(ola) %>%
@@ -227,9 +227,9 @@ datos.pension <- df_study1 %>%
    mutate(just_pension = factor(just_pension, 
                               levels = c("Strongly agree",
                                          "Agree",
-                                         "Neither agree nor desagree",
-                                         "Desagree",
-                                         "Strongly desagree"))) %>% 
+                                         "Neither agree nor disagree",
+                                         "Disagree",
+                                         "Strongly disagree"))) %>% 
   group_by(idencuesta, ola) %>% 
   count(just_pension) %>% 
   group_by(ola) %>% 
@@ -255,9 +255,9 @@ etiquetas.pension <- df_study1 %>%
   mutate(just_pension = factor(just_pension, 
                               levels = c("Strongly agree",
                                          "Agree",
-                                         "Neither agree nor desagree",
-                                         "Desagree",
-                                         "Strongly desagree"))) %>% 
+                                         "Neither agree nor disagree",
+                                         "Disagree",
+                                         "Strongly disagree"))) %>% 
   group_by(ola, just_pension) %>%
   summarise(count = n(), .groups = "drop") %>%
   group_by(ola) %>%
@@ -303,9 +303,9 @@ datos.educ <- df_study1 %>%
   mutate(just_educ = factor(just_educ, 
                               levels = c("Strongly agree",
                                          "Agree",
-                                         "Neither agree nor desagree",
-                                         "Desagree",
-                                         "Strongly desagree"))) %>%
+                                         "Neither agree nor disagree",
+                                         "Disagree",
+                                         "Strongly disagree"))) %>%
   group_by(idencuesta, ola) %>% 
   count(just_educ) %>% 
   group_by(ola) %>% 
@@ -331,9 +331,9 @@ etiquetas.educ <- df_study1 %>%
     mutate(just_educ = factor(just_educ, 
                               levels = c("Strongly agree",
                                          "Agree",
-                                         "Neither agree nor desagree",
-                                         "Desagree",
-                                         "Strongly desagree"))) %>%
+                                         "Neither agree nor disagree",
+                                         "Disagree",
+                                         "Strongly disagree"))) %>%
   group_by(ola, just_educ) %>%
   summarise(count = n(), .groups = "drop") %>%
   group_by(ola) %>%
@@ -380,7 +380,7 @@ p3 <- datos.educ %>%
 ```
 
 
-Regarding the main variables of this study, @fig-meanchange depicts their average changes over the years. We observe an increase in the average level of market justice preferences in the most recent waves, which begins in 2019. The highest average consistently appears for perceived economic inequality, although this variable shows a downward trend of roughly one point over time. Interestingly, while perceptions of economic inequality declined in the latest measurements (2022–2023), market justice preferences increased. The meritocracy measures remain stable, though the perception that individuals are rewarded for intelligence is slightly higher than the perception that they are rewarded for their effort.
+Regarding the main dependent and independent variables of this study, @fig-meanchange depicts their average changes over the years. We observe an increase in the average level of market justice preferences in the most recent waves, which begins in 2019. The highest average consistently appears for perceived economic inequality, although this variable shows a downward trend of roughly one point over time. Interestingly, while perceptions of economic inequality declined in the latest measurements (2022–2023), market justice preferences increased. The meritocracy measures remain stable, though the perception that individuals are rewarded for intelligence is slightly higher than the perception that they are rewarded for their effort.
 
 ```{r}
 #| label: fig-meanchange
@@ -844,7 +844,7 @@ ggpubr::ggarrange(p6, p7, common.legend=TRUE, ncol=1)
 
 ```
 
-@tbl-interactions1 reports whether perceived economic inequality moderates the impact of meritocratic perceptions on market-justice preferences. The interaction terms in the within-person specification (Model 8 and Model 9) do not reach statistical significance. However, in the between-person specification (Model 10 and Model 11), interaction terms reach statistical significance, indicating that perceptions of economic inequality do meaningfully alter the effect of meritocracy on support for market allocation of social services. These effects are positive and mean that when the perception of inequality is greater, the positive effect of the meritocratic variables on market justice preferences is greater. These interaction effects are visualized in @fig-interact
+@tbl-interactions1 reports whether perceived economic inequality moderates the impact of meritocratic perceptions on market-justice preferences. Contrary to our hypothesis, the interaction terms in the within-person specification (Model 8 and Model 9) do not reach statistical significance. However, in the between-person specification (Model 10 and Model 11), interaction terms reach statistical significance, indicating that perceptions of economic inequality do meaningfully alter the effect of meritocracy on support for market allocation of social services. These effects are positive and mean that when the perception of inequality is greater, the positive effect of the meritocratic variables on market justice preferences is greater. These interaction effects are visualized in @fig-interact
 
 ```{r echo=FALSE, results='asis'}
 #| label: tbl-interactions2
