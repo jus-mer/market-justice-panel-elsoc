@@ -2,6 +2,8 @@
 author: "Equipo EDUMER"
 bibliography: "input/bib/merit-edjust.bib"
 csl: "input/bib/apa6.csl"
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -53,7 +55,8 @@ pacman::p_load(tidyverse,
                MetBrewer,
                patchwork,
                sjlabelled,
-               summarytools)
+               summarytools,
+               interactions)
 
 
 options(scipen=999)
@@ -66,8 +69,6 @@ rm(list = ls())
 #| include: false 
 
 load(file = here("input/data/proc/df_study1_long_t7.RData"))
-
-glimpse(df_study1_long_t7)
 
 # Generate analytical sample
 
@@ -147,9 +148,10 @@ datos.health <- df_study1 %>%
   mutate(just_health = factor(just_health, 
                               levels = c("Strongly agree",
                                          "Agree",
-                                         "Neither agree nor disagree",
-                                         "Disagree",
-                                         "Strongly disagree"))) %>% 
+                                         "Neither agree nor desagree",
+                                         "Desagree",
+                                         "Strongly desagree"),
+                              ordered = T)) %>% 
   group_by(idencuesta, ola) %>% 
   count(just_health) %>% 
   group_by(ola) %>% 
@@ -175,9 +177,10 @@ etiquetas.health <- df_study1 %>%
   mutate(just_health = factor(just_health, 
                               levels = c("Strongly agree",
                                          "Agree",
-                                         "Neither agree nor disagree",
-                                         "Disagree",
-                                         "Strongly disagree"))) %>% 
+                                         "Neither agree nor desagree",
+                                         "Desagree",
+                                         "Strongly desagree"),
+                              ordered = T)) %>% 
   group_by(ola, just_health) %>%
   summarise(count = n(), .groups = "drop") %>%
   group_by(ola) %>%
@@ -227,9 +230,10 @@ datos.pension <- df_study1 %>%
    mutate(just_pension = factor(just_pension, 
                               levels = c("Strongly agree",
                                          "Agree",
-                                         "Neither agree nor disagree",
-                                         "Disagree",
-                                         "Strongly disagree"))) %>% 
+                                         "Neither agree nor desagree",
+                                         "Desagree",
+                                         "Strongly desagree"),
+                              ordered = T)) %>% 
   group_by(idencuesta, ola) %>% 
   count(just_pension) %>% 
   group_by(ola) %>% 
@@ -255,9 +259,10 @@ etiquetas.pension <- df_study1 %>%
   mutate(just_pension = factor(just_pension, 
                               levels = c("Strongly agree",
                                          "Agree",
-                                         "Neither agree nor disagree",
-                                         "Disagree",
-                                         "Strongly disagree"))) %>% 
+                                         "Neither agree nor desagree",
+                                         "Desagree",
+                                         "Strongly desagree"),
+                              ordered = T)) %>% 
   group_by(ola, just_pension) %>%
   summarise(count = n(), .groups = "drop") %>%
   group_by(ola) %>%
@@ -301,11 +306,12 @@ p2 <- datos.pension %>%
 
 datos.educ <- df_study1 %>% 
   mutate(just_educ = factor(just_educ, 
-                              levels = c("Strongly agree",
+                            levels = c("Strongly agree",
                                          "Agree",
-                                         "Neither agree nor disagree",
-                                         "Disagree",
-                                         "Strongly disagree"))) %>%
+                                         "Neither agree nor desagree",
+                                         "Desagree",
+                                         "Strongly desagree"),
+                              ordered = T)) %>%
   group_by(idencuesta, ola) %>% 
   count(just_educ) %>% 
   group_by(ola) %>% 
@@ -331,9 +337,10 @@ etiquetas.educ <- df_study1 %>%
     mutate(just_educ = factor(just_educ, 
                               levels = c("Strongly agree",
                                          "Agree",
-                                         "Neither agree nor disagree",
-                                         "Disagree",
-                                         "Strongly disagree"))) %>%
+                                         "Neither agree nor desagree",
+                                         "Desagree",
+                                         "Strongly desagree"),
+                              ordered = T)) %>%
   group_by(ola, just_educ) %>%
   summarise(count = n(), .groups = "drop") %>%
   group_by(ola) %>%
@@ -693,7 +700,7 @@ m14.2 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality_cwc +  merit_effort_cw
 #knitreg(list(m13.1, m13.2,m14.1, m14.2))
 ```
 
-```{r}
+```{r, include=FALSE, eval=FALSE}
 interactions::interact_plot(m13.2, pred = "merit_effort_mean", modx="perc_inequality_mean", mod2="ola_num")
 ```
 
@@ -738,6 +745,7 @@ texreg::knitreg(list(m1, m2, m3, m4, m5, m6, m7),
                include.loglik = FALSE,
                include.aic = FALSE,
                center = T,
+               custom.gof.names = c("BIC", "Numb. obs.", "Num. groups: individuals", "Var: individuals (Intercept)", "Var: Residual", "Var: individuals, wave", "Cov: individuals (Intercept), wave"),
                custom.gof.rows = list("Controls"=c(rep("No",6), "Yes")))
                
 
@@ -771,7 +779,7 @@ texreg::knitreg(list(m8.1,m8.2,m9.1,m9.2),
                stars = c(0.05, 0.01, 0.001),
                custom.coef.map = ccoef,
                digits = 3,
-               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars.",
+               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars. CWC = centered within group.",
                leading.zero = T,
                use.packages = F,
                booktabs = F,
@@ -779,6 +787,19 @@ texreg::knitreg(list(m8.1,m8.2,m9.1,m9.2),
                include.loglik = FALSE,
                include.aic = FALSE,
                center = T,
+               custom.gof.names = c("BIC", 
+                                    "Numb. obs.", 
+                                    "Num. groups: individuals", 
+                                    "Var: individuals (Intercept)", 
+                                    "Var: individuals, merit effort cwc", 
+                                    "Var: individuals, perception inequality cwc", 
+                                    "Cov: individuals (Intercept), merit effort cwc",
+                                    "Cov: individuals (Intercept), perception inequality cwc",
+                                    "Cov: individuals, merit effort cwc, perception inequality cwc",
+                                    "Var: Residuals",
+                                    "Var: individuals, merit talent cwc", 
+                                    "Cov: individuals (Intercept), merit talent cwc",
+                                    "Cov: individuals, merit talent cwc, perception inequality cwc"),
                custom.gof.rows = list("Controls"=c(rep("Yes",4))))
 
 
@@ -790,7 +811,7 @@ texreg::knitreg(list(m8.1,m8.2,m9.1,m9.2),
 #| label: fig-interact
 #| out-width: '100%'
 #| fig-asp: 1
-#| fig-cap: "Within effects of perception of inequality and meritocratic perceptions on market justice preferences"
+#| fig-cap: "Between effects of meritocratic perceptions on market justice preferences by economic inequality perception"
 #| fig-cap-location: top
 #| echo: false
 #| results: asis
@@ -799,52 +820,44 @@ texreg::knitreg(list(m8.1,m8.2,m9.1,m9.2),
 library(ggeffects)
 
 
-p6 <- ggpredict(m9.1, terms = c("merit_effort_mean", "perc_inequality_mean")) %>% 
-  plot() + 
- # scale_x_continuous(n.breaks = 6) +
-  scale_color_manual(
-    name = "Perception\nInequality (BE)",
-    values = c("#D55E00", "#0072B2", "#009E73"),
-    labels = c("-1 SD", "Mean", "+1 SD")
-  ) +
-  scale_fill_manual(
-    name = "",
-    values = c("#D55E00", "#0072B2", "#009E73"),
-    labels = c("-1 SD", "Mean", "+1 SD")) +
-  labs(x = "Merit: Effort (BE)",
-       title = "(A) People are rewarded for their efforts",
-       color = NULL) +
-  ggdist::theme_ggdist() +
-  theme(legend.position = "bottom")
+p6 <- marginaleffects::plot_slopes(model = m9.1,
+                             variables = "merit_effort_mean",
+                             condition = "perc_inequality_mean",
+                             conf_level = .95) +
+  geom_hline(yintercept = 0,
+             color = "red",
+             linetype = "dashed") +
+  labs(x = "Perception inequality (BE)",
+       y = "Marginal effect of Merit: Effort (BE)",
+       fill = NULL,
+       title = "(A) People are rewarded by their efforts") +
+  theme_ggdist()
+
+
   
 
-p7 <- ggpredict(m9.2, terms = c("merit_talent_mean", "perc_inequality_mean")) %>% 
-  plot() +
-#  scale_x_continuous(n.breaks = 6) +
-  scale_color_manual(
-    name = "Perception\nInequality (BE)",
-    values = c("#D55E00", "#0072B2", "#009E73"),
-    labels = c("-1 SD", "Mean", "+1 SD")
-  ) +
-  scale_fill_manual(
-    name = "",
-    values = c("#D55E00", "#0072B2", "#009E73"),
-    labels = c("-1 SD", "Mean", "+1 SD")
-  ) +
-  labs(
-    x = "Merit: Talent (BE)",
-    title = "(B) People are rewarded for their intelligence",
-    caption = "Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 8460)"
-  ) +
-  ggdist::theme_ggdist() +
-  theme(legend.position = "bottom")
+p7 <- marginaleffects::plot_slopes(model = m9.2,
+                             variables = "merit_talent_mean",
+                             condition = "perc_inequality_mean",
+                             conf_level = .95) +
+  geom_hline(yintercept = 0,
+             color = "red",
+             linetype = "dashed") +
+  labs(x = "Perception inequality (BE)",
+       y = "Marginal effect of Merit: Talent (BE)",
+       fill = NULL,
+       title = "(B) People are rewarded for their intelligence",
+       caption = "Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 8460)
+       Confidence intervals at 95%") +
+  theme_ggdist()
 
 
+library(ggpubr)
 ggpubr::ggarrange(p6, p7, common.legend=TRUE, ncol=1)
 
 ```
 
-@tbl-interactions1 reports whether perceived economic inequality moderates the impact of meritocratic perceptions on market-justice preferences. Contrary to our hypothesis, the interaction terms in the within-person specification (Model 8 and Model 9) do not reach statistical significance. However, in the between-person specification (Model 10 and Model 11), interaction terms reach statistical significance, indicating that perceptions of economic inequality do meaningfully alter the effect of meritocracy on support for market allocation of social services. These effects are positive and mean that when the perception of inequality is greater, the positive effect of the meritocratic variables on market justice preferences is greater. These interaction effects are visualized in @fig-interact
+@tbl-interactions1 examines whether perceived economic inequality moderates the effect of meritocratic beliefs on market justice preferences. Contrary to our hypothesis, the interaction terms in the within-person specification (Models 8 and 9) do not reach statistical significance. However, in the between-person specification (Models 10 and 11), the interaction terms are statistically significant, suggesting that perceptions of economic inequality meaningfully alter the effect of meritocracy on support for market-based allocation of social services. These positive effects indicate that, as perceptions of inequality increase, the positive association between meritocratic perceptions and market justice preferences becomes stronger. The marginal effects of this interaction are illustrated in @fig-interact, which shows that the effect of meritocratic perceptions on market justice preferences intensifies as perceived economic inequality rises.
 
 ```{r echo=FALSE, results='asis'}
 #| label: tbl-interactions2
@@ -867,7 +880,7 @@ texreg::knitreg(list(m10.1, m11.1, m12.1, m10.2, m11.2, m12.2),
                stars = c(0.05, 0.01, 0.001),
                custom.coef.map = ccoef,
                digits = 3,
-               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars.",
+               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars. CWC = centered within group.",
                leading.zero = T,
                use.packages = F,
                booktabs = F,
@@ -875,6 +888,39 @@ texreg::knitreg(list(m10.1, m11.1, m12.1, m10.2, m11.2, m12.2),
                include.loglik = FALSE,
                include.aic = FALSE,
                center = T,
+               custom.gof.names = c("BIC", 
+                                    "Numb. obs.", 
+                                    "Num. groups: individuals", 
+                                    "Var: individuals (Intercept)", 
+                                    
+                                    "Var: individuals, perception inequality cwc",
+                                    "Var: individuals, wave",
+                                    "Cov: individuals (Intercept), perception inequality cwc",
+                                    "Cov: individuals (Intercept), wave",
+                                    "Cov: individuals, perception inequality cwc, wave",
+                                    "Var: Residuals",
+                                    "Var: individuals, merit effort cwc", 
+                                    "Cov: individuals (Intercept), merit effort cwc",
+                                    "Cov: individuals, merit effort cwc, wave",
+                                    
+                                    
+                                    "Var: individuals, merit talent cwc", 
+                                    "Cov: individuals (Intercept), merit talent cwc",
+                                    "Cov: individuals, merit talent cwc, wave",
+                                    
+                                    "Var: individuals, perception inequality mean", 
+                                    "Cov: individuals (Intercept), perception inequality mean",
+                                    "Cov: individuals, perception inequality mean, wave",
+                                    
+                                     "Var: individuals, merit effort mean", 
+                                    "Cov: individuals (Intercept), merit effort mean",
+                                    "Cov: individuals, merit effort mean, wave",
+                                    
+                                    
+                                    "Var: individuals, merit talent mean", 
+                                    "Cov: individuals (Intercept), merit talent mean",
+                                    "Cov: individuals, merit talent mean, wave"
+                                    ),
                custom.gof.rows = list("Controls"=c(rep("Yes",6))))
 
 
@@ -891,6 +937,8 @@ texreg::knitreg(list(m10.1, m11.1, m12.1, m10.2, m11.2, m12.2),
 #| fig-cap-location: top
 #| echo: false
 #| results: asis
+#| include: false
+#| eval: false
 
 
 library(ggeffects)
@@ -942,4 +990,4 @@ ggpubr::ggarrange(p4, p5, common.legend=FALSE, ncol=1)
 ```
 
 
-With respect to the temporal dynamics of the key predictors, @tbl-interactions2 shows that time only has significant effects on the between effects of the meritocratic variables (Model 16 and Model 17). These interaction effects are negative and mean that in the last waves, the impact of meritocratic variables on market justice preferences is attenuated. @fig-growth illustrates the interaction between survey wave and the within-person effects of the meritocracy variables on market-justice preferences. As time advances, the positive within-person effect of perceiving that effort is rewarded (panel A) or that intelligence is rewarded (panel B) progressively attenuates. Put differently, the uplift in market justice preferences associated with a strong meritocratic perception becomes smaller in each successive wave.
+With respect to the temporal dynamics of the key predictors, @tbl-interactions2 shows that time only has significant effects on the between effects of the meritocratic variables. These interaction effects are negative and mean that in the last waves, the impact of meritocratic variables on market justice preferences is attenuated. Specifically, as time advances, the positive within-person effect of perceiving that effort is rewarded (Model 16) or that intelligence is rewarded (Model 17) progressively attenuates. Put differently, the uplift in market justice preferences associated with a strong meritocratic perception becomes smaller in each successive wave.
