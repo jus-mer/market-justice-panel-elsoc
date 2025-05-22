@@ -22,7 +22,8 @@ format:
     number-sections: true
 editor: source
 bibliography: "input/bib/merit-edjust.bib"
-csl: "input/bib/apa6.csl"
+# csl: "input/bib/apa6.csl"
+csl: "input/bib/harvardquarto.csl"
 author:
   - name: Juan Carlos Castillo
     corresponding: true

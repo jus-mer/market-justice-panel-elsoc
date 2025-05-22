@@ -697,7 +697,7 @@ m14.2 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality_cwc +  merit_effort_cw
 
 
 
-#knitreg(list(m13.1, m13.2,m14.1, m14.2))
+#texreg(list(m13.1, m13.2,m14.1, m14.2))
 ```
 
 ```{r, include=FALSE, eval=FALSE}
@@ -729,8 +729,8 @@ ccoef <- list(
   merit_talent_mean = "Merit: Talent (BE)"
   )
 
-texreg::knitreg(list(m1, m2, m3, m4, m5, m6, m7),
-               custom.model.names = c(paste0("Model ", seq(1:7))),
+texreg::texreg(list(m1, m2, m3, m4, m5, m6, m7),
+               custom.model.names = c(paste0("Model ", seq(1:7))),caption.above = T,
                caption = NULL,
                stars = c(0.05, 0.01, 0.001),
                omit.coef = omit,
@@ -741,7 +741,7 @@ texreg::knitreg(list(m1, m2, m3, m4, m5, m6, m7),
                leading.zero = T,
                use.packages = F,
                booktabs = F,
-               scalebox = 0.79,
+               scalebox = 0.80,
                include.loglik = FALSE,
                include.aic = FALSE,
                center = T,
@@ -779,9 +779,10 @@ ccoef <- list(
   "perc_inequality_mean:merit_talent_mean" = "Merit: Talent (BE) x Perception inequality (BE)"
   )
 
-texreg::knitreg(list(m8.1,m8.2,m9.1,m9.2),
+texreg::texreg(list(m8.1,m8.2,m9.1,m9.2),
                custom.model.names = c("Model 8", "Model 9", "Model 10", "Model 11"),
                caption = NULL,
+               caption.above = T,
                stars = c(0.05, 0.01, 0.001),
                custom.coef.map = ccoef,
                digits = 3,
@@ -853,8 +854,7 @@ p7 <- marginaleffects::plot_slopes(model = m9.2,
        y = "Marginal effect of Merit: Talent (BE)",
        fill = NULL,
        title = "(B) People are rewarded for their intelligence",
-       caption = "Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 8460)
-       Confidence intervals at 95%") +
+       caption = "Source: own elaboration with data from ELSOC 2016-2023 (n = 8460). Based in Model 10 and Model 11 in Table 4. Confidence intervals at 95%") +
   theme_ggdist()
 
 
@@ -881,17 +881,18 @@ ccoef <- list(
   "ola_num:merit_talent_mean" = "Wave x Merit: talent (BE)"
     )
 
-texreg::knitreg(list(m10.1, m11.1, m12.1, m10.2, m11.2, m12.2),
+texreg::texreg(list(m10.1, m11.1, m12.1, m10.2, m11.2, m12.2),
                custom.model.names = c("Model 12", "Model 13", "Model 14", "Model 15", "Model 16", "Model 17"),
                caption = NULL,
                stars = c(0.05, 0.01, 0.001),
                custom.coef.map = ccoef,
                digits = 3,
+               caption.above = T,
                custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars. CWC = centered within group.",
                leading.zero = T,
                use.packages = F,
                booktabs = F,
-               scalebox = 0.8,
+               scalebox = 0.7,
                include.loglik = FALSE,
                include.aic = FALSE,
                center = T,
