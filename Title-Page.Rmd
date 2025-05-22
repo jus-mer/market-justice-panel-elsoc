@@ -1,5 +1,5 @@
 ---
-title: "Changes in the justification of educational inequalities. The role of perceptions of inequality and meritocracy during the COVID pandemic. [^*]"
+title: "Perceptions of Inequality and Meritocracy: Their Interplay in Shaping Preferences for Market Justice in Chile (2016-2023)"
 linestretch: '1.5'
 output:
   pdf_document:
@@ -28,23 +28,46 @@ fontsize: 12pt
 
 ---
 
+## Authors Identification
 
-Juan Carlos Castillo, Department of Sociology, Universidad de Chile, Santiago de Chile. *
-
+Juan Carlos Castillo, Department of Sociology, Universidad de Chile, Santiago de Chile[^*].  
 ORCID: 0000-0003-1265-7854
 
-Julio Iturra, Bremen International Graduate School of Social Sciences, Bremen, Germany.
+Andreas Laffert, Institute of Sociology, Pontificia Universidad Católica de Chile.  
+ORCID: 0000-0002-9008-2454
 
-ORCID: 0000-0003-1993-3479
-
-Kevin Carrasco, Center for Social Conflict and Cohesion Studies
-
+Kevin Carrasco, Center for Social Conflict and Cohesion Studies.  
 ORCID: 0000-0002-9348-8361
 
+Julio Iturra, Bremen International Graduate School of Social Sciences, Bremen, Germany.
+ORCID: 0000-0003-1993-3479
+
+## Exclusive Submission Statement
+
+The authors confirm that this article has been submitted exclusively to this journal.
+
+## Acknowledgments
+
+The authors recognize the support of the National Research and Development Agency (ANID) through the grant from the National Fund for Scientific and Technological Development (FONDECYT) N° 1210847; from the Center for Conflict and Social Cohesion Studies (COES) grant Financing Fund for Research Centers in Priority Areas (FONDAP) N° 1523A0005; and Millenium Nucleus on Digital Inequalities and Opportunities (NUDOS) NCS2022_046.
+
+## Authors' Contributions
+
+Author roles were classified using the Contributor Role Taxonomy [CRediT](https://credit.niso.org/) as follows: Juan Carlos Castillo: Conceptualization, Supervision, Methodology, Writing - review and editing; Andreas Laffert: Conceptualization, Methodology, Formal analysis, Software, Visualization, Writing - review and editing; Kevin Carrasco: Methodology, Formal analysis, Writing - review and editing. Julio Iturra: Conceptualization, Writing - review and editing. 
+
+## Conflict of Interest
+
+The authors declare no conflict of interest.
+
+## Funding
+
+This research received funding from ANID/FONDECYT grant 1210847 and the Center for Conflict and Social Cohesion Studies (COES) through ANID/FONDAP grant 1513009.
 
 
-# Conflict of interest
+## Data Avaibility Statement
 
-The authors report there are no competing interests to declare.
+The original data presented in the study are openly available in <https://dataverse.harvard.edu/api/access/datafile/10797987>
 
-[^*]: Corresponding author (juancastillov@uchile.cl - [jc-castillo.com](https://juancarloscastillo.github.io/jc-castillo/) -  Ignacio Carrera Pinto 1045 Ñuñoa, Santiago de Chile). The authors recognize the support of the National Research and Development Agency (ANID) through the grant from the National Fund for Scientific and Technological Development (FONDECYT) N° 1210847; from the Center for Conflict and Social Cohesion Studies (COES) grant Financing Fund for Research Centers in Priority Areas (FONDAP) N° 1523A0005; and Millenium Nucleus on Digital Inequalities and Opportunities (NUDOS) NCS2022_046
+Access to the data, code, and analysis presented in the study are openly available in <https://github.com/justicia-distributiva/market-justice-panel-elsoc>.
+
+
+[^*]: Corresponding author (juancastillov@uchile.cl - [jc-castillo.com](https://juancarloscastillo.github.io/jc-castillo/) - Ignacio Carrera Pinto 1045 Ñuñoa, Santiago de Chile). 
