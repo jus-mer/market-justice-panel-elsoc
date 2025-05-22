@@ -43,7 +43,7 @@ author:
     email: kevin.carrasco@ug.uchile.cl
     affiliations:
       - ref: 2
-  - name: Julio Iturra
+  - name: Julio Iturra-Sanhueza
     orcid: 0000-0003-1993-3479
     email: julioiturrasanhueza@gmail.com 
     affiliations:
