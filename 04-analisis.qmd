@@ -56,7 +56,8 @@ pacman::p_load(tidyverse,
                patchwork,
                sjlabelled,
                summarytools,
-               interactions)
+               interactions,
+               cowplot)
 
 
 options(scipen=999)
@@ -854,7 +855,8 @@ p7 <- marginaleffects::plot_slopes(model = m9.2,
        y = "Marginal effect of Merit: Talent (BE)",
        fill = NULL,
        title = "(B) People are rewarded for their intelligence",
-       caption = "Source: own elaboration with data from ELSOC 2016-2023 (n = 8460). Based in Model 10 and Model 11 in Table 4. Confidence intervals at 95%") +
+       caption = "Source: own elaboration with data from ELSOC 2016-2023 (n = 8460). Based in Model 10 and Model 11 in Table 4.
+Confidence intervals at 95%") +
   theme_ggdist()
 
 
