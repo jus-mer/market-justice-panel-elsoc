@@ -378,7 +378,7 @@ p3 <- datos.educ %>%
        x = "Wave",
        fill = NULL,
        title = "c. Education",
-       caption = "Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 8460)") +
+       caption = "Source: own elaboration with pooled data from ELSOC 2016-2023 (N obs = 8,643; N groups = 1,687)") +
   theme_ggdist() +
   theme(legend.position = "bottom") 
 
@@ -464,7 +464,7 @@ df_pond %>%
        x = "Wave",
        color = NULL,
        shape = NULL,
-       caption = "Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 8460)") +
+       caption = "Source: own elaboration with pooled data from ELSOC 2016-2023 (N obs = 8,643; N groups = 1,687)") +
   theme_ggdist() +
   theme(legend.position = "top",
         text = element_text(size = 12)) 
@@ -767,6 +767,12 @@ Model 7 adds the control variables. With the exception of the between-effect for
 
 ccoef <- list(
   "(Intercept)" = "Intercept",
+  perc_inequality_cwc = "Perception inequality (WE)",
+  merit_effort_cwc = "Merit: Effort (WE)",
+  merit_talent_cwc = "Merit: Talent (WE)",
+  perc_inequality_mean = "Perception inequality (BE)",
+  merit_effort_mean = "Merit: Effort (BE)",
+  merit_talent_mean = "Merit: Talent (BE)",
   "perc_inequality_cwc:merit_effort_cwc" = "Merit: Effort (WE) x Perception inequality (WE)",
   "perc_inequality_cwc:merit_talent_cwc" = "Merit: Talent (WE) x Perception inequality (WE)",
   "perc_inequality_mean:merit_effort_mean" = "Merit: Effort (BE) x Perception inequality (BE)",
@@ -858,6 +864,7 @@ ggpubr::ggarrange(p6, p7, common.legend=TRUE, ncol=1)
 ```
 
 @tbl-interactions1 examines whether perceived economic inequality moderates the effect of meritocratic beliefs on market justice preferences. Contrary to our hypothesis, the interaction terms in the within-person specification (Models 8 and 9) do not reach statistical significance. However, in the between-person specification (Models 10 and 11), the interaction terms are statistically significant, suggesting that perceptions of economic inequality meaningfully alter the effect of meritocracy on support for market-based allocation of social services. These positive effects indicate that, as perceptions of inequality increase, the positive association between meritocratic perceptions and market justice preferences becomes stronger. The marginal effects of this interaction are illustrated in @fig-interact, which shows that the effect of meritocratic perceptions on market justice preferences intensifies as perceived economic inequality rises.
+
 
 ```{r echo=FALSE, results='asis'}
 #| label: tbl-interactions2
