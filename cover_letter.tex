@@ -8,6 +8,7 @@
 ]{article}
 
 \usepackage{amsmath,amssymb}
+\usepackage{lmodern}
 \usepackage{setspace}
 \usepackage{iftex}
 \ifPDFTeX
@@ -18,10 +19,6 @@
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-\usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
   \setmainfont[]{Times New Roman}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
@@ -81,6 +78,10 @@
 \makeatother
 
 \makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
 \ifdefined\contentsname
@@ -116,16 +117,21 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \makeatother
 \makeatletter
-\makeatother
-\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
 \makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\usepackage{bookmark}
-
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
@@ -145,9 +151,11 @@ Shaping Preferences for Market Justice in Chile (2016-2023)}
 \date{}
 \begin{document}
 \maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, interior hidden, sharp corners, breakable, enhanced, frame hidden, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \setstretch{1.15}
-\section{Authors Identification}\label{authors-identification}
+\hypertarget{authors-identification}{%
+\section{Authors Identification}\label{authors-identification}}
 
 Juan Carlos Castillo, Department of Sociology, Universidad de Chile,
 Santiago de Chile\footnote{Corresponding author (juancastillov@uchile.cl
@@ -163,26 +171,29 @@ ORCID: 0000-0002-9008-2454
 Kevin Carrasco, Center for Social Conflict and Cohesion Studies.\\
 ORCID: 0000-0002-9348-8361
 
-Julio Iturra, Bremen International Graduate School of Social Sciences,
-Bremen, Germany. ORCID: 0000-0003-1993-3479
+Julio Iturra-Sanhueza, Bremen International Graduate School of Social
+Sciences, Bremen, Germany. ORCID: 0000-0003-1993-3479
 
+\hypertarget{exclusive-submission-statement}{%
 \section{Exclusive Submission
-Statement}\label{exclusive-submission-statement}
+Statement}\label{exclusive-submission-statement}}
 
 The authors confirm that this article has been submitted exclusively to
 this journal.
 
-\section{Acknowledgments}\label{acknowledgments}
+\hypertarget{acknowledgments}{%
+\section{Acknowledgments}\label{acknowledgments}}
 
 The authors recognize the support of the National Research and
 Development Agency (ANID) through the grant from the National Fund for
-Scientific and Technological Development (FONDECYT) N° 1210847; from the
+Scientific and Technological Development (FONDECYT) N° 1250518; from the
 Center for Conflict and Social Cohesion Studies (COES) grant Financing
 Fund for Research Centers in Priority Areas (FONDAP) N° 1523A0005; and
 Millenium Nucleus on Digital Inequalities and Opportunities (NUDOS)
 NCS2022\_046.
 
-\section{Authors' Contributions}\label{authors-contributions}
+\hypertarget{authors-contributions}{%
+\section{Authors' Contributions}\label{authors-contributions}}
 
 Author roles were classified using the Contributor Role Taxonomy
 \href{https://credit.niso.org/}{CRediT} as follows: Juan Carlos
@@ -192,17 +203,20 @@ analysis, Software, Visualization, Writing - review and editing; Kevin
 Carrasco: Methodology, Formal analysis, Writing - review and editing.
 Julio Iturra: Conceptualization, Writing - review and editing.
 
-\section{Conflict of Interest}\label{conflict-of-interest}
+\hypertarget{conflict-of-interest}{%
+\section{Conflict of Interest}\label{conflict-of-interest}}
 
 The authors declare no conflict of interest.
 
-\section{Funding}\label{funding}
+\hypertarget{funding}{%
+\section{Funding}\label{funding}}
 
-This research received funding from ANID/FONDECYT grant 1210847 and the
+This research received funding from ANID/FONDECYT grant 1250518 and the
 Center for Conflict and Social Cohesion Studies (COES) through
-ANID/FONDAP grant 1513009.
+ANID/FONDAP grant 1523A0005.
 
-\section{Data Avaibility Statement}\label{data-avaibility-statement}
+\hypertarget{data-avaibility-statement}{%
+\section{Data Avaibility Statement}\label{data-avaibility-statement}}
 
 The original data presented in the study are openly available in
 \url{https://dataverse.harvard.edu/api/access/datafile/10797987}

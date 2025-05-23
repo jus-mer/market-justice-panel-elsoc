@@ -1,8 +1,27 @@
 ---
-author: "Equipo EDUMER"
-bibliography: "input/bib/merit-edjust.bib"
-csl: "input/bib/apa6.csl"
----
+title: "Supplementary material"
+format:
+  html: 
+    code-fold: true
+    html-math-method: katex
+    number-sections: true
+  docx:
+    number-sections: true
+  pdf: 
+    geometry: margin=0.5cm
+    template-partials: 
+      - title.tex
+    keep-tex: true
+    number-sections: true
+editor: source
+link-citations: true
+linestretch: 1.15       
+mainfont: Times New Roman
+fontsize: 12pt          
+colorlinks: true
+fig-height: 4
+fig-width: 7.5
+--- 
 ```{r}
 #| echo: false
 #| message: false
@@ -306,13 +325,7 @@ m14.2 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality_cwc +  merit_effort_cw
 ```
 
 
-# Supplementary material
-
 ```{r echo=FALSE, results='asis'}
-#| label: tbl-suple1
-#| tbl-cap: "Complete longitudinal multilevel models for market justice preferences"
-#| tbl-cap-location: top
-
 ccoef <- list(
   "(Intercept)" = "Intercept",
   "ola2017" = "Wave 2017",
@@ -344,27 +357,27 @@ ccoef <- list(
   "age65 or more" = "Age 65 or more"
   )
 
-texreg::knitreg(list(m0, m1, m2, m3, m4, m5, m6, m7),
+texreg::texreg(list(m0, m1, m2, m3, m4, m5, m6, m7),
                custom.model.names = c("Model 0",paste0("Model ", seq(1:7))),
-               caption = NULL,
+               caption = "Complete longitudinal multilevel models for market justice preferences",
+               caption.above = T,
                stars = c(0.05, 0.01, 0.001),
                custom.coef.map = ccoef,
                digits = 3,
                groups = list("Wave (Ref.= 2016)" = 2:6,
                              "Income quintile (Ref.= Quintile 1)" = 16:20,
-                             "Political identification (Ref.= Left)" = 21:23,
-                             "Age (Ref.= 18-29)" = 25:27),
+                             "Political identification (Ref.= Left)" = 22:24,
+                             "Age (Ref.= 18-29)" = 26:28),
                custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars.",
                leading.zero = T,
                use.packages = F,
                booktabs = F,
-               scalebox = 0.7,
+               scalebox = 0.5,
                include.loglik = FALSE,
                include.aic = FALSE,
                center = T,
                custom.gof.names = c("BIC", "Numb. obs.", "Num. groups: individuals", "Var: individuals (Intercept)", "Var: Residual", "Var: individuals, wave", "Cov: individuals (Intercept), wave"))
-               
-
+              
 ```
 
 
