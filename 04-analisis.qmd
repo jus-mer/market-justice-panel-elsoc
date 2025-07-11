@@ -43,12 +43,9 @@ pacman::p_load(tidyverse,
                lme4, 
                here, 
                performance,
-               influence.ME, 
                marginaleffects,
-               MLMusingR,
                texreg, 
                ggdist,
-               misty,
                kableExtra,
                ggalluvial, 
                shadowtext,
@@ -130,7 +127,7 @@ df_study1$merit_talent <- sjlabelled::set_label(df_study1$merit_talent,
 ```
 # Results
 
-## Descriptive 
+## Descriptive statistics
 
 
 @fig-alluvial shows the annual frequencies of market justice preferences for healthcare, pensions, and education from 2016 to 2023. Each year presents stacked percentage frequencies, and the flows between them reflect opinion changes among the same individuals from one year to the next, given that we are using panel data. For instance, of the 40.8% who strongly disagreed with justifying inequality in healthcare in 2019, around 24.3% maintained that position in 2022, while the remaining 16.5% shifted toward other response categories—primarily moving into disagreement rather than strong disagreement. Overall, more than half of the respondents exhibit a high level of disagreement (disagree + strongly disagree) with inequality in these three social service areas over time. Despite this general pattern, recent waves show a slight decrease in disagreement and a corresponding rise in support for market-justice inequality. Specifically, in healthcare and education, although disagreement remains substantial, agreement (agree + strongly agree) increased from 7.4% and 7.2% in 2019 to 13.1% and 14.2% in 2023, respectively. This shift is most evident in pensions, where the combined agree/strongly agree category grew by about 10 percentage points, from 16.9% in 2016 to 28% in 2023.
@@ -388,13 +385,13 @@ p3 <- datos.educ %>%
 ```
 
 
-Regarding the main dependent and independent variables of this study, @fig-meanchange depicts their average changes over the years. We observe an increase in the average level of market justice preferences in the most recent waves, which begins in 2019. The highest average consistently appears for perceived economic inequality, although this variable shows a downward trend of roughly one point over time. Interestingly, while perceptions of economic inequality declined in the latest measurements (2022–2023), market justice preferences increased. The meritocracy measures remain stable, though the perception that individuals are rewarded for intelligence is slightly higher than the perception that they are rewarded for their effort.
+Regarding the main dependent and independent variables of this study, @fig-meanchange depicts their standardized average changes over the years. We observe an increase in the average level of market justice preferences in the most recent waves, which begins in 2019. The highest average appears for perceived economic inequality in 2016, although this variable shows a downward trend over time, with the exception of 2019, which can be associated with the “social crisis” in the country. Interestingly, while perceptions of economic inequality declined in the latest measurements (2022–2023), market justice preferences increased. The meritocracy measures remain stable, though the perception that individuals are rewarded for effort is slightly higher than the perception that they are rewarded for their intelligence
 
 ```{r}
 #| label: fig-meanchange
 #| out-width: '100%'
 #| fig-asp: 0.8
-#| fig-cap: "Change in the mean of market justice preferences, economic inequality perception, and meritocracy (2016-2023)"
+#| fig-cap: "Change in the standarized mean of market justice preferences, economic inequality perception, and meritocracy (2016-2023)"
 #| fig-cap-location: top
 #| echo: false
 #| results: asis
@@ -420,9 +417,19 @@ df_pond <- df_study1 %>%
                    strata = estrato, 
                    weights = ponderador_long_total)
 
-df_pond %>% 
+df_pond <- df_pond %>% 
   select(ola, mjp, perc_inequality, merit_effort, merit_talent) %>% 
   mutate_at(.vars = 2:5, .funs = ~ as.numeric(.)) %>% 
+  mutate(
+    mjp_z            = as.numeric(scale(mjp)),
+    perc_inequality_z = as.numeric(scale(perc_inequality)),
+    merit_effort_z    = as.numeric(scale(merit_effort)),
+    merit_talent_z    = as.numeric(scale(merit_talent))
+  )
+
+
+df_pond %>% 
+  select(ola, mjp_z, perc_inequality_z, merit_effort_z, merit_talent_z) %>% 
   group_by(ola) %>% 
   summarise_all(~survey_mean(., vartype = "ci")) %>% 
   pivot_longer(cols = -ola,
@@ -441,10 +448,10 @@ df_pond %>%
     names_from  = ci,
     values_from = valor
   ) %>% 
-  mutate(variable = case_when(variable == "mjp" ~ "Market justice preferences",
-                              variable == "perc_inequality"  ~ "Inequality perception",
-                              variable == "merit_effort"     ~ "Merit: Effort",
-                              variable == "merit_talent"     ~ "Merit: Talent"),
+  mutate(variable = case_when(variable == "mjp_z" ~ "Market justice preferences",
+                              variable == "perc_inequality_z"  ~ "Inequality perception",
+                              variable == "merit_effort_z"     ~ "Merit: Effort",
+                              variable == "merit_talent_z"     ~ "Merit: Talent"),
          variable = factor(variable, levels = c("Market justice preferences",
                                       "Inequality perception",
                                       "Merit: Effort",
@@ -461,7 +468,7 @@ df_pond %>%
                                 "#B2182B"  # rojo profundo
                                          )) +
   scale_shape_manual(values=c(15, 16, 17, 18)) +
-  labs(y = "Mean",
+  labs(y = "Mean (Z-score)",
        x = "Wave",
        color = NULL,
        shape = NULL,
@@ -471,48 +478,6 @@ df_pond %>%
         text = element_text(size = 12)) 
  
 ```
-
-@fig-matrix presents the correlation matrix for the main variables in the latest wave (2023). Overall, the coefficients range from low to moderate. The association between market justice preferences and economic inequality perception is negative but small and statistically significant ($r$ = -0.05, $p$ < .05). By contrast, market justice preferences positively and significantly correlate with the two meritocracy variables ($r$ = 0.15, $p$ < .01; $r$ = 0.13, $p$ < .01). Perceived economic inequality has negative and nonsignificant correlations with both meritocracy perceptions ($r$ = -0.04, $p$ > .05; $r$ = -0.04, $p$ > .05). Finally, the two meritocracy variables exhibit a strong positive association with each other ($r$ = 0.69, $p$ < .01).
-
-
-```{r}
-#| label: fig-matrix
-#| out-width: '90%'
-#| fig-asp: 1
-#| fig-cap: "Correlation matrix of the main variables for the last wave (2023)"
-#| fig-cap-location: top
-#| echo: false
-#| results: asis
-
-
-M <- df_study1 %>%
-  filter(ola == 6) %>% 
-  select(mjp, perc_inequality, merit_effort, merit_talent) %>% 
-  mutate_all(.funs = ~ as.numeric(.)) %>% 
-  cor(use = "pairwise.complete.obs", method = "pearson")
-
-diag(M) <- NA
-
-rownames(M) <- c("A. Marjet justice preferences",
-                 "B. Inequality gap perception",
-                 "C. People are rewarded for their efforts ",
-                 "D. People are rewarded for their intelligence")
-
-#set Column names of the matrix
-colnames(M) <-c("(A)", "(B)","(C)","(D)")
-
-#Plot the matrix using corrplot
-corrplot::corrplot(M,
-                   method = "color",
-                   addCoef.col = "black",
-                   type = "upper",
-                   tl.col = "black",
-                   col = colorRampPalette(c("#E16462", "white", "#0D0887"))(12),
-                   bg = "white",
-                   na.label = "-") 
-
-```
-
 
 ## Multilevel models
 
@@ -754,7 +719,7 @@ texreg::texreg(list(m1, m2, m3, m4, m5, m6, m7),
 
 According to Model 1, which includes the survey waves to capture intertemporal variations in the dependent variable, there is a decrease in 2017 ($\beta$ = -0.167, $p$ < .001) relative to 2016, and similarly in 2018 ($\beta$ = -0.025, $p$ > .05) and 2019 ($\beta$ = -0.046, $p$ > .05), although the latter effects are not statistically significant. In contrast, in the more recent waves of 2022 and 2023, there is a statistically significant increase in market justice preferences ($\beta$ = 0.285, $p$ < .001; $\beta$ = 0.284, $p$ < .001), suggesting a non-linear effect. To model this trajectory over time, Model 2 incorporates time (survey waves) as a continuous variable, along with its quadratic term, representing the non-linear association initially observed in Model 1. While the linear term (survey wave) shows a negative association, reflecting an overall decline in market preferences over time, the positive quadratic term indicates a reversal of this pattern in the final measurement points.
 
-Models 3 and 4 incorporate the within-group effects (WE) of the primary independent variables, capturing how individual changes in these variables over time shape the dependent variable. The results in Model 3 suggest that the within effect of perceived economic inequality is negative and statistically significant ($p$ < .001). Specifically, each one-point increase in an individual’s perception of economic inequality between waves is associated with a 0.034 point decrease in market justice preferences. Model 4 shows that meritocratic beliefs operate in the opposite direction. An upward shift in the perception that effort is rewarded exerts a positive within effect ($\beta$ = 0.071, $p$ < .001), and a parallel increase in the perception that intelligence and ability are rewarded is likewise associated with higher market-justice preferences ($\beta$ = 0.028, $p$ < .05). Taken together, these results suggest that individuals who increasingly perceive meritocracy—whether through effort or talent—tend to hold stronger market justice preferences.
+Models 3 and 4 incorporate the within-group effects (WE) of the primary independent variables, capturing how individual changes in these variables over time shape the dependent variable. The results in Model 3 suggest that the within effect of perceived economic inequality is negative and statistically significant ($p$ < .001). Specifically, each one-point increase in an individual’s perception of economic inequality between waves is associated with a 0.034 point decrease in market justice preferences. Model 4 shows that meritocratic perceptions operate in the opposite direction. An upward shift in the perception that effort is rewarded exerts a positive within effect ($\beta$ = 0.071, $p$ < .001), and a parallel increase in the perception that intelligence and ability are rewarded is likewise associated with higher market-justice preferences ($\beta$ = 0.028, $p$ < .05). Taken together, these results suggest that individuals who increasingly perceive meritocracy—whether through effort or talent—tend to hold stronger market justice preferences.
 
 When examining the between-group effects (BE) in Model 5 and 6, which capture differences between individuals in the average of the main variables, a similar pattern emerges. Individuals who perceive higher levels of economic inequality tend to prefer less market justice ($\beta$ = -0.042, $p$ < .05). In Model 6, the meritocratic perception that effort is rewarded is positively associated with market justice preferences ($\beta$ = 0.186, $p$ < .001), whereas the perception that talent is rewarded shows a positive but non-significant coefficient ($\beta$ = 0.040). Notably, once the meritocratic variables are included, the negative coefficient for perceived economic inequality remains but is no longer statistically significant.
 
@@ -827,6 +792,24 @@ texreg::texreg(list(m8.1,m8.2,m9.1,m9.2),
 
 library(ggeffects)
 
+ggeffects::ggpredict(model = m9.1,
+                     terms = c("merit_effort_mean",
+                               "perc_inequality_mean [min, max]"),
+                     ci_level = .95
+                     ) %>% 
+  plot()
+
+
+
+predictions(m9.1,
+            condition = c("merit_effort_mean", "perc_inequality_mean"),
+            newdata = datagrid(merit_effort_mean = df_study1$merit_effort_mean,
+                               perc_inequality_mean = seq(min(df_study1$perc_inequality_mean), max(df_study1$perc_inequality_mean), by= 0.1)),
+            re.form = NA) %>% 
+  ggplot(aes(y =estimate,x=merit_effort_mean, fill=perc_inequality_mean, color=perc_inequality_mean)) +
+  geom_ribbon(alpha=0.8,size=1,linetype="solid",color="black") +
+  geom_line(size=1,color="black") +
+  geom_point(size=2,color="black")
 
 p6 <- marginaleffects::plot_slopes(model = m9.1,
                              variables = "merit_effort_mean",
@@ -865,7 +848,7 @@ ggpubr::ggarrange(p6, p7, common.legend=TRUE, ncol=1)
 
 ```
 
-@tbl-interactions1 examines whether perceived economic inequality moderates the effect of meritocratic beliefs on market justice preferences. Contrary to our hypothesis, the interaction terms in the within-person specification (Models 8 and 9) do not reach statistical significance. However, in the between-person specification (Models 10 and 11), the interaction terms are statistically significant, suggesting that perceptions of economic inequality meaningfully alter the effect of meritocracy on support for market-based allocation of social services. These positive effects indicate that, as perceptions of inequality increase, the positive association between meritocratic perceptions and market justice preferences becomes stronger. The marginal effects of this interaction are illustrated in @fig-interact, which shows that the effect of meritocratic perceptions on market justice preferences intensifies as perceived economic inequality rises.
+@tbl-interactions1 examines whether perceived economic inequality moderates the effect of meritocratic perceptions on market justice preferences. Contrary to our hypothesis, the interaction terms in the within-person specification (Models 8 and 9) do not reach statistical significance. However, in the between-person specification (Models 10 and 11), the interaction terms are statistically significant, suggesting that perceptions of economic inequality meaningfully alter the effect of meritocracy on support for market-based allocation of social services. These positive effects indicate that, as perceptions of inequality increase, the positive association between meritocratic perceptions and market justice preferences becomes stronger. The marginal effects of this interaction are illustrated in @fig-interact, which shows that the effect of meritocratic perceptions on market justice preferences intensifies as perceived economic inequality rises.
 
 
 ```{r echo=FALSE, results='asis'}

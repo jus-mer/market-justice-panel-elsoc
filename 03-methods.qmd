@@ -40,12 +40,9 @@ pacman::p_load(tidyverse,
                lme4, 
                here, 
                performance,
-               influence.ME,
                marginaleffects,
-               MLMusingR,
                texreg, 
                ggdist,
-               misty,
                kableExtra,
                ggalluvial, 
                shadowtext,
@@ -122,13 +119,13 @@ df_study1$merit_talent <- sjlabelled::set_label(df_study1$merit_talent,
 
 ## Data
 
-This study draws on data from the Chilean Longitudinal Social Survey (ELSOC), a panel study conducted annually from 2016 to 2023. The survey assesses how individuals think, feel, and behave regarding social conflict and cohesion in Chile. ELSOC employs a probabilistic, stratified, clustered, multistage sampling design covering major urban centers (Santiago, Valparaíso, and Concepción) as well as smaller cities. The target population includes men and women aged 18 to 75 who are habitual residents of private dwellings.
+This study draws on data from the Chilean Longitudinal Social Survey (ELSOC), a nationally representative panel study of the urban adult population in Chile, conducted annually between 2016 and 2023. Designed to examine individuals’ attitudes, emotions, and behaviors regarding social conflict and cohesion, ELSOC employs a probabilistic, stratified, clustered, and multistage sampling design covering both major urban centers and smaller cities. The sampling frame was proportionally stratified into six categories of urban population size (e.g., large and small cities), followed by the random selection of households within 1,067 city blocks. The target population includes men and women aged 18 to 75 who are habitual residents of private dwellings.
 
-The survey has been conducted every year since 2016, except in 2020, when it was suspended due to the COVID-19 pandemic. The first wave included 2,927 participants from both northern and southern regions, covering 77% of the national population and 93% of the urban population, with a response rate of 62.4% [@elsoc_estudio_2022]. This study uses six waves: 2016, 2017, 2018, 2019, 2022, and 2023. The 2021 wave was excluded because a reduced version of the questionnaire omitted key variables of interest. Between waves 1 and 6, panel attrition reached 40%, resulting in a final two-level sample comprising N = 8,643 observations nested within N = 1,687 individuals. Longitudinal weights are applied to adjust for both the sampling design and potential biases from systematic non-response. Further details on sampling, attrition, and weighting procedures are available at https://coes.cl/encuesta-panel/, and the dataset is publicly accessible at https://dataverse.harvard.edu/dataverse/elsoc.
+The survey has been conducted every year since 2016, except in 2020, when it was suspended due to the COVID-19 pandemic. This study uses six waves: 2016, 2017, 2018, 2019, 2022, and 2023. The 2021 wave was excluded because a reduced version of the questionnaire omitted key variables of interest. Between waves 1 and 6, panel attrition reached 40%, resulting in a final two-level sample comprising N = 8,643 observations nested within N = 1,687 individuals. Longitudinal weights are applied to adjust for both the sampling design and potential biases from systematic non-response. Further details on sampling, attrition, and weighting procedures are available at https://coes.cl/encuesta-panel/, and the dataset is publicly accessible at https://dataverse.harvard.edu/dataverse/elsoc.
 
 ## Variables
 
-**Market justice preferences**: The dependent variable in this study is preferences for market justice. This construct is operationalized through three items that capture how strongly individuals justify conditioning access to social services---healthcare, pensions, and education--- basen on individual income. Specifically, the justification of inequality in healthcare is assessed by the question: "Is it fair in Chile that people with higher incomes can access better healthcare than people with lower incomes?" The same question is posed for pensions and education. In all cases, respondents indicate their level of agreement on a five-point Likert scale ranging from 1 ("strongly disagree") to 5 ("strongly agree"). Additionally, we include a composite measure of "market justice preferences", calculated as the average of these three items ($\alpha$ = 0.84). This index ranges from 1 to 5, with higher values indicating stronger preferences for market justice (see @tbl-summary1).
+**Market justice preferences**: the dependent variable in this study is preferences for market justice. This construct is operationalized through three items that capture how strongly individuals justify conditioning access to core services---healthcare, pensions, and education--- basen on individual income. Specifically, the justification of inequality in healthcare is assessed by the question: "Is it fair in Chile that people with higher incomes can access better healthcare than people with lower incomes?" The same question is posed for pensions and education. In all cases, respondents indicate their level of agreement on a five-point Likert scale ranging from 1 ("strongly disagree") to 5 ("strongly agree"). Additionally, we include a composite measure of "market justice preferences", calculated as the average of these three items ($\alpha$ = 0.84). This index ranges from 1 to 5, with higher values indicating stronger preferences for market justice (see @tbl-summary1).
 
 ```{r}
 #| label: tbl-summary1
@@ -162,7 +159,7 @@ print(df)
 
 
 
-**Perception of economic inequality**: The main independent variable refers to the perception of economic inequality, measured through the perceived wage gap [@castillo_cual_2009; @hadler_why_2005; @gijsberts_thelegitimation_1999]. This measure is derived from the salary gap between the perceived salaries of jobs at opposite ends of the occupational hierarchy. Specifically, it relies on the division between the perceived salary of a large-company president and that of an unskilled worker [@Castillo2011]. Higher values of this term indicate a greater perception of economic inequality between occupations located at the extremes of the status continuum. This measure includes a logarithmic term in order to adjust income magnitudes (usually fewer cases with high income):
+**Perception of economic inequality**: this variable is measured through the perceived wage gap [@castillo_cual_2009; @hadler_why_2005; @gijsberts_thelegitimation_1999]. This measure is derived from the salary gap between the perceived salaries of jobs at opposite ends of the occupational hierarchy. Specifically, it relies on the division between the perceived salary of a large-company president and that of an unskilled worker [@Castillo2011]. Higher values of this term indicate a greater perception of economic inequality between occupations located at the extremes of the status continuum. This measure includes a logarithmic term in order to adjust income magnitudes (usually fewer cases with high income):
 
 $$
 \text{perceived wage gap} = \log_{10}\left(\frac{\text{perceived salary of a large-company president}}{\text{perceived salary of an unskilled worker}}\right)
@@ -205,7 +202,7 @@ print(df)
 
 *Controls*
 
-Sociodemographic and attitudinal variables are included to control for potential composition effects in the population. In terms of sociodemographic characteristics, we incorporate per capita household income quintile, educational level (1=Less than Universitary, 2=Universitary), age (in years), and sex (1=Male, 2=Female), which have been previously shown to influence market justice preferences significantly [@lindh_public_2015; @castillo_socialization_2024]. Regarding attitudinal variables, we include political identification (1=Left, 2=Center, 3=Right, 4=No identification) and subjective social status (ranging from 1 to 10) as they may affect the relationship between market justice preferences, perceptions of inequality, and meritocracy [@schneider_poverty_2015].
+Sociodemographic and attitudinal variables are included to control for potential composition effects in the population. In terms of sociodemographic characteristics, we incorporate per capita household income quintile, educational level (1=Less than Universitary, 2=Universitary), age (in ranges), and sex (1=Male, 2=Female), which have been previously shown to influence market justice preferences significantly [@lindh_public_2015; @castillo_socialization_2024]. Regarding attitudinal variables, we include political identification (1=Left, 2=Center, 3=Right, 4=No identification) and subjective social status (measured through a scale from 1 to 10) as they may affect the relationship between market justice preferences, perceptions of inequality, and meritocracy [@schneider_poverty_2015]. Descriptive statistics for the control variables can be found in the supplementary material.
 
 ## Methods
 
