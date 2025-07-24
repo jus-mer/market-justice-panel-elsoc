@@ -48,7 +48,7 @@ Second, higher perceived meritocracy is expected to be positively associated wit
 
 Third, we propose that perceptions of meritocracy and perceptions of economic inequality interact in shaping market justice attitudes. Specifically, we argue that the legitimizing effect of perceived meritocracy on market justice preferences is moderated by perceived economic inequality: when perceived inequality is low, the positive association between meritocratic perceptions and market justice preferences will be stronger. However, when perceived inequality is high, this association will weaken, as greater awareness of large economic gaps may challenge the view that outcomes are purely merit-based.
 
-Additionally, this study examines whether these relationships vary over time in response to significant social and political events. In particular, we explore whether the political outburst of 2019 and the subsequent constitutional processes in Chile --- where socio-economic inequality was widely challenged --- have altered how perceptions of inequality and meritocracy shape market justice attitudes. We expect that after these critical events, perceptions of inequality may have a stronger negative effect on market justice preferences, reflecting increased societal questioning of market-based allocation mechanisms. 
+Additionally, this study examines whether these relationships vary over time, particularly in light of broader social and political transformations. We are especially interested in whether changes in individuals’ perceptions of inequality and meritocracy are associated with shifts in their market justice attitudes across different time points. The primary focus of this study is thus to scrutinize how individual-level changes in perceptions relate to changes in preferences over time. While we acknowledge the relevance of contextual events — such as the 2019 political outburst or the subsequent constitutional process — for public opinion and political orientation [@disi_pavlic_justification_2025], identifying causal effects of such events (e.g., mass protest exposure) on individual attitudes lies outside the scope of this research. Instead, we focus on how intra-individual trajectories in perceived inequality and merit shape evolving attitudes toward the commodification of social services.
 
 Based on these arguments, we propose the following hypotheses:
 
@@ -58,4 +58,6 @@ $H2$: Higher meritocratic perceptions are associated with higher market justice 
 
 $H3$: The positive association between meritocratic perceptions and market justice preferences is moderated by perceived economic inequality; specifically, this association is weaker when perceived economic inequality is high.
 
-$H4$: The effects described in H1–H3 are attenuated after major social mobilizations (2019–2022), reflecting increased critical views of the market's role in allocating social goods.
+$H4a$: Changes in perceived income inequality are less strongly associated with changes in market justice attitudes over time.
+
+$H4b$: Changes in meritocracy beliefs are less strongly associated with changes in market justice attitudes over time.
