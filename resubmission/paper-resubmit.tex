@@ -113,6 +113,20 @@
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 \usepackage[noblocks]{authblk}
 \renewcommand*{\Authsep}{, }
 \renewcommand*{\Authand}{, }
@@ -268,7 +282,7 @@ The justification of economic inequality has a long tradition in
 sociology, with seminal works such as the ones from Kluegel
 (\citeproc{ref-kluegel_social_1995a}{1995};
 \citeproc{ref-kluegel_beliefs_1986}{1986}) and Lane
-(\citeproc{ref-lane_political_1962}{1962};
+(\citeproc{ref-lane_political_1962}{1962},
 \citeproc{ref-lane_market_1986}{1986}). Lane's main aim was to ``help
 explain the tenacious hold of market capitalism on the public mind''
 (\citeproc{ref-lane_market_1986}{1986, p. 384}), proposing the
@@ -389,12 +403,12 @@ by the welfare state action through social policies. An important remark
 is that the principles of market justice rely on the assumption that
 markets are neutral and self-regulating arenas, where individuals are
 treated fairly because they face the same formal rules of engagement
-(\citeproc{ref-lane_market_1986}{Robert E. Lane, 1986}). Consequently,
-the legitimacy of market justice stems from the assumption that
-inequalities are not only inevitable but fair---so long as the rules are
-transparent and opportunities are open. In this way, market justice
-provides a moral justification for inequality by framing it as a
-necessary outcome of individual responsibility
+(\citeproc{ref-lane_market_1986}{Lane, 1986}). Consequently, the
+legitimacy of market justice stems from the assumption that inequalities
+are not only inevitable but fair---so long as the rules are transparent
+and opportunities are open. In this way, market justice provides a moral
+justification for inequality by framing it as a necessary outcome of
+individual responsibility
 (\citeproc{ref-kluegel_legitimation_1999}{Kluegel et al., 1999};
 \citeproc{ref-lindh_public_2015}{Lindh, 2015}).
 
@@ -1129,14 +1143,14 @@ however, this variable shows a general downward trajectory over time,
 with a temporary increase in 2019, possibly reflecting the effects of
 the social uprising that year. Interestingly, while perceptions of
 inequality declined in the latest waves (2022--2023), market justice
-preferences continued to rise. Meritocratic beliefs, in contrast, remain
-relatively stable overall. Nevertheless, perceptions that individuals
-are rewarded based on talent tend to be slightly higher than those based
-on effort. Both meritocracy-related measures follow a similar temporal
-pattern: an increase from 2016 to 2018, a decline between 2019 and
-2022---potentially associated with the social unrest and the
-consequences of the COVID-19 pandemic---and a subsequent rise in 2023,
-returning to levels comparable to those observed in 2016.
+preferences continued to rise. Meritocratic perceptions, in contrast,
+remain relatively stable overall. Nevertheless, perceptions that
+individuals are rewarded based on talent tend to be slightly higher than
+those based on effort. Both meritocracy-related measures follow a
+similar temporal pattern: an increase from 2016 to 2018, a decline
+between 2019 and 2022---potentially associated with the social unrest
+and the consequences of the COVID-19 pandemic---and a subsequent rise in
+2023, returning to levels comparable to those observed in 2016.
 
 \begin{figure}[H]
 
@@ -1267,12 +1281,13 @@ When examining the between-group effects (BE) in Model 5 and 6, which
 capture differences between individuals in the average of the main
 variables, a similar pattern emerges. Individuals who perceive higher
 levels of economic inequality tend to prefer less market justice
-(\(\beta\) = -0.002, \(p\) \textgreater{} .05). However, this effects is
+(\(\beta\) = -0.002, \(p\) \textgreater{} .05). However, this effect is
 no longer statistically significant. In Model 6, the meritocratic
 perception that effort is rewarded is positively associated with market
 justice preferences (\(\beta\) = 0.206, \(p\) \textless{} .001), whereas
 the perception that talent is rewarded shows a positive but
-non-significant coefficient (\(\beta\) = 0.036).
+non-significant coefficient (\(\beta\) = 0.036, \(p\) \textgreater{}
+.05).
 
 Model 7 adds the control variables. The within- and between-effects of
 the principal predictors retain both their direction and statistical
@@ -1387,90 +1402,17 @@ unequal. In such contexts, meritocratic narratives may reinforce
 individualistic understandings of distributive justice and intensify
 support for market-based access to essential social services.
 
-\begin{table}
-
-\caption{\label{tbl-interactions2}Interactions for meritocracy,
-perceived economic inequality and market justice preferences}
-
-\centering{
-
-\caption{}
-\begin{center}
-\scalebox{0.7}{
-\begin{tabular}{l c c c c c c}
-\hline
- & Model 12 & Model 13 & Model 14 & Model 15 & Model 16 & Model 17 \\
-\hline
-Intercept                                                & $1.263^{***}$ & $1.265^{***}$ & $1.246^{***}$ & $1.128^{***}$ & $1.099^{***}$ & $1.090^{***}$ \\
-                                                         & $(0.143)$     & $(0.141)$     & $(0.142)$     & $(0.176)$     & $(0.169)$     & $(0.170)$     \\
-Wave x Perception inequality (WE)                        & $0.003$       &               &               &               &               &               \\
-                                                         & $(0.006)$     &               &               &               &               &               \\
-Wave x Merit: effort (WE)                                &               & $0.012$       &               &               &               &               \\
-                                                         &               & $(0.006)$     &               &               &               &               \\
-Wave x Merit: talent (WE)                                &               &               & $0.007$       &               &               &               \\
-                                                         &               &               & $(0.006)$     &               &               &               \\
-Wave x Perception inequality (BE)                        &               &               &               & $-0.011$      &               &               \\
-                                                         &               &               &               & $(0.009)$     &               &               \\
-Wave x Merit: effort (BE)                                &               &               &               &               & $-0.020$      &               \\
-                                                         &               &               &               &               & $(0.011)$     &               \\
-Wave x Merit: talent (BE)                                &               &               &               &               &               & $-0.016$      \\
-                                                         &               &               &               &               &               & $(0.010)$     \\
-\hline
-Controls                                                 & Yes           & Yes           & Yes           & Yes           & Yes           & Yes           \\
-BIC                                                      & $31010.853$   & $30888.601$   & $30785.269$   & $31515.978$   & $31493.536$   & $31501.405$   \\
-Numb. obs.                                               & $8643$        & $8643$        & $8643$        & $8643$        & $8643$        & $8643$        \\
-Num. groups: individuals                                 & $1687$        & $1687$        & $1687$        & $1687$        & $1687$        & $1687$        \\
-Var: individuals (Intercept)                             & $0.388$       & $0.334$       & $0.379$       & $0.274$       & $0.532$       & $0.372$       \\
-Var: individuals, perception inequality cwc              & $0.100$       & $$            & $$            & $$            & $$            & $$            \\
-Var: individuals, wave                                   & $0.025$       & $0.023$       & $0.024$       & $0.021$       & $0.021$       & $0.021$       \\
-Cov: individuals (Intercept), perception inequality cwc  & $-0.081$      & $$            & $$            & $$            & $$            & $$            \\
-Cov: individuals (Intercept), wave                       & $-0.074$      & $-0.062$      & $-0.072$      & $-0.054$      & $-0.056$      & $-0.049$      \\
-Cov: individuals, perception inequality cwc, wave        & $0.021$       & $$            & $$            & $$            & $$            & $$            \\
-Var: Residuals                                           & $0.291$       & $0.280$       & $0.275$       & $0.343$       & $0.342$       & $0.343$       \\
-Var: individuals, merit effort cwc                       & $$            & $0.122$       & $$            & $$            & $$            & $$            \\
-Cov: individuals (Intercept), merit effort cwc           & $$            & $-0.009$      & $$            & $$            & $$            & $$            \\
-Cov: individuals, merit effort cwc, wave                 & $$            & $0.000$       & $$            & $$            & $$            & $$            \\
-Var: individuals, merit talent cwc                       & $$            & $$            & $0.112$       & $$            & $$            & $$            \\
-Cov: individuals (Intercept), merit talent cwc           & $$            & $$            & $0.003$       & $$            & $$            & $$            \\
-Cov: individuals, merit talent cwc, wave                 & $$            & $$            & $-0.003$      & $$            & $$            & $$            \\
-Var: individuals, perception inequality mean             & $$            & $$            & $$            & $0.000$       & $$            & $$            \\
-Cov: individuals (Intercept), perception inequality mean & $$            & $$            & $$            & $0.007$       & $$            & $$            \\
-Cov: individuals, perception inequality mean, wave       & $$            & $$            & $$            & $-0.001$      & $$            & $$            \\
-Var: individuals, merit effort mean                      & $$            & $$            & $$            & $$            & $0.051$       & $$            \\
-Cov: individuals (Intercept), merit effort mean          & $$            & $$            & $$            & $$            & $-0.110$      & $$            \\
-Cov: individuals, merit effort mean, wave                & $$            & $$            & $$            & $$            & $-0.001$      & $$            \\
-Var: individuals, merit talent mean                      & $$            & $$            & $$            & $$            & $$            & $0.031$       \\
-Cov: individuals (Intercept), merit talent mean          & $$            & $$            & $$            & $$            & $$            & $-0.053$      \\
-Cov: individuals, merit talent mean, wave                & $$            & $$            & $$            & $$            & $$            & $-0.003$      \\
-\hline
-\multicolumn{7}{l}{\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$. CWC = centered within group.}}
-\end{tabular}
-}
-\label{table:coefficients}
-\end{center}
-
-}
-
-\end{table}%
-
-With respect to the temporal dynamics of the key predictors,
-Table~\ref{tbl-interactions2} shows that time has no statistically
-significant effects on either the within- or between-person effects of
-perceived inequality and meritocratic perceptions. The within-person
-interaction effects are positive, suggesting that in later waves, the
-influence of perceived inequality and meritocratic beliefs on market
-justice preferences tends to increase. Conversely, in the between-person
-specification, the interaction effects are negative, indicating that
-over time, the impact of perceived inequality and meritocratic beliefs
-on support for market-based justice tends to diminish. However, these
-trends are not statistically significant, and thus no definitive
-conclusions can be drawn.
+Regarding the temporal dynamics of the key predictors, the analysis
+shows that time has no statistically significant effects on the
+intrapersonal or interpersonal effects of perceived inequality and
+meritocratic perceptions. Further details about this analysis can be
+found in supplementary material.
 
 \section{Discussion}\label{discussion}
 
 This study tests several key hypotheses concerning the relationships
 between perceptions of economic inequality, meritocratic perceptions,
-and attitudes toward market justice in Chile. It posits that higher
+and preferences toward market justice in Chile. It posits that higher
 perceived inequality and stronger meritocratic perceptions both
 independently contribute to greater support for market-based
 distributions of social goods. Furthermore, the study examines how
@@ -1485,122 +1427,134 @@ for understanding attitudes toward inequality and social justice in a
 context marked by profound social change.
 
 The first hypothesis suggested that perceptions of economic inequality
-were strongly linked to attitudes toward market justice. The findings
+were strongly linked to preferences for market justice. The findings
 demonstrated that individuals perceiving higher income disparities
-showed stronger support for the distribution of social services based on
-individual income, aligning with theories emphasizing that awareness of
-inequality could fuel a critical view of such policies
+showed less support for the idea that the access to core social services
+depends on individual income, aligning with theories emphasizing that
+awareness of inequality could fuel a critical view of such policies
 (\citeproc{ref-Castillo2012a_justice}{Castillo, 2012};
 \citeproc{ref-mijs_paradox_2021}{Mijs, 2021}). This relationship
 reflected a moral economy where perceptions of systemic unfairness
 threatened the legitimacy of existing distributions, prompting calls for
-greater equity. Interestingly, the negative within-effects observed over
-time implied that as perceptions of inequality became more salient, some
-individuals experienced a decline in support for market justice,
-possibly due to increasing distrust in market mechanisms or
-disillusionment with the fairness of the system. This indicated that
-while perception heightened awareness, prolonged exposure or social
-mobilization could also foster skepticism about whether redistribution
-effectively addressed inequality or simply perpetuated systemic flaws.
+greater equity. Similarly, the negative within-effects observed over
+time (\(H1_{b}\)) implied that as perceptions of inequality became more
+salient, some individuals experienced a decline in support for market
+justice, possibly due to increasing distrust in market mechanisms or
+disillusionment with the fairness of the system.
 
 Regarding the second hypothesis, the results reinforced that
 meritocratic perceptions ---particularly those emphasizing individual
-effort and talent--- were associated with stronger support for
-market-based distribution systems. Individuals who viewed success as
-primarily earned through effort were more inclined to justify existing
-inequalities, seeing them as outcomes of individual merit rather than
-systemic injustice. This aligned with research indicating that
-meritocratic narratives served as moral justifications that reinforced
-societal stratification (\citeproc{ref-Castillo2012a_justice}{Castillo,
-2012}; \citeproc{ref-hoyt_mindsets_2023}{Hoyt et al., 2023}). These
-perceptions functioned symbolically to legitimize structural
-disparities, reducing support for redistributive measures by framing
-inequality as fair and deserved. The findings suggested that these
-perceptions bolstered the social hierarchy by fostering acceptance of
-inequality as a reflection of individual virtue rather than structural
-failure, which was especially pertinent in neoliberal contexts like
-Chile's, where market logic heavily influenced social attitudes
+effort--- were associated with stronger support for market-based
+distribution systems. Individuals who viewed success as primarily earned
+through effort were more inclined to justify existing inequalities,
+seeing them as outcomes of individual merit rather than systemic
+injustice. This aligned with research indicating that meritocratic
+narratives served as moral justifications that reinforced societal
+stratification (\citeproc{ref-Castillo2012a_justice}{Castillo, 2012};
+\citeproc{ref-hoyt_mindsets_2023}{Hoyt et al., 2023}). These perceptions
+functioned symbolically to legitimize structural disparities, reducing
+support for redistributive measures by framing inequality as fair and
+deserved. The findings suggested that these perceptions bolstered the
+social hierarchy by fostering acceptance of inequality as a reflection
+of individual virtue rather than structural failure, which was
+especially pertinent in neoliberal contexts like Chile's, where market
+logic heavily influenced social attitudes
 (\citeproc{ref-canalesceron_sujeto_2021}{Canales Cerón et al., 2021}).
+Interestingly, intraindividual changes in meritocratic perceptions over
+time (\(H2_{b}\)) reveal mixed effects. While an increase in the
+perception that rewards are based on individual effort is associated
+with stronger preferences for market fairness, an increase in the belief
+that rewards come from talent is linked to lower support for such
+principles. One possible explanation is that effort is generally
+perceived as a controllable and malleable trait, which aligns with the
+normative foundations of market fairness. Conversely, talent may be
+viewed as an innate and less alterable attribute, making talent-based
+reward allocation seem less fair or legitimate. Moreover, greater
+exposure to real-life situations where outcomes are strongly determined
+by inherent characteristics, rather than effort or hard work, may lead
+people to question the fairness of market-based reward systems.
 
 The third hypothesis concerned the moderating role of perceptions of
 inequality on the relationship between meritocracy and market justice
 attitudes. The analysis indicated that the positive association between
 meritocratic perceptions and support for market-based distribution
-tended to weaken when perceptions of economic inequality were
-particularly high. Although this moderation is not significant for
-within-subject effects (i.e.~over time), when taking into account
-between-subjects differences we found a positive effect. This appears as
-contrary to our initial hypothesis, as it would mean that effect of
-meritocratic perceptions becomes stronger as perception of inequality
-increases. Nevertheless, we need to be cautious about this
-interpretation, as the main effect of inequality perception on market
-justice is negative. Therefore, as perceived inequality become less
-negative (i.e.~more positive), or closer to zero, then the meritocratic
-perception has an stronger positive relationship on market justice
-preferences. This could mean that meritocratic perceptions play an
-stronger role in justification of market justice inequalities for those
-who are less capable or less prone to perceive inequality.
+tended to strengthen when perceptions of economic inequality were
+particularly high. While this moderation is not significant for
+effort-related effects, it is significant for talent in the within- and
+between-individual effects. This appears as contrary to our initial
+hypothesis, as it would mean that effect of meritocratic perceptions
+becomes stronger as perception of inequality increases. Nevertheless, we
+need to be cautious about this interpretation, as the main effect of
+inequality perception on market justice is negative. Therefore, as
+perceived inequality become less negative (i.e.~more positive), or
+closer to zero, then the meritocratic perception has an stronger
+positive relationship on market justice preferences. This could mean
+that meritocratic perceptions play an stronger role in justification of
+market justice inequalities for those who are less capable or less prone
+to perceive inequality.
 
 Finally, the fourth hypothesis addressed the impact of recent social
-movements, particularly from 2019 onwards, on the relationship between
-meritocratic perceptions, perceptions of inequality, and attitudes
-toward market justice. The results suggested that these movements
-contributed to a more critical stance toward the fairness of existing
-distributional mechanisms. Post-mobilization, the positive relationship
-between meritocratic perceptions and support for inequality appeared
-attenuated, indicating that collective action and public discourse
-during this period fostered questioning of the legitimacy of systemic
-inequalities justified solely through meritocratic narratives. These
-social mobilizations challenged dominant narratives, emphasizing
-structural barriers and systemic injustices, which in turn weakened the
-association between individual effort and deservingness. This is aligned
-with literature emphasizing that social protests act as catalysts for
-transforming societal attitudes by disrupting normative beliefs and
-encouraging more critical evaluations of institutional legitimacy
-(\citeproc{ref-tilly_contentious_2015}{Tilly \& Tarrow, 2015}). The
-findings underscored the importance of socio-political context in
-shaping and reshaping attitudes toward inequality and justice,
-highlighting how collective action could temporarily or permanently
-alter the normative foundations that sustained support for market
-justice.
+movements---particularly those that emerged in 2019---on the
+relationship between meritocratic beliefs, perceptions of inequality,
+and attitudes toward market justice. The main effect of time suggests
+that, on average, support for market justice increased after 2019.
+However, the results do not reveal any significant interactions between
+distributive mechanisms and market justice attitudes, indicating that
+the 2019 social mobilizations did not substantially alter the underlying
+associations between these variables. This may suggest a certain
+stability or resilience in the normative frameworks that shape
+individuals' evaluations of justice, even in the context of major
+collective political events. Alternatively, it is possible that while
+the protests challenged institutional legitimacy, they did not
+fundamentally shift individuals' views regarding how rewards should be
+allocated in society.
 
 \section{Conclusions}\label{conclusions}
 
 This study examined the complex interplay between perceptions of
-economic inequality, meritocratic perceptions, and attitudes toward
+economic inequality, meritocratic perceptions, and preferences toward
 market justice in Chile from 2016 to 2023, drawing on longitudinal data
 from the ELSOC survey. By exploring how subjective assessments and
 social contexts influence support for redistribution and market-based
 resource allocation, the research offers different elements that
 contribute to the understanding of the normative foundations
-underpinning social justice attitudes in a highly unequal, neoliberal
-environment.
+underpinning social justice attitudes in a highly unequal and
+commoditized environment.
 
 The findings confirm that higher perceptions of economic inequality are
-associated with less support for market justice attitudes, this is, the
-belief that it is fine that those with higher income have better social
-services such as education, pensions and health. Meritocratic
-perceptions strongly reinforce support for market justice, serving as
-moral justifications for structural inequalities. Additionally,
-perceptions of inequality moderate the influence of meritocratic
-perceptions, such that as the awareness of disparities are attenuated
-(i.e.~less negative) the role of meritocratic perceptions on existing
-market-based allocations become stronger. Notably, the social
-mobilizations of 2019 and subsequent periods seem to have contributed to
-shifting attitudes, fostering greater skepticism of systemic fairness
-and reducing the legitimizing power of meritocratic narratives.
+associated with less support for market justice preferences, this is,
+the belief that it is fair that those with higher income have better
+social services such as education, pensions and health. At the same
+time, meritocratic perceptions---particularly those emphasizing
+individual effort---are strongly associated with support for
+market-based distributions, suggesting that meritocracy serve as a moral
+justification for structural inequalities. However, changes in
+meritocratic perceptions over time reveal a more nuanced picture: while
+increased emphasis on effort reinforces support for market justice,
+increased emphasis on talent tends to reduce it. This distinction likely
+reflects broader beliefs about the controllability and fairness of
+different meritocratic traits. Moreover, the interaction between
+inequality perceptions and meritocratic perceptions indicates that the
+legitimizing power of meritocracy becomes stronger as perceptions of
+inequality become less negative---that is, when individuals are less
+aware or concerned about economic disparities. This finding highlights a
+potential feedback mechanism by which lower sensitivity to inequality
+may enable stronger endorsement of merit-based explanations for unequal
+outcomes.
 
 This research advances the extant literature by integrating subjective
 perceptions with social and political contexts to explain attitudes
 toward economic inequality and distributional justice. While previous
 studies primarily focused on objective measures or individual
-characteristics, this work emphasizes the dynamic and interactional
-nature of perceptions and beliefs over time. It highlights the
-importance of socio-political upheavals in reshaping normative
-attitudes, underscoring the role of collective action in challenging
-entrenched narratives of meritocracy and fairness. The longitudinal
-approach provides a deeper temporal perspective on how societal events
-could influence individual perceptions and preferences.
+characteristics (\citeproc{ref-busemeyer_skills_2014}{Busemeyer, 2014};
+\citeproc{ref-immergut_it_2020}{Immergut \& Schneider, 2020};
+\citeproc{ref-lindh_public_2015}{Lindh, 2015}), this work emphasizes the
+dynamic and interactional nature of perceptions and beliefs over time.
+It highlights the importance of socio-political upheavals in reshaping
+normative attitudes, underscoring the role of collective action in
+challenging entrenched narratives of meritocracy and fairness. The
+longitudinal approach provides a deeper temporal perspective on how
+societal events could influence individual perceptions and preferences.
 
 Despite its contributions, the study has several limitations. First, the
 reliance on self-reported perceptions and attitudes may be subject to
@@ -1611,10 +1565,12 @@ backgrounds. Third, the observational nature of the data prevents causal
 inferences, and unobserved confounding factors may influence the
 observed relationships. Finally, the potential influence of media,
 political discourse, and peer effects on perceptions was not directly
-assessed. Future research could explore the causal mechanisms linking
-perceptions and attitudes, possibly through experimental or mixed-method
-designs. Comparative studies across different national contexts would
-help determine the universality or specificity of these dynamics.
+assessed.
+
+Future research could explore the causal mechanisms linking perceptions
+and attitudes, possibly through experimental or mixed-method designs.
+Comparative studies across different national contexts would help
+determine the universality or specificity of these dynamics.
 Additionally, investigating the role of media, political communication,
 and education in shaping perceptions of inequality and meritocracy would
 deepen understanding of the normative foundations of social justice
@@ -1885,12 +1841,12 @@ Journal of Political Economy}, \emph{27}(4), 625--641.
 \url{https://doi.org/10.1016/j.ejpoleco.2011.06.002}
 
 \bibitem[\citeproctext]{ref-lane_political_1962}
-Lane, R. E. (1962). \emph{Political ideology: Why the {American} common
-man believes what he does}. Oxford, England: Free Press of Glencoe.
+Lane, R. (1962). \emph{Political ideology: Why the {American} common man
+believes what he does}. Oxford, England: Free Press of Glencoe.
 
 \bibitem[\citeproctext]{ref-lane_market_1986}
-Lane, Robert E. (1986). Market {Justice}, {Political Justice}.
-\emph{American Political Science Review}, \emph{80}(2), 383--402.
+Lane, R. (1986). Market {Justice}, {Political Justice}. \emph{American
+Political Science Review}, \emph{80}(2), 383--402.
 \url{https://doi.org/10.2307/1958264}
 
 \bibitem[\citeproctext]{ref-lee_fairness_2023}
@@ -2002,11 +1958,6 @@ Rodríguez-Bailón, R. (2025). From {Perceived Economic Inequality} to
 {Support} for {Redistribution}: {The Role} of {Meritocracy Perception}.
 \emph{International Review of Social Psychology}, \emph{38}(1), 4.
 \url{https://doi.org/10.5334/irsp.1013}
-
-\bibitem[\citeproctext]{ref-tilly_contentious_2015}
-Tilly, C., \& Tarrow, S. (2015). \emph{Contentious {Politics}} (Second
-Edition, New to this Edition:, Second Edition, New to this Edition:).
-Oxford, New York: Oxford University Press.
 
 \bibitem[\citeproctext]{ref-torche_intergenerational_2014a}
 Torche, F. (2014). Intergenerational {Mobility} and {Inequality}: {The
