@@ -855,7 +855,7 @@ The effects of effort-based meritocratic perceptions are not statistically signi
 Substantively, these findings suggest that the legitimizing function of meritocratic perceptions is amplified in contexts perceived as highly unequal. In such contexts, meritocratic narratives may reinforce individualistic understandings of distributive justice and intensify support for market-based access to essential social services.
 
 
-```{r echo=FALSE, results='asis'}
+```{r echo=FALSE, results='asis', eval=FALSE, include=FALSE}
 #| label: tbl-interactions2
 #| tbl-cap: "Interactions for meritocracy, perceived economic inequality and market justice preferences"
 #| tbl-cap-location: top
@@ -987,4 +987,4 @@ ggpubr::ggarrange(p4, p5, common.legend=FALSE, ncol=1)
 ```
 
 
-With respect to the temporal dynamics of the key predictors, @tbl-interactions2 shows that time has no statistically significant effects on either the within- or between-person effects of perceived inequality and meritocratic perceptions. The within-person interaction effects are positive, suggesting that in later waves, the influence of perceived inequality and meritocratic beliefs on market justice preferences tends to increase. Conversely, in the between-person specification, the interaction effects are negative, indicating that over time, the impact of perceived inequality and meritocratic beliefs on support for market-based justice tends to diminish. However, these trends are not statistically significant, and thus no definitive conclusions can be drawn. 
+Regarding the temporal dynamics of the key predictors, the analysis shows that time has no statistically significant effects on the intrapersonal or interpersonal effects of perceived inequality and meritocratic perceptions. Further details about this analysis can be found in supplementary material.
