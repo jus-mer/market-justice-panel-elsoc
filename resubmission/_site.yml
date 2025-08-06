@@ -4,13 +4,13 @@ navbar:
   title: "Perceptions of Inequality and Meritocracy: Their Interplay in Shaping Preferences for Market Justice in Chile (2016-2023)"
   right:
     - text: "Paper"
-      href: "paper.html"
+      href: "paper-resubmit.html"
     - text: ""
       icon: fa-file-pdf
-      href: "paper.pdf"
+      href: "paper-resubmit.pdf"
     - text: ""
       icon: fa-github fa-lg
-      href: https://github.com/justicia-distributiva/market-justice-panel-elsoc
+      href: https://github.com/justicia-distributiva/market-justice-panel-elsoc/resubmission
 
 output:
   bookdown::html_document2:

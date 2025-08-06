@@ -74,3 +74,4 @@ In the web page it is possible to see/download the paper in html and pdf formats
 - [Paper Draft (PDF)](https://justicia-distributiva.github.io/market-justice-panel-elsoc/paper.pdf)
 - [Paper Draft (HTML)](https://justicia-distributiva.github.io/market-justice-panel-elsoc/paper.html)
 - [Resubmit (HTML)](https://justicia-distributiva.github.io/market-justice-panel-elsoc/resubmission/paper-resubmit.html)
+- [Resubmit (PDF)](https://justicia-distributiva.github.io/market-justice-panel-elsoc/resubmission/paper-resubmit.pdf)
