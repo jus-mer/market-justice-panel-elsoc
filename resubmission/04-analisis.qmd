@@ -801,19 +801,19 @@ mean_val <- mean(df_study1$perc_inequality_mean, na.rm = TRUE)
 p6 <- ggpredict(
   m9.1,
   terms = c("merit_effort_mean", 
-            sprintf("perc_inequality_mean [%.2f, %.2f, %.2f]", min_val, mean_val, max_val))
+            sprintf("perc_inequality_mean [%.2f, %.2f]", min_val, max_val))
 ) %>% 
   plot() +
   scale_x_continuous(n.breaks = 5) +
   scale_color_manual(
     name = "Perception of inequality (BE)",
-    values = c("#0571B0", "black", "#B2182B"),
-    labels = c("Min", "Mean", "Max")
+    values = c("#0571B0",  "#B2182B"),
+    labels = c("Min",  "Max")
   ) +
   scale_fill_manual(
     name = "Perception of inequality (BE)",
-    values = c("#0571B0", "black", "#B2182B"),
-    labels = c("Min", "Mean", "Max")) +
+    values = c("#0571B0",  "#B2182B"),
+    labels = c("Min",  "Max")) +
   labs(
     x = "Merit: Effort (BE)",
     y = "Market justice preferences",
@@ -823,19 +823,19 @@ p6 <- ggpredict(
 p7 <- ggpredict(
   m9.2,
   terms = c("merit_talent_mean", 
-            sprintf("perc_inequality_mean [%.2f, %.2f, %.2f]", min_val, mean_val, max_val))
+            sprintf("perc_inequality_mean [%.2f, %.2f]", min_val, max_val))
 ) %>% 
   plot() +
   scale_x_continuous(n.breaks = 5) +
   scale_color_manual(
     name = "Perception of inequality (BE)",
-    values = c("#0571B0", "black", "#B2182B"),
-    labels = c("Min", "Mean", "Max")
+    values = c("#0571B0",  "#B2182B"),
+    labels = c("Min",  "Max")
   ) +
   scale_fill_manual(
     name = "Perception of inequality (BE)",
-    values = c("#0571B0", "black", "#B2182B"),
-    labels = c("Min", "Mean", "Max")) +
+    values = c("#0571B0",  "#B2182B"),
+    labels = c("Min",  "Max")) +
   labs(
     x = "Merit: Talent (BE)",
     y = "Market justice preferences",
@@ -853,138 +853,5 @@ ggpubr::ggarrange(p6, p7, common.legend=TRUE, ncol=1, legend = "top")
 The effects of effort-based meritocratic perceptions are not statistically significant in either the within- or between-person specifications (Models 8 and 10). However, the direction of the coefficients is negative in the former and positive in the latter. As shown in @fig-interact, Panel A, the between-person effect of effort-based meritocratic perceptions on market justice preferences strengthens as perceived inequality increases across individuals, whereas this effect weakens among those who perceive lower levels of inequality. Panel B reveals a similar pattern for the between-person effect of talent-based meritocratic perceptions, although the effect is substantially weaker at low levels of perceived inequality.
 
 Substantively, these findings suggest that the legitimizing function of meritocratic perceptions is amplified in contexts perceived as highly unequal. In such contexts, meritocratic narratives may reinforce individualistic understandings of distributive justice and intensify support for market-based access to essential social services.
-
-
-```{r echo=FALSE, results='asis', eval=FALSE, include=FALSE}
-#| label: tbl-interactions2
-#| tbl-cap: "Interactions for meritocracy, perceived economic inequality and market justice preferences"
-#| tbl-cap-location: top
-
-ccoef <- list(
-  "(Intercept)" = "Intercept",
-  "ola_num:perc_inequality_cwc" = "Wave x Perception inequality (WE)",
-  "ola_num:merit_effort_cwc" = "Wave x Merit: effort (WE)",
-  "ola_num:merit_talent_cwc" = "Wave x Merit: talent (WE)",
-  "ola_num:perc_inequality_mean" = "Wave x Perception inequality (BE)",
-  "ola_num:merit_effort_mean" = "Wave x Merit: effort (BE)",
-  "ola_num:merit_talent_mean" = "Wave x Merit: talent (BE)"
-    )
-
-texreg::texreg(list(m10.1, m11.1, m12.1, m10.2, m11.2, m12.2),
-               custom.model.names = c("Model 12", "Model 13", "Model 14", "Model 15", "Model 16", "Model 17"),
-               caption = NULL,
-               stars = c(0.05, 0.01, 0.001),
-               custom.coef.map = ccoef,
-               digits = 3,
-               caption.above = T,
-               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars. CWC = centered within group.",
-               leading.zero = T,
-               use.packages = F,
-               booktabs = F,
-               scalebox = 0.7,
-               include.loglik = FALSE,
-               include.aic = FALSE,
-               center = T,
-               custom.gof.names = c("BIC", 
-                                    "Numb. obs.", 
-                                    "Num. groups: individuals", 
-                                    "Var: individuals (Intercept)", 
-                                    
-                                    "Var: individuals, perception inequality cwc",
-                                    "Var: individuals, wave",
-                                    "Cov: individuals (Intercept), perception inequality cwc",
-                                    "Cov: individuals (Intercept), wave",
-                                    "Cov: individuals, perception inequality cwc, wave",
-                                    "Var: Residuals",
-                                    "Var: individuals, merit effort cwc", 
-                                    "Cov: individuals (Intercept), merit effort cwc",
-                                    "Cov: individuals, merit effort cwc, wave",
-                                    
-                                    
-                                    "Var: individuals, merit talent cwc", 
-                                    "Cov: individuals (Intercept), merit talent cwc",
-                                    "Cov: individuals, merit talent cwc, wave",
-                                    
-                                    "Var: individuals, perception inequality mean", 
-                                    "Cov: individuals (Intercept), perception inequality mean",
-                                    "Cov: individuals, perception inequality mean, wave",
-                                    
-                                     "Var: individuals, merit effort mean", 
-                                    "Cov: individuals (Intercept), merit effort mean",
-                                    "Cov: individuals, merit effort mean, wave",
-                                    
-                                    
-                                    "Var: individuals, merit talent mean", 
-                                    "Cov: individuals (Intercept), merit talent mean",
-                                    "Cov: individuals, merit talent mean, wave"
-                                    ),
-               custom.gof.rows = list("Controls"=c(rep("Yes",6))))
-
-
-
-
-```
-
-
-```{r}
-#| label: fig-growth
-#| out-width: '100%'
-#| fig-asp: 1
-#| fig-cap: "Time varying within effects of meritocratic perceptions on market justice preferences"
-#| fig-cap-location: top
-#| echo: false
-#| results: asis
-#| include: false
-#| eval: false
-
-
-library(ggeffects)
-
-
-p4 <- ggpredict(m11.2, terms = c("ola_num [all]", "merit_effort_mean")) %>% 
-  plot() + 
-  scale_x_continuous(n.breaks = 6) +
-  scale_color_manual(
-    name = "Merit:\nEffort",
-    values = c("#D55E00", "#0072B2", "#009E73"),
-    labels = c("-1 SD", "Mean", "+1 SD")
-  ) +
-  scale_fill_manual(
-    name = "Merit:\nEffort",
-    values = c("#D55E00", "#0072B2", "#009E73"),
-    labels = c("-1 SD", "Mean", "+1 SD")) +
-  labs(x = "Wave",
-       title = "(A) People are rewarded for their efforts",
-       color = NULL) +
-  ggdist::theme_ggdist() +
-  theme(legend.position = "top")
-  
-
-p5 <- ggpredict(m12.2, terms = c("ola_num [all]", "merit_talent_mean")) %>% 
-  plot() +
-  scale_x_continuous(n.breaks = 6) +
-  scale_color_manual(
-    name = "Merit:\nTalent",
-    values = c("#D55E00", "#0072B2", "#009E73"),
-    labels = c("-1 SD", "Mean", "+1 SD")
-  ) +
-  scale_fill_manual(
-    name = "Merit:\nTalent",
-    values = c("#D55E00", "#0072B2", "#009E73"),
-    labels = c("-1 SD", "Mean", "+1 SD")
-  ) +
-  labs(
-    x = "Wave",
-    title = "(B) People are rewarded for their intelligence",
-    caption = "Source: own elaboration with pooled data from ELSOC 2016-2023 (n = 8460)"
-  ) +
-  ggdist::theme_ggdist() +
-  theme(legend.position = "top")
-
-
-ggpubr::ggarrange(p4, p5, common.legend=FALSE, ncol=1)
-
-```
-
 
 Regarding the temporal dynamics of the key predictors, the analysis shows that time has no statistically significant effects on the intrapersonal or interpersonal effects of perceived inequality and meritocratic perceptions. Further details about this analysis can be found in supplementary material.

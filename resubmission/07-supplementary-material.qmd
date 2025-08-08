@@ -516,6 +516,72 @@ m19.2 <- lmer(mjp ~ 1 + ola_num + ola_2 + perc_inequality_cwc +  merit_effort_cw
 ```
 
 
+```{r echo=FALSE, results='asis'}
+#| label: tbl-interactions2
+#| tbl-cap: "Growth curves for meritocracy, perceived economic inequality and market justice preferences"
+#| tbl-cap-location: top
+
+ccoef <- list(
+  "(Intercept)" = "Intercept",
+  "ola_num:perc_inequality_cwc" = "Wave x Perception inequality (WE)",
+  "ola_num:merit_effort_cwc" = "Wave x Merit: effort (WE)",
+  "ola_num:merit_talent_cwc" = "Wave x Merit: talent (WE)",
+  "ola_num:perc_inequality_mean" = "Wave x Perception inequality (BE)",
+  "ola_num:merit_effort_mean" = "Wave x Merit: effort (BE)",
+  "ola_num:merit_talent_mean" = "Wave x Merit: talent (BE)"
+    )
+
+texreg::texreg(list(m10.1, m11.1, m12.1, m10.2, m11.2, m12.2),
+               custom.model.names = c("Model 12", "Model 13", "Model 14", "Model 15", "Model 16", "Model 17"),
+               caption = NULL,
+               stars = c(0.05, 0.01, 0.001),
+               custom.coef.map = ccoef,
+               digits = 3,
+               caption.above = T,
+               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars. CWC = centered within group.",
+               leading.zero = T,
+               use.packages = F,
+               booktabs = F,
+               scalebox = 0.7,
+               include.loglik = FALSE,
+               include.aic = FALSE,
+               center = T,
+               custom.gof.names = c("BIC", 
+                                    "Numb. obs.", 
+                                    "Num. groups: individuals", 
+                                    "Var: individuals (Intercept)", 
+                                    
+                                    "Var: individuals, perception inequality cwc",
+                                    "Var: individuals, wave",
+                                    "Cov: individuals (Intercept), perception inequality cwc",
+                                    "Cov: individuals (Intercept), wave",
+                                    "Cov: individuals, perception inequality cwc, wave",
+                                    "Var: Residuals",
+                                    "Var: individuals, merit effort cwc", 
+                                    "Cov: individuals (Intercept), merit effort cwc",
+                                    "Cov: individuals, merit effort cwc, wave",
+                                    
+                                    
+                                    "Var: individuals, merit talent cwc", 
+                                    "Cov: individuals (Intercept), merit talent cwc",
+                                    "Cov: individuals, merit talent cwc, wave",
+                                    
+                                    "Var: individuals, perception inequality mean", 
+                                    "Cov: individuals (Intercept), perception inequality mean",
+                                    "Cov: individuals, perception inequality mean, wave",
+                                    
+                                     "Var: individuals, merit effort mean", 
+                                    "Cov: individuals (Intercept), merit effort mean",
+                                    "Cov: individuals, merit effort mean, wave",
+                                    
+                                    
+                                    "Var: individuals, merit talent mean", 
+                                    "Cov: individuals (Intercept), merit talent mean",
+                                    "Cov: individuals, merit talent mean, wave"
+                                    ),
+               custom.gof.rows = list("Controls"=c(rep("Yes",6))))
+
+```
 
 ```{r echo=FALSE, results='asis'}
 #| label: tbl-interactions_olacateg
