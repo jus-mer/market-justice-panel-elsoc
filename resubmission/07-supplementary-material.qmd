@@ -45,6 +45,7 @@ table_format2 <- if(is_html_output()) {
 
 options(kableExtra.html.bsTable = T)
 options(knitr.kable.NA = "")
+
 ```
 
 ```{r}
@@ -72,6 +73,7 @@ pacman::p_load(tidyverse,
 
 options(scipen=999)
 rm(list = ls())
+   
 ```
 
 ```{r}
@@ -180,6 +182,9 @@ df_study1 <- df_study1 %>%
 #| results: asis
 #| echo: false
 
+
+
+
 t2 <- df_study1 %>% 
   filter(ola == "2016") %>% 
   select(educ,
@@ -220,7 +225,7 @@ print(df)
 #| label: fig-matrix
 #| out-width: '90%'
 #| fig-asp: 1
-#| fig-cap: "Correlation matrix of the main variables for the last wave (2023)"
+#| fig-cap: "Correlation matrix of the main variables for the first wave (2016)"
 #| fig-cap-location: top
 #| echo: false
 #| results: asis
@@ -251,6 +256,7 @@ corrplot::corrplot(M,
                    col = colorRampPalette(c("#E16462", "white", "#0D0887"))(12),
                    bg = "white",
                    na.label = "-") 
+grid::grid.text("Source: own elaboration with data from ELSOC 2016 (n = 1687)", x = 0.99, y = 0.1, just = "right", gp = grid::gpar(fontsize = 12, col = "black"))
 
 ```
 
@@ -449,7 +455,8 @@ texreg::texreg(list(m0, m1, m2, m3, m4, m5, m6, m7),
                              "Income quintile (Ref.= Quintile 1)" = 16:20,
                              "Political identification (Ref.= Left)" = 22:24,
                              "Age (Ref.= 18-29)" = 26:28),
-               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars.",
+               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars.
+Source: own elaboration with pooled data from ELSOC 2016-2023 (N obs = 8643; N groups = 1687)",
                leading.zero = T,
                use.packages = F,
                booktabs = F,
@@ -538,7 +545,8 @@ texreg::texreg(list(m10.1, m11.1, m12.1, m10.2, m11.2, m12.2),
                custom.coef.map = ccoef,
                digits = 3,
                caption.above = T,
-               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars. CWC = centered within group.",
+               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars. CWC = centered within group.
+Source: own elaboration with pooled data from ELSOC 2016-2023 (N obs = 8643; N groups = 1687)",
                leading.zero = T,
                use.packages = F,
                booktabs = F,
@@ -636,7 +644,8 @@ texreg::texreg(list(m15.1, m16.1, m17.1, m15.2, m16.2, m17.2),
                custom.coef.map = ccoef,
                digits = 3,
                caption.above = T,
-               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars. CWC = centered within group.",
+               custom.note = "Note: Cells contain regression coefficients with standard errors in parentheses. %stars. CWC = centered within group.
+Source: own elaboration with pooled data from ELSOC 2016-2023 (N obs = 8643; N groups = 1687)",
                leading.zero = T,
                use.packages = F,
                booktabs = F,

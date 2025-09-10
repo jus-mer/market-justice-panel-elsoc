@@ -1,4 +1,5 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
@@ -6,22 +7,23 @@
 \documentclass[
   12pt,
 ]{article}
-
+\usepackage{xcolor}
+\usepackage[margin=0.5cm]{geometry}
 \usepackage{amsmath,amssymb}
-\usepackage{setspace}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
+\ifPDFTeX\else
+  % xetex/luatex font selection
   \setmainfont[]{Times New Roman}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
@@ -30,6 +32,7 @@
   \usepackage[]{microtype}
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
+\usepackage{setspace}
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
   \IfFileExists{parskip.sty}{%
@@ -40,23 +43,32 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\usepackage[margin=0.5cm]{geometry}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
+\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
+\makeatother
 
 
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -68,17 +80,33 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
 
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -135,13 +163,9 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
 \usepackage{bookmark}
-
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={Supplementary material},
   colorlinks=true,
@@ -151,6 +175,7 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
+
 \title{Supplementary material}
 
 
@@ -159,12 +184,13 @@
 \begin{document}
 \maketitle
 
+
 \setstretch{1.15}
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3981}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2913}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2039}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1068}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3981}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2913}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2039}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1068}}@{}}
 \caption{Descriptive statistics for control variables for the first wave
 (2016)}\label{tbl-summary-controls}\tabularnewline
 \toprule\noalign{}
@@ -275,11 +301,11 @@ Political identification & \begin{minipage}[t]{\linewidth}\raggedright
 \begin{figure}
 
 \caption{\label{fig-matrix}Correlation matrix of the main variables for
-the last wave (2023)}
+the first wave (2016)}
 
 \centering{
 
-\includegraphics[width=0.9\textwidth,height=\textheight]{07-supplementary-material_files/figure-pdf/fig-matrix-1.pdf}
+\includegraphics[width=0.9\linewidth,height=\textheight,keepaspectratio]{07-supplementary-material_files/figure-pdf/fig-matrix-1.pdf}
 
 }
 
@@ -366,7 +392,8 @@ Var: Residual                                         & $0.449$       & $0.416$ 
 Var: individuals, wave                                & $$            & $$             & $0.022$        & $0.021$        & $0.021$        & $0.021$        & $0.021$        & $0.021$        \\
 Cov: individuals (Intercept), wave                    & $$            & $$             & $-0.061$       & $-0.060$       & $-0.059$       & $-0.059$       & $-0.058$       & $-0.059$       \\
 \hline
-\multicolumn{9}{l}{\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$.}}
+\multicolumn{9}{l}{\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$.
+Source: own elaboration with pooled data from ELSOC 2016-2023 (N obs = 8643; N groups = 1687)}}
 \end{tabular}
 }
 \label{table:coefficients}
@@ -387,7 +414,7 @@ perceived economic inequality and market justice preferences}
 \hline
  & Model 12 & Model 13 & Model 14 & Model 15 & Model 16 & Model 17 \\
 \hline
-Intercept                                                & $1.263^{***}$ & $1.265^{***}$ & $1.246^{***}$ & $1.128^{***}$ & $1.099^{***}$ & $1.090^{***}$ \\
+Intercept                                                & $1.263^{***}$ & $1.264^{***}$ & $1.246^{***}$ & $1.128^{***}$ & $1.099^{***}$ & $1.090^{***}$ \\
                                                          & $(0.143)$     & $(0.141)$     & $(0.142)$     & $(0.176)$     & $(0.169)$     & $(0.170)$     \\
 Wave x Perception inequality (WE)                        & $0.003$       &               &               &               &               &               \\
                                                          & $(0.006)$     &               &               &               &               &               \\
@@ -406,7 +433,7 @@ Controls                                                 & Yes           & Yes  
 BIC                                                      & $31010.853$   & $30888.601$   & $30785.269$   & $31515.978$   & $31493.536$   & $31501.405$   \\
 Numb. obs.                                               & $8643$        & $8643$        & $8643$        & $8643$        & $8643$        & $8643$        \\
 Num. groups: individuals                                 & $1687$        & $1687$        & $1687$        & $1687$        & $1687$        & $1687$        \\
-Var: individuals (Intercept)                             & $0.388$       & $0.334$       & $0.379$       & $0.274$       & $0.532$       & $0.372$       \\
+Var: individuals (Intercept)                             & $0.388$       & $0.334$       & $0.379$       & $0.274$       & $0.535$       & $0.372$       \\
 Var: individuals, perception inequality cwc              & $0.100$       & $$            & $$            & $$            & $$            & $$            \\
 Var: individuals, wave                                   & $0.025$       & $0.023$       & $0.024$       & $0.021$       & $0.021$       & $0.021$       \\
 Cov: individuals (Intercept), perception inequality cwc  & $-0.081$      & $$            & $$            & $$            & $$            & $$            \\
@@ -429,7 +456,8 @@ Var: individuals, merit talent mean                      & $$            & $$   
 Cov: individuals (Intercept), merit talent mean          & $$            & $$            & $$            & $$            & $$            & $-0.053$      \\
 Cov: individuals, merit talent mean, wave                & $$            & $$            & $$            & $$            & $$            & $-0.003$      \\
 \hline
-\multicolumn{7}{l}{\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$. CWC = centered within group.}}
+\multicolumn{7}{l}{\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$. CWC = centered within group.
+Source: own elaboration with pooled data from ELSOC 2016-2023 (N obs = 8643; N groups = 1687)}}
 \end{tabular}
 }
 \label{table:coefficients}
@@ -520,7 +548,7 @@ Controls                                           & Yes           & Yes        
 BIC                                                & $30936.087$   & $30829.408$   & $30711.660$    & $31474.882$  & $31459.508$   & $31462.070$   \\
 Num. obs.                                          & $8643$        & $8643$        & $8643$         & $8643$       & $8643$        & $8643$        \\
 Num. groups: idencuesta                            & $1687$        & $1687$        & $1687$         & $1687$       & $1687$        & $1687$        \\
-Var: idencuesta (Intercept)                        & $0.388$       & $0.343$       & $0.388$        & $0.277$      & $0.122$       & $0.404$       \\
+Var: idencuesta (Intercept)                        & $0.388$       & $0.343$       & $0.388$        & $0.277$      & $0.122$       & $0.405$       \\
 Var: idencuesta perc\_inequality\_cwc              & $0.101$       & $$            & $$             & $$           & $$            & $$            \\
 Var: idencuesta ola\_num                           & $0.025$       & $0.023$       & $0.025$        & $0.021$      & $0.021$       & $0.021$       \\
 Cov: idencuesta (Intercept) perc\_inequality\_cwc  & $-0.079$      & $$            & $$             & $$           & $$            & $$            \\
@@ -531,7 +559,7 @@ Var: idencuesta merit\_effort\_cwc                 & $$            & $0.123$    
 Cov: idencuesta (Intercept) merit\_effort\_cwc     & $$            & $-0.008$      & $$             & $$           & $$            & $$            \\
 Cov: idencuesta merit\_effort\_cwc ola\_num        & $$            & $0.001$       & $$             & $$           & $$            & $$            \\
 Var: idencuesta merit\_talent\_cwc                 & $$            & $$            & $0.111$        & $$           & $$            & $$            \\
-Cov: idencuesta (Intercept) merit\_talent\_cwc     & $$            & $$            & $-0.000$       & $$           & $$            & $$            \\
+Cov: idencuesta (Intercept) merit\_talent\_cwc     & $$            & $$            & $0.000$        & $$           & $$            & $$            \\
 Cov: idencuesta merit\_talent\_cwc ola\_num        & $$            & $$            & $-0.002$       & $$           & $$            & $$            \\
 Var: idencuesta perc\_inequality\_mean             & $$            & $$            & $$             & $0.000$      & $$            & $$            \\
 Cov: idencuesta (Intercept) perc\_inequality\_mean & $$            & $$            & $$             & $0.007$      & $$            & $$            \\
@@ -543,7 +571,8 @@ Var: idencuesta merit\_talent\_mean                & $$            & $$         
 Cov: idencuesta (Intercept) merit\_talent\_mean    & $$            & $$            & $$             & $$           & $$            & $-0.063$      \\
 Cov: idencuesta merit\_talent\_mean ola\_num       & $$            & $$            & $$             & $$           & $$            & $-0.003$      \\
 \hline
-\multicolumn{7}{l}{\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$. CWC = centered within group.}}
+\multicolumn{7}{l}{\scriptsize{Note: Cells contain regression coefficients with standard errors in parentheses. $^{***}p<0.001$; $^{**}p<0.01$; $^{*}p<0.05$. CWC = centered within group.
+Source: own elaboration with pooled data from ELSOC 2016-2023 (N obs = 8643; N groups = 1687)}}
 \end{tabular}
 }
 \label{table:coefficients}
@@ -552,6 +581,7 @@ Cov: idencuesta merit\_talent\_mean ola\_num       & $$            & $$         
 }
 
 \end{table}%
+
 
 
 
